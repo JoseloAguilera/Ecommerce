@@ -1,5 +1,6 @@
-<header class="header-section">
+<header class="header-section ">
 		<div class="container-fluid">
+		<div class="fixed-top">
 			<!-- logo -->
 			<div class="site-logo">
 				<img src="img/logo.png" alt="logo">
@@ -20,5 +21,6 @@
 				<li><a href="#">Novedades</a></li>
 				<li><a href="contact.php">Contacto</a></li>
 			</ul>
+		</div>
 		</div>
 	</header>

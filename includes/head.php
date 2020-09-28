@@ -1,8 +1,8 @@
 <head>
 	<title>EDT - PY</title>
 	<meta charset="UTF-8">
-	<meta name="description" content="EDT - Py Tienda">
-	<meta name="keywords" content="edt, eCommerce, tienda, ropas">
+	<meta name="description" content="Experientes da Terra">
+	<meta name="keywords" content="edt, eCommerce, tienda, ropas, experientes da terra">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->   
 	<link href="img/favicon.ico" rel="shortcut icon"/>

@@ -839,7 +839,7 @@ ol {
 ---------------------*/
 
 .footer-top-section {
-	padding-top: 190px;
+	padding-top: 80px;
 	padding-bottom: 50px;
 	background: #282828;
 }
@@ -2101,4 +2101,11 @@ ol {
 	.payment-method {
 		padding: 30px 30px 10px;
 	}
+}
+
+.fixed-top{
+	padding: 20px 20px 20px 20px;
+}
+.hero-section {
+    height: 70%;
 }
