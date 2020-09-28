@@ -1,6 +1,6 @@
 <header class="header-section ">
 		<div class="container-fluid">
-		<div class="fixed-top">
+		<div class="fixed-top" id="menu">
 			<!-- logo -->
 			<div class="site-logo">
 				<img src="img/logo.png" alt="logo">
@@ -23,4 +23,6 @@
 			</ul>
 		</div>
 		</div>
+
 	</header>
+	
