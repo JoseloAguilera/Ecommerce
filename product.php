@@ -16,12 +16,13 @@
 	<div class="page-info-section page-info">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="">Home</a> / 
-				<a href="">Sales</a> / 
-				<a href="">Bags</a> / 
-				<span>Shoulder bag</span>
+				<a href="">Inicio</a> / 
+				<a href="">Femenino</a> / 
+				<a href="">Carteras</a> / 
+				<span>Cartera de hombro</span>
 			</div>
-			<img src="img/page-info-art.png" alt="" class="page-info-art">
+			<h2 class="product-tittle">Cartera femenina</h2>
+			<!--img src="img/page-info-art.png" alt="" class="page-info-art"-->
 		</div>
 	</div>
 	<!-- Page Info end -->
@@ -46,23 +47,15 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="product-content">
-						<h2>Black Shoulder bag</h2>
+						<h2>Cartera de hombro con detalles</h2>
 						<div class="pc-meta">
-							<h4 class="price">$19.50</h4>
-							<div class="review">
-								<div class="rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star is-fade"></i>
-								</div>
-								<span>(2 reviews)</span>
-							</div>
+							<h4 class="price">G$ 120.000</h4>
 						</div>
-						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolore- mque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
+						<p>Cartera en cuero ecológico, en un estilo moderno y clásico, especial para salir de fiesta con amigas,
+							con compartimientos especiales para todo lo que necesites
+							</p>
 						<div class="color-choose">
-							<span>Colors:</span>
+							<span>Colores:</span>
 							<div class="cs-item">
 								<input type="radio" name="cs" id="black-color" checked>
 								<label class="cs-black" for="black-color"></label>
@@ -81,7 +74,7 @@
 							</div>
 						</div>
 						<div class="size-choose">
-							<span>Size:</span>
+							<span>Tamaño:</span>
 							<div class="sc-item">
 								<input type="radio" name="sc" id="l-size" checked>
 								<label for="l-size">L</label>
@@ -95,7 +88,7 @@
 								<label for="xxl-size">XXL</label>
 							</div>
 						</div>
-						<a href="#" class="site-btn btn-line">ADD TO CART</a>
+						<a href="#" class="site-btn btn-line">AÑADIR AL CARRITO</a>
 					</div>
 				</div>
 			</div>

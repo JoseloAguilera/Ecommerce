@@ -408,7 +408,7 @@ ol {
 }
 
 .hs-item .hs-content {
-	padding: 260px 0;
+	padding: 0px 0;
 }
 
 .hs-item .hs-content .price {
@@ -2113,4 +2113,45 @@ ol {
 .menuscroll {
 	background-color: #222222;
 	transition: all 1s ease;
+}
+
+.spad{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.page-info-section{
+	background: #6b0000;
+}
+
+.page-info-section.page-info{
+	padding: 50px 0;
+}
+.btn-buy{
+	background: #6b0000;
+	border: 2px solid #6b0000;
+	border-radius: 3px;
+    color: #ffffff;
+    padding: 12px 20px;
+}
+
+.product-tittle{
+	text-align: right;
+	color: white;
+}
+.site-breadcrumb{
+	padding-top: 15px;
+	color: white;
+}
+
+.site-breadcrumb a{
+	color: white;
+}
+
+.site-breadcrumb span{
+	color: rgb(175, 174, 174);
+}
+
+.product-content .pc-meta {
+	margin-bottom: 15px;
 }

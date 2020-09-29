@@ -11,12 +11,13 @@
 	<?php include("includes/header.php"); ?>
 	<!-- Header section end -->
 
-
+	
 	<!-- Hero section -->
 	<section class="hero-section set-bg" data-setbg="img/bg.jpg">
 		<div class="hero-slider owl-carousel">
 			<div class="hs-item">
 				<img src="img/bg2.jpg" height="100%" width="100%">
+				
 				<!--div class="hs-left"><img src="img/slider-img.png" alt=""></div>
 				<div class="hs-right">
 					<div class="hs-content">
@@ -582,5 +583,15 @@
 
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
+<script>	
+	$(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+          navigation : true, // Show next and prev buttons
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem:true
+      });
+});
+</script>
     </body>
 </html>
