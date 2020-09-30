@@ -88,7 +88,7 @@
 								<label for="xxl-size">XXL</label>
 							</div>
 						</div>
-						<a href="#" class="site-btn btn-line">AÑADIR AL CARRITO</a>
+						<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
 					</div>
 				</div>
 			</div>
@@ -143,7 +143,7 @@
 						<div class="product-info">
 							<h6>Long red Shirt</h6>
 							<p>$39.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
+							<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
 						</div>
 					</div>
 				</div>
@@ -166,7 +166,7 @@
 						<div class="product-info">
 							<h6>Hype grey shirt</h6>
 							<p>$19.50</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
+							<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
 						</div>
 					</div>
 				</div>
@@ -188,7 +188,7 @@
 						<div class="product-info">
 							<h6>long sleeve jacket</h6>
 							<p>$59.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
+							<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
 						</div>
 					</div>
 				</div>
@@ -211,7 +211,7 @@
 						<div class="product-info">
 							<h6>Denim men shirt</h6>
 							<p>$32.20 <span>RRP 64.40</span></p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
+							<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
 						</div>
 					</div>
 				</div>

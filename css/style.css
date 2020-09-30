@@ -2127,7 +2127,7 @@ ol {
 .page-info-section.page-info{
 	padding: 50px 0;
 }
-.btn-buy{
+.site-btn.btn-buy{
 	background: #6b0000;
 	border: 2px solid #6b0000;
 	border-radius: 3px;
