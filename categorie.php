@@ -15,12 +15,11 @@
 	<!-- Page Info -->
 	<div class="page-info-section page-info-big">
 		<div class="container">
-			<h2>Dresses</h2>
+			<h2>Termos</h2>
 			<div class="site-breadcrumb">
-				<a href="">Home</a> / 
-				<span>Dresses</span>
+				<a href="">Inicio</a> / 
+				<span>Personalizados</span>
 			</div>
-			<img src="img/categorie-page-top.png" alt="" class="cata-top-pic">
 		</div>
 	</div>
 	<!-- Page Info end -->
@@ -30,7 +29,7 @@
 	<div class="page-area categorie-page spad">
 		<div class="container">
 			<div class="categorie-filter-warp">
-				<p>Showing 12 results</p>
+				<p>Mostrando 12 resultados de 300</p>
 				<div class="cf-right">
 					<div class="cf-layouts">
 						<a href="#"><img src="img/icons/layout-1.png" alt=""></a>
@@ -41,284 +40,35 @@
 							<option>Color</option>
 						</select>
 						<select>
-							<option>Brand</option>
+							<option>Marca</option>
 						</select>
 						<select>
-							<option>Sort by</option>
+							<option>Ordenar por</option>
 						</select>
 					</form>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3">
+				<?php for ($i=0; $i < 12; $i++) { ?> 
+							
+				<div class="mix col-lg-3 col-md-6 best">
+				    <a href="product.php">
 					<div class="product-item">
-						<figure>
-							<img src="img/products/1.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Long red Shirt</h6>
-							<p>$39.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
+					<figure>
+						<img src="https://d26lpennugtm8s.cloudfront.net/stores/001/152/331/products/img_0744_cr1-24e2441fe7faa0669a16003491647982-1024-1024.jpg" alt="">
+						
+					</figure>
+					<div class="product-info">
+						<h6>Long red Shirt</h6>
+						<p>Gs 60.900</p>
+						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/2.jpg" alt="">
-							<div class="bache">NEW</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Hype grey shirt</h6>
-							<p>$19.50</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
+				</a>
 				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/3.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>long sleeve jacket</h6>
-							<p>$59.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/4.jpg" alt="">
-							<div class="bache sale">SALE</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Denim men shirt</h6>
-							<p>$32.20 <span>RRP 64.40</span></p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/5.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Long red Shirt</h6>
-							<p>$39.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/6.jpg" alt="">
-							<div class="bache">NEW</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Hype grey shirt</h6>
-							<p>$19.50</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/7.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>long sleeve jacket</h6>
-							<p>$59.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/8.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Denim men shirt</h6>
-							<p>$32.20 <span>RRP 64.40</span></p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/9.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Long red Shirt</h6>
-							<p>$39.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/10.jpg" alt="">
-							<div class="bache">NEW</div>
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Hype grey shirt</h6>
-							<p>$19.50</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/11.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>long sleeve jacket</h6>
-							<p>$59.90</p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="product-item">
-						<figure>
-							<img src="img/products/12.jpg" alt="">
-							<div class="pi-meta">
-								<div class="pi-m-left">
-									<img src="img/icons/eye.png" alt="">
-									<p>quick view</p>
-								</div>
-								<div class="pi-m-right">
-									<img src="img/icons/heart.png" alt="">
-									<p>save</p>
-								</div>
-							</div>
-						</figure>
-						<div class="product-info">
-							<h6>Denim men shirt</h6>
-							<p>$32.20 <span>RRP 64.40</span></p>
-							<a href="#" class="site-btn btn-line">ADD TO CART</a>
-						</div>
-					</div>
-				</div>
-			</div>
+
+				<?php } ?>
+
 			<div class="site-pagination">
 				<span class="active">01.</span>
 				<a href="">02.</a>

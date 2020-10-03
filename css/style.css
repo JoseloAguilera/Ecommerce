@@ -2105,9 +2105,7 @@ ol {
 
 .fixed-top{
 	padding: 20px 20px 20px 20px;
-}
-.hero-section {
-    height: 70%;
+	background-color: #222222;
 }
 
 .menuscroll {
@@ -2154,4 +2152,13 @@ ol {
 
 .product-content .pc-meta {
 	margin-bottom: 15px;
+}
+
+#logo{
+	max-width: 70%;
+	margin-left: 25%;
+}
+
+#busqueda{
+	width: 60%;
 }
