@@ -3,9 +3,9 @@
 <?php include("includes/head.php"); ?>
 <body>
 	<!-- Page Preloder -->
-	<div id="preloder">
+	<!--div id="preloder">
 		<div class="loader"></div>
-	</div>
+	</div-->
 	
 	<!-- Header section -->
 	<?php include("includes/header.php"); ?>
@@ -15,7 +15,6 @@
 	<!-- Page Info -->
 	<div class="page-info-section page-info-big">
 		<div class="container">
-			<h2>Termos</h2>
 			<div class="site-breadcrumb">
 				<a href="">Inicio</a> / 
 				<span>Personalizados</span>
@@ -37,9 +36,6 @@
 					</div>
 					<form action="#">
 						<select>
-							<option>Color</option>
-						</select>
-						<select>
 							<option>Marca</option>
 						</select>
 						<select>
@@ -49,7 +45,11 @@
 				</div>
 			</div>
 			<div class="row">
-				<?php for ($i=0; $i < 12; $i++) { ?> 
+				<?php include_once "includes/funciones.php";
+				$productos=getAllProductos();
+				
+				if ($productos != null) { 
+					foreach ($productos as $row) { ?> 
 							
 				<div class="mix col-lg-3 col-md-6 best">
 				    <a href="product.php">
@@ -59,15 +59,24 @@
 						
 					</figure>
 					<div class="product-info">
-						<h6>Long red Shirt</h6>
-						<p>Gs 60.900</p>
+						<h6><?php echo $row['nombre'];?></h6>
+						<p><?php
+										$precio = "";
+										if ($row['contado'] > 0) {
+											$precio = number_format($row['contado'], 0, ',', '.')." gs";
+										} else {
+											$precio = "Sob consulta ";
+										}
+										echo $precio;
+									?></p>
 						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>
 				</a>
 				</div>
 
-				<?php } ?>
+				<?php } 
+						} ?>
 
 			<div class="site-pagination">
 				<span class="active">01.</span>

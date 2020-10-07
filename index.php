@@ -3,9 +3,9 @@
 <?php include("includes/head.php"); ?>
 <body>
 	<!-- Page Preloder -->
-	<div id="preloder">
+	<!--div id="preloder">
 		<div class="loader"></div>
-	</div>
+	</div-->
 	
 	<!-- Header section -->
 	<?php include("includes/header.php"); ?>
@@ -45,34 +45,56 @@
 	
 	<!-- Product section -->
 	<section class="product-section spad">
+	<?php include_once "includes/funciones.php";?>
 		<div class="container">
 		    <div class="col-xl-8 mx-auto text-center">
 				<div class="section-title">
 					<br>
-					<h4>Productos Más Buscados</h4>
+					<h4>Productos Destacados</h4>
 				</div>
 			</div>
 			<div class="row" id="product-filter">
+			
+			<?php
+				$destaque=getProductosDestacados();
+				$switch=0;
+				//var_dump($destaque);
 				
-
-				<?php for ($i=0; $i < 8; $i++) { ?>
+				if ($destaque != null) { 
+					foreach ($destaque as $row) { 
+						if($switch<8) {?> 				
 					<div class="mix col-lg-3 col-md-6 best">
 				    <a href="product.php">
 					<div class="product-item">
 					<figure>
-						<img src="https://d26lpennugtm8s.cloudfront.net/stores/001/152/331/products/img_0744_cr1-24e2441fe7faa0669a16003491647982-1024-1024.jpg" alt="">
-						
+						<?php
+							$foto=getProdImages($row['codigo']);
+							foreach ($foto as $result){
+						?>
+						<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+						<?php }?>
 					</figure>
 					<div class="product-info">
-						<h6>Long red Shirt</h6>
-						<p>$39.90</p>
+						<h6><?php echo $row['nombre']?></h6>
+						<p><?php
+										$precio = "";
+										if ($row['contado'] > 0) {
+											$precio = number_format($row['contado'], 0, ',', '.')." gs";
+										} else {
+											$precio = "Sobre consulta ";
+										}
+										echo $precio;
+									?></p>
 						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>
 				</a>
 				</div>
 
-				<?php } ?>
+				<?php 	$switch=$switch+1;	
+							}
+						}
+					} ?>
 
 				
 			</div>
@@ -116,22 +138,37 @@
 		<div class="container">
 		    <div class="col-xl-8 mx-auto text-center">
 				<div class="section-title">
-					<h4>Productos Más Buscados</h4>
+					<h4>Productos Más Recientes</h4>
 				</div>
 			</div>		
 			<div class="owl-carousel owl-theme">
 			
-			<?php for ($i=0; $i < 8; $i++) { ?>
+			<?php 
+				$novedades=getAllProductos();			
+				foreach ($novedades as $row) { ?>
 				<div class="item">
 					<div class="mix col-lg-12 col-md-12 best">
 				    <a href="product.php">
 					<div class="product-item">
 					<figure>
-						<img src="https://d26lpennugtm8s.cloudfront.net/stores/001/152/331/products/img_0744_cr1-24e2441fe7faa0669a16003491647982-1024-1024.jpg" alt="">
+					<?php
+							$foto=getProdImages($row['id']);
+							foreach ($foto as $result){
+						?>
+							<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+							<?php } ?>
 					</figure>
 					<div class="product-info">
-						<h6>Long red Shirt</h6>
-						<p>Gs. 39.900</p>
+					<h6><?php echo $row['nombre']?></h6>
+						<p><?php
+										$precio = "";
+										if ($row['contado'] > 0) {
+											$precio = number_format($row['contado'], 0, ',', '.')." gs";
+										} else {
+											$precio = "Sobre consulta ";
+										}
+										echo $precio;
+									?></p>
 						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>

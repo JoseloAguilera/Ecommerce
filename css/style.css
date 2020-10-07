@@ -2119,7 +2119,7 @@ ol {
 }
 
 .page-info-section{
-	background: #6b0000;
+	background: black;
 }
 
 .page-info-section.page-info{
@@ -2138,7 +2138,7 @@ ol {
 	color: white;
 }
 .site-breadcrumb{
-	padding-top: 15px;
+	padding-top: 5%;
 	color: white;
 }
 
