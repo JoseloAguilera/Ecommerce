@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 29-Set-2020 às 21:39
+-- Tempo de geração: 09-Out-2020 às 18:43
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -21,6 +21,54 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `ecommerce`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_atributo`
+--
+
+DROP TABLE IF EXISTS `tb_atributo`;
+CREATE TABLE IF NOT EXISTS `tb_atributo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(80) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_atributo`
+--
+
+INSERT INTO `tb_atributo` (`id`, `nombre`, `activo`) VALUES
+(1, 'Colores', 1),
+(3, 'Medida', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_atr_valor`
+--
+
+DROP TABLE IF EXISTS `tb_atr_valor`;
+CREATE TABLE IF NOT EXISTS `tb_atr_valor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_atributo` int(11) NOT NULL,
+  `nombre` varchar(80) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_atr_valor`
+--
+
+INSERT INTO `tb_atr_valor` (`id`, `id_atributo`, `nombre`, `activo`) VALUES
+(1, 1, 'Azul', 1),
+(2, 1, 'Amarillo', 1),
+(8, 1, 'Blanco', 1),
+(7, 1, 'Rojo', 1),
+(5, 3, '10 cm x 15 cm', 1);
 
 -- --------------------------------------------------------
 
@@ -208,7 +256,9 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
 DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date DEFAULT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `id_cliente` int(11) NOT NULL,
+  `id_met_pago` int(11) NOT NULL,
   `id_met_envio` int(11) NOT NULL,
   `id_cli_direccion` int(11) NOT NULL,
   `total` double NOT NULL,
@@ -241,30 +291,73 @@ CREATE TABLE IF NOT EXISTS `tb_ped_detalle` (
 
 DROP TABLE IF EXISTS `tb_producto`;
 CREATE TABLE IF NOT EXISTS `tb_producto` (
-  `id` varchar(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `referencia` varchar(20) DEFAULT NULL,
   `nombre` varchar(80) NOT NULL,
   `descripcion` text NOT NULL,
-  `estoque` int(11) NOT NULL,
-  `contado` int(11) DEFAULT NULL,
-  `cuota_ctd` int(11) DEFAULT NULL,
-  `cuota_valor` int(11) DEFAULT NULL,
-  `contado_mayorista` int(11) DEFAULT NULL,
-  `cuota_ctd_mayorista` int(11) DEFAULT NULL,
-  `cuota_valor_mayorista` int(11) DEFAULT NULL,
-  `id_categoria` int(11) NOT NULL,
+  `valor_minorista` int(11) DEFAULT NULL,
+  `valor_mayorista` int(11) DEFAULT NULL,
   `id_marca` int(11) NOT NULL,
   `destaque` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_producto`
 --
 
-INSERT INTO `tb_producto` (`id`, `nombre`, `descripcion`, `estoque`, `contado`, `cuota_ctd`, `cuota_valor`, `contado_mayorista`, `cuota_ctd_mayorista`, `cuota_valor_mayorista`, `id_categoria`, `id_marca`, `destaque`, `activo`) VALUES
-('0012X', 'Aire Condicionado', 'Teste', 12, 1000000, 10, 200000, 900000, 10, 100000, 19, 2, 0, 1),
-('112750', 'Auricular', 'Auricular', 12, 150000, 2, 100000, 100000, 2, 50000, 12, 2, 1, 1);
+INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`) VALUES
+(1, '0012X2', 'Aire Condicionado', 'Teste', 1000000, 900000, 2, 0, 1),
+(2, '', 'Auricular', 'Auricular', 150000, 100000, 4, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_producto_atributo`
+--
+
+DROP TABLE IF EXISTS `tb_producto_atributo`;
+CREATE TABLE IF NOT EXISTS `tb_producto_atributo` (
+  `id_producto` int(11) NOT NULL,
+  `id_atributo` int(11) NOT NULL,
+  PRIMARY KEY (`id_producto`,`id_atributo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_producto_atributo`
+--
+
+INSERT INTO `tb_producto_atributo` (`id_producto`, `id_atributo`) VALUES
+(1, 1),
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_producto_categoria`
+--
+
+DROP TABLE IF EXISTS `tb_producto_categoria`;
+CREATE TABLE IF NOT EXISTS `tb_producto_categoria` (
+  `id_producto` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`id_producto`,`id_categoria`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_producto_categoria`
+--
+
+INSERT INTO `tb_producto_categoria` (`id_producto`, `id_categoria`) VALUES
+(1, 11),
+(1, 19),
+(1, 20),
+(1, 113),
+(1, 114),
+(2, 11),
+(2, 12),
+(2, 13);
 
 -- --------------------------------------------------------
 
@@ -276,20 +369,69 @@ DROP TABLE IF EXISTS `tb_producto_img`;
 CREATE TABLE IF NOT EXISTS `tb_producto_img` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(80) NOT NULL,
-  `id_producto` varchar(20) NOT NULL,
+  `id_producto` int(11) NOT NULL,
   `orden` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_producto_img`
 --
 
 INSERT INTO `tb_producto_img` (`id`, `url`, `id_producto`, `orden`, `activo`) VALUES
-(2, 'cod0012X-2020-09-18-cod332420-2020-07-18-JuegoSofa.jpeg', '0012X', 1, 1),
-(3, 'cod112750-2020-09-18-JBL-T450-BT.jpg', '112750', 1, 1),
-(4, 'cod112750-2020-09-19-aire-split.jpg', '112750', 2, 1);
+(9, 'cod1-2020-10-08-aire-split.jpg', 1, 1, 1),
+(10, 'cod2-2020-10-08-JBL-T450-BT.jpg', 2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_producto_stock`
+--
+
+DROP TABLE IF EXISTS `tb_producto_stock`;
+CREATE TABLE IF NOT EXISTS `tb_producto_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_producto` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `valor_minorista` int(11) DEFAULT NULL,
+  `valor_mayorista` int(11) DEFAULT NULL,
+  `activo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_producto_stock`
+--
+
+INSERT INTO `tb_producto_stock` (`id`, `id_producto`, `stock`, `valor_minorista`, `valor_mayorista`, `activo`) VALUES
+(1, 1, 10, 1000000, 900000, 1),
+(2, 1, 12, 1000000, 900000, 1),
+(3, 2, 15, 150000, 100000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_stock_valor`
+--
+
+DROP TABLE IF EXISTS `tb_stock_valor`;
+CREATE TABLE IF NOT EXISTS `tb_stock_valor` (
+  `id_atr_valor` int(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  PRIMARY KEY (`id_atr_valor`,`id_stock`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_stock_valor`
+--
+
+INSERT INTO `tb_stock_valor` (`id_atr_valor`, `id_stock`, `id_producto`) VALUES
+(5, 1, 1),
+(8, 1, 1),
+(1, 2, 1),
+(5, 2, 1);
 
 -- --------------------------------------------------------
 
