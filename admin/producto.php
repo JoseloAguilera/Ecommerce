@@ -20,6 +20,8 @@
 		<?php include 'includes/aside.php'; ?>
 		<!-- ASIDE BAR END -->
 
+		<?php include_once "mods/objs/producto.php";?>
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Cabicera de Contenido (Título) -->
@@ -32,7 +34,6 @@
 
 			<!-- Contenido Principal -->
 			<section class="content">
-				<?php include_once "mods/objs/producto.php";?>
 				<div class="box">
 					<div class="box-header with-border">
 						<!-- Botón para crear más cursos -->
@@ -67,40 +68,62 @@
 							<table class="table table-striped table-bordered display nowra" id="tabladatos">
 							<thead>
 								<tr>
-									<th>Codigo</th>
+									<th>Referencia</th>
 									<th>Categoría</th>
 									<th>Marca</th>
 									<th>Nombre</th>
-									<th>Precio</th>
-									<th>Estoque</th>
+									<th>Minorista</th>
+									<th>Mayorista</th>
 									<th>Destaque</th>
 									<th>Activo</th>
 								</tr>
 							</thead>
 							<tbody>
-                                <?php 
+								<?php 
+									$_SESSION['prod_tab'] = "detalles";
 									if ($productos != null) { 
 										foreach ($productos as $row) {
 								?>
 								<tr onclick="window.location.href = 'producto_detalle.php?producto=<?php echo $row['id'];?>';">
-									<td><?php echo $row['id'];?></td>
-									<td><?php echo $row['categoria'];?></td>
+									<td><?php echo $row['referencia'];?></td>
+									<td>
+									<?php
+										$categoriasprod = getProdCategorias($row['id']);
+										foreach ($categoriasprod as $categoria) {
+											echo '<b>'.$categoria['nombre'].'</b><br>';
+											$subcategoriasprod = getProdSubCategorias($categoria['id'], $row['id']);
+											if ($subcategoriasprod != null) { 
+												foreach ($subcategoriasprod as $subcategoria) {
+													echo '<i class="fa fa-caret-right"></i> '.$subcategoria['nombre'].'<br>';
+												}
+											}
+										}
+									?>
+									</td>
 									<td><?php echo $row['marca'];?></td>
 									<td><?php echo $row['nombre'];?></td>
 									<td>
 									<?php
-										$precio = "";
-										if ($row['cuota_ctd'] > 0 && $row['cuota_valor'] > 0) {
-											$precio = $row['cuota_ctd']." cuotas de ".number_format($row['cuota_valor'], 0, ',', '.')." gs";
-										} else if ($row['precio'] > 0) {
-											$precio = "Al contado ".number_format($row['contado'], 0, ',', '.')." gs";
+										$minorista = "";
+										if ($row['valor_minorista'] > 0) {
+											$minorista = number_format($row['valor_minorista'], 0, ',', '.')." gs";
 										} else {
-											$precio = "Sob consulta ";
+											$minorista = "Sob consulta ";
 										}
-										echo $precio;
+										echo $minorista;
 									?>
 									</td>
-									<td><?php echo $row['estoque'];?></td>
+									<td>
+									<?php
+										$mayorista = "";
+										if ($row['valor_mayorista'] > 0) {
+											$mayorista = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
+										} else {
+											$mayorista = "Sob consulta ";
+										}
+										echo $mayorista;
+									?>
+									</td>
 									<td>
 									<?php
 										$circle_color = "";
@@ -144,8 +167,8 @@
 									<div class="row">
 										<div class="col-md-5">
 											<div class="form-group">
-												<label for="nombre">Código</label>
-												<input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo" maxlength="20" required>
+												<label for="nombre">Referencia</label>
+												<input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo" maxlength="20">
 											</div>
 										</div>
 										<div class="col-md-7">

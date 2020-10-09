@@ -17,38 +17,6 @@
 		return $result;
 	}
 
-	// function getCategorias () {
-	// 	$connection = conn();
-	// 	$sql = "SELECT * FROM tb_categoria WHERE tb_categoria.id_padre IS NULL ORDER BY nombre ASC";
-	// 	$query = $connection->prepare($sql);
-	// 	$query->execute();
-
-	// 	if ($query->rowCount() > 0) {
-	// 		$result= $query->fetchAll();
-	// 	} else {
-	// 		$result = null;
-	// 	}
-
-	// 	$connection = disconn($connection);
-	// 	return $result;
-	// }
-
-	// function getCategoriasActivas () {
-	// 	$connection = conn();
-	// 	$sql = "SELECT * FROM tb_categoria WHERE activo = 1 ORDER BY nombre ASC";
-	// 	$query = $connection->prepare($sql);
-	// 	$query->execute();
-
-	// 	if ($query->rowCount() > 0) {
-	// 		$result= $query->fetchAll();
-	// 	} else {
-	// 		$result = null;
-	// 	}
-
-	// 	$connection = disconn($connection);
-	// 	return $result;
-	// }
-
 	function getCategorias () {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_categoria WHERE id_padre IS NULL ORDER BY nombre ASC";
@@ -81,38 +49,37 @@
 		return $result;
 	}
 
-	// function getPadre ($subcategoria) {
-	// 	$connection = conn();
-	// 	$sql = "SELECT id_padre FROM tb_categoria WHERE id = '$subcategoria'";
-	// 	$query = $connection->prepare($sql);
-	// 	$query->execute();
+	function getProdCategorias ($producto) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_producto_categoria LEFT JOIN tb_categoria ON tb_producto_categoria.id_categoria = tb_categoria.id WHERE tb_categoria.id_padre IS NULL AND tb_producto_categoria.id_producto = '$producto' ORDER BY nombre ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
 
-	// 	if ($query->rowCount() > 0) {
-	// 		$result= $query->fetch();
-	// 	} else {
-	// 		$result = null;
-	// 	}
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
 
-	// 	$connection = disconn($connection);
-	// 	return $result;
-	// }
+		$connection = disconn($connection);
+		return $result;
+	}
 
-	// function getCategoria ($categoria) {
-	// 	$connection = conn();
-	// 	$sql = "SELECT a.*, b.nombre as padre FROM tb_categoria a LEFT JOIN tb_categoria b ON b.id = a.id_padre WHERE a.id = '$categoria'";
-	// 	$query = $connection->prepare($sql);
-	// 	$query->execute();
+	function getProdSubCategorias ($categoria, $producto) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_producto_categoria LEFT JOIN tb_categoria ON tb_producto_categoria.id_categoria = tb_categoria.id WHERE tb_categoria.id_padre = '$categoria' AND tb_producto_categoria.id_producto = '$producto' ORDER BY nombre ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
 
-	// 	if ($query->rowCount() > 0) {
-	// 		$result= $query->fetch();
-	// 	} else {
-	// 		$result = null;
-	// 	}
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
 
-	// 	$connection = disconn($connection);
-	// 	return $result;
-	// }
-
+		$connection = disconn($connection);
+		return $result;
+	}
 
 	function newCategoria ($nombre, $padre) {
 		$connection = conn();

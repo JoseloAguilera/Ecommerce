@@ -36,10 +36,14 @@
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.standalone.min.css"/>
 <link rel="stylesheet" type="text/css" href="plugins/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css"/>
 
+<!-- Select2 -->
+<link rel="stylesheet" href="plugins/select2/dist/css/select2.min.css">
+
 <!-- switch button -->
 <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
 <!-- Meus Estilos -->
+<link rel="stylesheet" href="css/select2-alt.css">
 <link rel="stylesheet" href="css/estilos.css">
 <link rel="shortcut icon" href="img/favicon.ico" />
 

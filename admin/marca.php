@@ -206,7 +206,7 @@
 					</div>
 				</div>
 				<!-- Confirmación Modal (para excluisiones) -->
-
+			</section>
 		</div> <!-- /.content-wrapper -->
 
 		<!-- FOOTER -->

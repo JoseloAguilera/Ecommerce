@@ -2,7 +2,8 @@
 	include_once "mods/server/producto.php";
 	include_once "mods/server/producto_img.php";
     include_once "mods/server/categoria.php";
-    include_once "mods/server/marca.php";
+	include_once "mods/server/marca.php";
+	include_once "mods/server/atributo.php";
 	include_once "mods/server/uploads.php";
 
 	if (isset($_SESSION['action'])) {
@@ -13,11 +14,16 @@
 		}
 	}
 
-    $categorias = getCategorias();
-    $marcas = getAllMarcas();
+	$categorias = getCategorias();
+	$categoriasprod = getProdCategorias($_GET['producto']);
+	$atributosprod = getProdAtributos($_GET['producto']);
+	$atributos = getAllAtributos();
+	
+	$marcas = getAllMarcas();
     
     $producto = getProducto($_GET['producto']);
-    $imagenes = getProdImages ($_GET['producto']);
+	$imagenes = getProdImages ($_GET['producto']);
+	$stock = getProductoStock ($_GET['producto']);
 	$lastOrden = getProdImageLO($_GET['producto']);
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -42,7 +48,7 @@
 					$tipomensaje = 'success';
 					$mensaje= '<h3>Perfecto!</h3><p>Las imagenes fueran insertadas correctamente.</p>';
 					$imagenes = getProdImages ($_GET['producto']);
-	                $lastOrden = getProdImageLO($_GET['producto']);
+					$lastOrden = getProdImageLO($_GET['producto']);
 				} else if ($incluir == null) {
 					$tipomensaje = 'error';
 					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
@@ -54,6 +60,7 @@
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>'.$img.'</p>';
 			}
+			$_SESSION['prod_tab'] = "imagenes";
 		} else if (isset($_POST['excluir'])){
 			$codigo =  $_POST['codigo'];
 			$excluir = deleteProdImage ($codigo);
@@ -70,6 +77,7 @@
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$excluir.'"</p>';
 			}
+			$_SESSION['prod_tab'] = "imagenes";
 		} else if (isset($_POST['guardar'])){
 			if (basename($_FILES["fileToUpload"]["name"]) == "") {
 				$img = $_POST['imgurl'];
@@ -97,7 +105,9 @@
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$guardar.'"</p>';
 			}
+			$_SESSION['prod_tab'] = "imagenes";
 		} else if (isset($_POST['guardarpr'])){ 
+			// var_dump($_POST['categoria']);
 			$activo = null;
 			if(!isset($_POST['activo'])) {
 				$activo = 0;
@@ -111,43 +121,25 @@
 				$destacado = 1;
 			}
 
-			if ($_POST['valor'] > 0) {
-				$valor = str_replace(".", "", $_POST['valor']);
+			if ($_POST['valorminorista'] > 0) {
+				$valorminorista = str_replace(".", "", $_POST['valorminorista']);
 			} else {
-				$valor = "NULL";
-			}
-			if ($_POST['cuota'] > 0) {
-				$cuota = str_replace(".", "", $_POST['cuota']);
-			} else {
-				$cuota = "NULL";
-			}
-			if ($_POST['precio'] > 0) {
-				$precio = str_replace(".", "", $_POST['precio']);
-			} else {
-				$precio = "NULL";
+				$valorminorista = "NULL";
 			}
 
-			if ($_POST['valor_mayorista'] > 0) {
-				$valor_mayorista = str_replace(".", "", $_POST['valor_mayorista']);
+			if ($_POST['valormayorista'] > 0) {
+				$valormayorista = str_replace(".", "", $_POST['valormayorista']);
 			} else {
-				$valor_mayorista = "NULL";
-			}
-			if ($_POST['cuota_mayorista'] > 0) {
-				$cuota_mayorista = str_replace(".", "", $_POST['cuota_mayorista']);
-			} else {
-				$cuota_mayorista = "NULL";
-			}
-			if ($_POST['precio_mayorista'] > 0) {
-				$precio_mayorista = str_replace(".", "", $_POST['precio_mayorista']);
-			} else {
-				$precio_mayorista = "NULL";
+				$valormayorista = "NULL";
 			}
 
-			$guardar = saveProducto ($_POST['codigo'], $_POST['nombre'], $_POST['descripcion'], $_POST['estoque'], $precio, $cuota, $valor, $precio_mayorista, $cuota_mayorista, $valor_mayorista, $_POST['categoria'], $_POST['marca'], $destacado, $activo);
-			if ($guardar == $_POST['codigo']) {
+			$guardar = saveProducto ($_GET['producto'], $_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $_POST['atributo'], $destacado, $activo);
+			if ($guardar == $_GET['producto']) {
 				$tipomensaje = 'success';
 				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';
 				$producto = getProducto($_GET['producto']);
+				$categoriasprod = getProdCategorias($_GET['producto']);
+				$atributosprod = getProdAtributos($_GET['producto']);
 			} else if ($guardar == null) {
 				$tipomensaje = 'success';
 				$mensaje = '<h3>Perfecto!</h3><p>No hubo alteración en los datos.</p>';
@@ -155,6 +147,7 @@
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$guardar.'"</p>';
 			}
+			$_SESSION['prod_tab'] = "detalles";
 		} else if (isset($_POST['excluirpr'])){
 			$excluir = deleteProducto ($_POST['codigo']);
 
@@ -168,6 +161,38 @@
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$excluir.'"</p>';
 			}
-		} 
+		} else if (isset($_POST['nuevostock'])) {
+			if ($_POST['valorminorista'] > 0) {
+				$valorminorista = str_replace(".", "", $_POST['valorminorista']);
+			} else {
+				$valorminorista = "NULL";
+			}
+
+			if ($_POST['valormayorista'] > 0) {
+				$valormayorista = str_replace(".", "", $_POST['valormayorista']);
+			} else {
+				$valormayorista = "NULL";
+			}
+
+			if (!isset($_POST['valores'])) { //producto sin combinación
+				$valores = NULL;
+			} else {
+				$valores = $_POST['valores'];
+			}
+
+			$incluir = newStock ($valores, $_GET['producto'], $_POST['stock'], $valorminorista, $valormayorista);
+			if (substr($incluir,0,1) == "E") {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$incluir.'"</p>';
+			} else if ($incluir == null) {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+			} else {
+				$tipomensaje = 'success';
+				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron insertados correctamente.</p>';
+				$stock = getProductoStock ($_GET['producto']);
+			}
+			$_SESSION['prod_tab'] = "stock";
+		}
 	}
 ?>

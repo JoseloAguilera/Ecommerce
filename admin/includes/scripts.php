@@ -47,6 +47,9 @@
 <!-- Color Picker -->
 <script src="plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 
+<!-- Select2 -->
+<script src="plugins/select2/dist/js/select2.full.min.js"></script>
+
 <!-- switch button -->
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 

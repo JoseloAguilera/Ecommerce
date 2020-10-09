@@ -1,10 +1,10 @@
 <?php if (isset($mensaje)) {?>
-    $(document).ready(function(){
-        $("#modal-mensaje").modal("show");
-    });
-    <?php
-        unset($mensaje);
-    } ?>
+$(document).ready(function(){
+    $("#modal-mensaje").modal("show");
+});
+<?php
+    unset($mensaje);
+} ?>
     
     //DataTable
     $(document).ready(function() {
@@ -19,6 +19,19 @@
                 'pdfHtml5'
             ]
         });
+        $('#tabladatos2').DataTable( {
+            dom: 'Bfrtip',
+            order: [[ 1, "asc" ]],
+            orientation: 'landscape',
+            pageSize: 'LEGAL',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'pdfHtml5'
+            ]
+        });
+        //Initialize Select2 Elements
+        $('.select2').select2();
     });
 
     
