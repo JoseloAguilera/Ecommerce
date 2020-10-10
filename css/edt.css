@@ -4,13 +4,64 @@
     background: black;
     
 }
+header {
+    background: black;
+    z-index: 999;
+}
+header .menu-area {
+    padding: 10px;
+}
+#busqueda{
+    width: 85%;
+    float: left;
+}
+#busqueda input{
+	background: #282828;
+    border: 0;
+    border-radius: 0;
+    height: 45px;
+    margin-left: 15px;
+}
+#busqueda button{
+    background: #282828;
+    border: 0;
+    border-radius: 0;
+}
+
+#busqueda i{
+    color: #dca351;
+}
+
+
+.social-top i.fa.fa-facebook {
+    background: #dca351;
+    padding: 15px;
+    color: black;
+}
+.social-top .fa.fa-instagram {
+    background: #dca351;
+    padding: 15px;
+    color: black;
+    font-weight: 900;
+    margin-left: 10px;
+}
+.social-top .fa.fa-instagram:hover {
+    background: #dca351;
+}
+.header-right .card-bag span {
+    background-color: #dca351;
+}
 
 .carrito{
     padding: 0 15px;
     float: right;
 }
 .main-menu {
-    float: right;
+    float: left;
+}
+
+.main-menu .m-activ{
+    color: #dca351;
 }
 .main-menu li a {
     display: inline-block;
@@ -19,7 +70,7 @@
     font-weight: 600;
     color: #fff;
     padding: 8px 5px 0;
-    margin-left: 30px;
+    margin: 0 30px 0 0;
 }
 
 .product-item {
@@ -27,26 +78,42 @@
 }
 
 .section-dark{
-    background-color: #e0e0e0;
+    background-color: #f3f3f3;
     padding-top: 30px;
 }
 
-.user-menu{
-    color: #fff;
-    padding: 5px;
+
+.site-logo {
+    padding-top: 12px;
+    float: left;
 }
+.user-menu {
+    color: #fff;
+    padding: 0;
+    margin-right: 30px;
+    font-size: 14px;
+}
+.user-menu i{
+    color: #fff;
+    padding: 0 5px;
+}
+
 .user-menu:hover{
     color: #f1f1f1;
 
 }
 section{
-    padding: 0;
+    padding: 30px !important;
 }
-section.section-info {    
-    background: black;
+section.section-info {
     color: white;
     text-align: center;
-    background-image: url(../img/intro/bg.jpg);
+    padding: 50px;
+    background-position: center;
+}
+section.section-info .single-service {
+    background: #795548;
+    padding: 30px;
 }
 section.section-info i {
     color: #f1c27a;
@@ -56,21 +123,47 @@ section.section-info h4 {
     color: white;
 }
 
+.about-widget p {
+    margin-bottom: 15px;
+    
+}
+.about-widget p a{
+    color: white;
+}
+.about-widget p a:hover{
+    color: #dca351;
+}
 .hero-section {
     height: 100%;
+}
+.footer-widget {
+    margin-bottom: 0px !important;
+}
+.about-widget .footer-logo {
+    margin-bottom: 20px;
 }
 /*PAGINA DE PRODUCTO*/
 
 .page-info-section.page-info {
-    padding: 6% 0;
+    padding: 87px 0;
 }
 /*PAGINA DE CATEGORIA*/
 .page-info-section.page-info-big {
     padding: 75px 0 30px 0;
 }
 
+.product-item figure:after {
+    border: 0 !important;
+}
+.site-btn.btn-line {
+    margin: 5px;
+}
+
+
+
 @media only screen and (max-width: 1527px){
 .main-menu {
-    margin-right: 90px !important;
+    margin-right: 0px !important;
+    padding-top: 30px;
 }
 }

@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
 DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL DEFAULT current_timestamp(),
+  `fecha` date,
   `id_cliente` int(11) NOT NULL,
   `id_met_pago` int(11) NOT NULL,
   `id_met_envio` int(11) NOT NULL,

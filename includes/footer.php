@@ -2,10 +2,10 @@
 <section class="footer-top-section home-footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3 col-md-8 col-sm-12">
+				<div class="col-12 text-center">
 					<div class="footer-widget about-widget">
 						<img src="img/logo.png" class="footer-logo" alt="">
-						<p>Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam fringilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.</p>
+						<p><a href="#">HOME</a> | <a href="#">EMPRESA</a> |  <a href="#">TERMINOS Y CONICIONES</a> | <a href="">FORMAS DE ENVIO</a> | <a href="#">FORMAS DE PAGO</a></p>
 						<div class="cards">
 							<img src="img/cards/5.png" alt="">
 							<img src="img/cards/4.png" alt="">
@@ -15,15 +15,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-2 col-md-4 col-sm-6">
+				<!--div class="col-lg-2 col-md-4 col-sm-6">
 					<div class="footer-widget">
 						<h6 class="fw-title">usefull Links</h6>
 						<ul>
-							<li><a href="#">Partners</a></li>
-							<li><a href="#">Bloggers</a></li>
-							<li><a href="#">Support</a></li>
-							<li><a href="#">Terms of Use</a></li>
-							<li><a href="#">Press</a></li>
+							<li><a href="#">Sobre Nosotros</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Soporte</a></li>>
 						</ul>
 					</div>
 				</div>
@@ -31,8 +29,8 @@
 					<div class="footer-widget">
 						<h6 class="fw-title">Sitemap</h6>
 						<ul>
-							<li><a href="#">Partners</a></li>
-							<li><a href="#">Bloggers</a></li>
+							<li><a href="#">Terminos y Condiciones</a></li>
+							<li><a href="#">Productos</a></li>
 							<li><a href="#">Support</a></li>
 							<li><a href="#">Terms of Use</a></li>
 							<li><a href="#">Press</a></li>
@@ -62,7 +60,7 @@
 							<p>office@youremail.com</p>
 						</div>
 					</div>
-				</div>
+				</div-->
 			</div>
 		</div>
 	</section>

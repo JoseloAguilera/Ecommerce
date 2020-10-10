@@ -11,7 +11,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<!--link rel="stylesheet" href="css/bootstrap.min.css"/-->
 	<link rel="stylesheet" href="css/font-awesome.min.css"/>
 	<link rel="stylesheet" href="css/owl.carousel.css"/>
 	<link rel="stylesheet" href="css/owl.theme.default.css"/>
@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="css/animate.css"/>
 
 	<link rel="stylesheet" href="css/edt.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 
 	<!--[if lt IE 9]>

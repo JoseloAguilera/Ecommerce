@@ -151,35 +151,43 @@ if (isset($_GET['search'])) {
 						    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
 						      data-parent="#accordionEx">
 						      <div class="card-body">						      	
-						    
+						      	
+						      	<div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+						      data-parent="#accordionEx">
+						      <div class="card-body">
 								  <?php  
 								  $categorias = getCategorias();
 								  foreach ($categorias as $categoria){
-									  ?>
-									<div class="dropdown dropright">
-    									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="categorie.php?cat=<?php echo($categoria['id']) ?>">
-										<?php echo($categoria['nombre']) ?>
-    									</button><hr>
-										
-    									<div class="dropdown-menu">
-										<?php 
-											$subcategorias = getSubCategorias($categoria['id']); 
-											foreach ($subcategorias as $subcategoria) {
-										?>
-      													<a class="dropdown-item" href="categorie.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?> subcat</a>
-										<?php }?>
-
-    									</div>
-  										</div>
-										
-									
-									<?php
-									
+									$subcategorias = getSubCategorias($categoria['id']);
 								    
-								  } ?>
-								  
-					
-  
+								  }
+								  $totalSubCategorias = count($subcategorias);
+								  var_dump($totalSubCategorias);
+								  if($totalSubCategorias > 0) { ?>
+
+									<a href="productos.php?cat=<?php echo($categoria['id']) ?>"><?php echo($categoria['nombre']) ?></a><hr>	
+									  <?php 
+									  
+									  foreach ($subcategorias as $subcategoria): ?>
+						      		<a href="productos.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?></a><hr>							        
+						      	    <?php endforeach ?>	
+
+						      	<?php } else { ?>
+
+						      	
+						      	<?php /*foreach ($categorias  as $categoria): ?>
+						      		<a href="productos.php?cat=<?php echo($categoria['id']) ?>"><?php echo($categoria['nombre']) ?></a><hr>							        
+						      	<?php endforeach */?>	
+
+
+						      	<?php }  ?>	
+
+
+						      </div>
+						    </div>
+
+
+						      
 
 
 						      </div>
@@ -274,8 +282,5 @@ if (isset($_GET['search'])) {
 
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>

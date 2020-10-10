@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zxx">
-<?php include("includes/head.php"); ?>
+<?php 
+require "includes/funciones.php";
+include("includes/head.php"); 
+?>
 <body>
 	<!-- Page Preloder -->
 	<!--div id="preloder">
@@ -13,33 +16,35 @@
 
 	
 	<!-- Hero section -->
-	<section class="hero-section set-bg" data-setbg="img/bg.jpg">
-		<div class="hero-slider owl-carousel">
-			<div class="hs-item">
-				<img src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1594664993416-7849979786-1f40ebf6ed6fb4314d3c5ddb566e08441594664994.jpg?939121902" height="100%" width="100%">
-				
-				<!--div class="hs-left"><img src="img/slider-img.png" alt=""></div>
-				<div class="hs-right">
-					<div class="hs-content">
-						<div class="price">from $19.90</div>
-						<h2><span>2018</span> <br>summer collection</h2>
-						<a href="" class="site-btn">Shop NOW!</a>
-					</div>	
-				</div-->
-			</div>
-			<div class="hs-item">
-			<img src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1594664993416-7849979786-1f40ebf6ed6fb4314d3c5ddb566e08441594664994.jpg?939121902" height="100%" width="100%">
-				<!--div class="hs-left"><img src="img/slider-img.png" alt=""></div>
-				<div class="hs-right">
-					<div class="hs-content">
-						<div class="price">from $19.90</div>
-						<h2><span>2018</span> <br>summer collection</h2>
-						<a href="" class="site-btn">Shop NOW!</a>
-					</div>	
+	<section style="padding:0px !important;">
+			<div class="container-fluid ">
+                <div class="row">
+                	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				  <ol class="carousel-indicators">
+				    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				  </ol>
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img class="d-block w-100" src="img/bg2.jpg" alt="First slide">
+				    </div>
+				    <div class="carousel-item">
+				      <img class="d-block w-100" src="img/bg3.jpg" alt="Second slide">
+				    </div>
+				  </div>
+				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
 				</div>
-			</div-->
-		</div>
-	</section>
+                </div>
+            </div>
+		</section>
 	<!-- Hero section end -->
 	
 	
@@ -68,7 +73,7 @@
 					<div class="product-item">
 					<figure>
 						<?php
-							$foto=getProdImages($row['codigo']);
+							$foto=getProdImages($row['id']);
 							foreach ($foto as $result){
 						?>
 						<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
@@ -78,8 +83,8 @@
 						<h6><?php echo $row['nombre']?></h6>
 						<p><?php
 										$precio = "";
-										if ($row['contado'] > 0) {
-											$precio = number_format($row['contado'], 0, ',', '.')." gs";
+										if ($row['valor_minorista'] > 0) {
+											$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
 										} else {
 											$precio = "Sobre consulta ";
 										}
@@ -162,8 +167,8 @@
 					<h6><?php echo $row['nombre']?></h6>
 						<p><?php
 										$precio = "";
-										if ($row['contado'] > 0) {
-											$precio = number_format($row['contado'], 0, ',', '.')." gs";
+										if ($row['valor_minorista'] > 0) {
+											$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
 										} else {
 											$precio = "Sobre consulta ";
 										}
@@ -180,15 +185,50 @@
 		</div>
 	</section>
 
+	<section>
+		<div class="container banner-footer">
+			<div class="row">
+				<div class="col-12">
+				<div class="row">
+					<div class="col-4">
+						<figure>
+							<img src="img/banners/banner3.png" alt="">
+						</figure>
+					</div>
+					<div class="col-4">
+						<figure>
+						<img src="img/banners/banner1.png" alt="">
+						</figure>
+					</div>
+					<div class="col-4">
+						<figure>
+						<img src="img/banners/banner2.png" alt="">
+						</figure>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
 <script>	
 	$(document).ready(function() {
-      $("#owl-demo").owlCarousel({
+      $("#owl-slider").owlCarousel({
           navigation : true, // Show next and prev buttons
           slideSpeed : 300,
           paginationSpeed : 400,
-          singleItem:true
+          responsive:{
+	        0:{
+	            items:1
+	        },
+        	600:{
+           items:1
+        	},
+       		 1000:{
+	            items:1
+        	}
+	    	}
       });
 });
 

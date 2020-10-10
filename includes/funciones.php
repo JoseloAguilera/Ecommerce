@@ -1,24 +1,40 @@
 <?php
     include_once "conn.php";
-	function getAllProductos () {
+	function getAllMenuCategorias () {
 		$connection = conn();
-		$sql = "SELECT tb_producto.*, tb_categoria.nombre AS categoria, tb_marca.nombre AS marca FROM tb_producto LEFT JOIN tb_categoria ON tb_producto.id_categoria = tb_categoria.id LEFT JOIN tb_marca ON tb_producto.id_marca = tb_marca.id ORDER BY id ASC";
+		$sql = "SELECT * FROM tb_categoria WHERE activo = '1' AND menu='1'";
 		$query = $connection->prepare($sql);
 		$query->execute();
-
+	
 		if ($query->rowCount() > 0) {
 			$result= $query->fetchAll();
 		} else {
 			$result = null;
 		}
-
+	
+		$connection = disconn($connection);
+		return $result;
+	}
+	
+	function getAllProductos () {
+		$connection = conn();
+		$sql = "SELECT tb_producto.* FROM tb_producto ORDER BY id ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+	
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+	
 		$connection = disconn($connection);
 		return $result;
 	}
 
 	function getProductosDestacados () {
 		$connection = conn();
-		$sql = "SELECT tb_producto.id AS codigo, tb_producto.nombre AS nombre, tb_producto.contado AS contado FROM tb_producto WHERE tb_producto.destaque = '1'";
+		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1'";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -64,7 +80,37 @@
 		return $result;
 	}
 
+	function getCategorias () {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_categoria WHERE id_padre IS NULL ORDER BY nombre ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
 
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getSubCategorias ($categoria) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_categoria WHERE id_padre = '$categoria' ORDER BY nombre ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 
 
 ?>
