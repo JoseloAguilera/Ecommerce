@@ -8,12 +8,8 @@ if (isset($_GET['cat']) && $_GET['cat'] > 0) {
 	
 	$categoria = $_GET['cat'];
 
-	$subcategorias = getSubCategorias($categoria);
-	
-	$totalSubCategorias = count($subcategorias);
-
 }else {
-  $categoria="";
+   $categoria = "11";
 }
 
 
@@ -33,7 +29,10 @@ if (isset($_GET['orderby']) && isset($_GET['order'])) {
 
 if (isset($_GET['search'])) {
 	$search=$_GET['search'];
-}?>
+}
+
+$productos = getProdbyCategoria($categoria);
+?>
 <body>
 	<!-- Page Preloder -->
 	<!--div id="preloder">
@@ -150,27 +149,25 @@ if (isset($_GET['search'])) {
 						    <!-- Card body -->
 						    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
 						      data-parent="#accordionEx">
-						      <div class="card-body">						      	
-						    
-								  <?php  
-								  $categorias = getCategorias();
-								  foreach ($categorias as $categoria){
+						      <div class="card-body">				      	
+								 <?php  
+									   $categorias = getCategorias();
+									   $i=1;
+								 	  foreach ($categorias as $categoria){
 									  ?>
-									<div class="dropdown dropright">
-    									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="categorie.php?cat=<?php echo($categoria['id']) ?>">
-										<?php echo($categoria['nombre']) ?>
-    									</button><hr>
-										
-    									<div class="dropdown-menu">
+									  	
+										<button type="button" class="btn" data-toggle="collapse" data-target="#demo" ><?php echo($categoria['nombre']) ?></button>
+  										<div id="demo<?php echo $i; ?>" class="collapse">
 										<?php 
 											$subcategorias = getSubCategorias($categoria['id']); 
+											$i=$i+1;
 											foreach ($subcategorias as $subcategoria) {
 										?>
-      													<a class="dropdown-item" href="categorie.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?> subcat</a>
+      													<a href="categorie.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?></a><br>
 										<?php }?>
 
     									</div>
-  										</div>
+  										
 										
 									
 									<?php
@@ -178,11 +175,13 @@ if (isset($_GET['search'])) {
 								    
 								  } ?>
 								  
-					
-  
 
 
-						      </div>
+
+
+
+
+							  </div>
 						    </div>
 
 
@@ -194,23 +193,25 @@ if (isset($_GET['search'])) {
 						 
 						</div>
 						<!-- Accordion wrapper -->
-
 					</div>
+					
 					<div class="col-md-9">				
 					   
 					    <div class="row">
-					    	<?php if (!$productos): ?>
+						
+							<?php 
+								if ($productos == NULL){?>
 								<div class="alert alert-danger" role="alert">
 									Ops! não encontramos nenhum resultado para sua busca :D<br>
 									<a href="index.php" style="color: black">Voltar para o Inicio</a>
 								</div>
-							<?php endif ?>
+								<?php }else{ ?>
 
 					    	<?php foreach ($productos as $producto) { 				
 										
 										//obtenemos la imagen destacada
-										$imgDestacada = getImagenes($producto['id'], '2');
-										$cantImagen = count($imgDestacada);
+										$imgDestacada = $producto['img'];
+										//$cantImagen = count($imgDestacada);
 										
 																
 							?>
@@ -218,27 +219,13 @@ if (isset($_GET['search'])) {
 					    <div class="col-md-4 col-sm-6">		            
 		            <div class="product-grid2">
 		                <div class="product-image2">
-		                    <a href="detalles.php?id=<?php echo($producto['id']) ?>">
+		                    <!--a href="detalles.php?id=<?php //echo($producto['id']) ?>"-->
                     	
 		                    	<?php if ($imgDestacada){ ?>    
-		                    	        
-		                    	        
-
-		                    	        <?php if ($cantImagen > 1) {	//SI HAY MAS DE 1 IMAGEN
-
-		                    	        	$i=1;
-			                    			foreach ($imgDestacada as $img) { ?>                   			
-			                    			<img class="pic-<?php echo($i) ?>" src="images/productos/<?php echo($img['imagen']); ?>">
-			                    			<?php
-			                    			  $i= $i+1;
-			                    			}
-
-			                    		} else { 	//SI UNA SOLA IMAGEN
-			                    			foreach ($imgDestacada as $img) { ?>                   			
-			                    			<img class="pic" src="images/productos/<?php echo($img['imagen']); ?>">			                    			
-			                    			<?php }
-			                    		} ?>
-		                    	        
+		                    	                     	        
+										<img src="admin/img/productos/<?php echo $imgDestacada;?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+										                  	        	
+			                    				                    				                    	        
 		                    	    <?php  } else { //SI NO HAY N?> 
 		                    			<img class="pic" src="images/productos/default.jpg">
 		                    	     <?php } ?>
@@ -246,36 +233,36 @@ if (isset($_GET['search'])) {
 		                    <ul class="social">
 		                        <!--li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li-->
 		                        <!--li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li-->
-		                         <li><a href="?action=addcart&id=<?php echo($producto['id']) ?>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+		                         <!--li><a href="?action=addcart&id=<?php //echo($producto['id']) ?>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li-->
 		                    </ul>
-		                    <a class="add-to-cart bg-primario" href="detalles.php?id=<?php echo($producto['id']) ?>">Detalles</a>
+		                    <!--a class="add-to-cart bg-primario" href="detalles.php?id=<?php //echo($producto['id']) ?>">Detalles</a-->
 		                </div>
 		                <div class="product-content">
 		                    <h3 class="title">
-		                    	<a href="detalles.php?id=<?php echo($producto['id']) ?>">
+		                    	<!--a href="detalles.php?id=<?php echo($producto['id']) ?>"-->
 		                    	<?php 
-										if ($producto['lang_nombre'] != null) {
-											echo $producto['lang_nombre'];
-										} else {
-										    echo $producto['nombre']; 
-										} ?>
+										echo $producto['nombre'];
+										?>
 		                   		</a>
 		                	</h3>
-		                    <span class="price">U$ <?php echo($producto['precio']) ?></span>
+		                    <span class="price">G$ <?php echo($producto['valor_minorista']) ?></span>
 		                </div>
 		            </div>
 		        </div>        
 			        
-			        <?php } ?>
+					<?php } 
+					}?>
 			    </div>
 			</div>
+		</div>
+		</div>
 	<!-- Page -->
 
 
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
     </body>
 </html>
