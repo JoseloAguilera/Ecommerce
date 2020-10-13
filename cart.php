@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="zxx">
-<?php include("includes/head.php"); ?>
+<?php 
+include("includes/head.php");
+include("includes/funciones.php") 
+?>
+
 <body>
 	<!-- Page Preloder -->
-	<div id="preloder">
+	<!--div id="preloder">
 		<div class="loader"></div>
-	</div>
+	</div-->
 	
 	<!-- Header section -->
 	<?php include("includes/header.php"); ?>

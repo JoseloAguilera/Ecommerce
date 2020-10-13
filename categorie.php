@@ -157,7 +157,7 @@ $productos = getProdbyCategoria($categoria);
 									  ?>
 									  	
 										<button type="button" class="btn" data-toggle="collapse" data-target="#demo" ><?php echo($categoria['nombre']) ?></button>
-  										<div id="demo<?php echo $i; ?>" class="collapse">
+  										<div id="demo<?php //echo $i; ?>" class="collapse">
 										<?php 
 											$subcategorias = getSubCategorias($categoria['id']); 
 											$i=$i+1;
