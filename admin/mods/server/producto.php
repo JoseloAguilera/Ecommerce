@@ -54,17 +54,25 @@
 		return $result;
 	}
 
-	function newProducto ($referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $cod_categoria, $cod_marca, $destacado, $activo) {
+	function newProducto ($referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $categorias, $cod_marca, $destacado, $activo) {
 		$connection = conn();
 		
 		try {
-			$sql = "INSERT INTO tb_producto (referencia, nombre, descripcion, valor_minorista, valor_mayorista, id_categoria, id_marca, activo, destaque)
-		 			VALUES ('$referencia', '$nombre', '$descripcion', $valorminorista, $valormayorista, $cod_categoria, $cod_marca, $activo, $destacado)";
+			$sql = "INSERT INTO tb_producto (referencia, nombre, descripcion, valor_minorista, valor_mayorista, id_marca, activo, destaque)
+		 			VALUES ('$referencia', '$nombre', '$descripcion', $valorminorista, $valormayorista, $cod_marca, $activo, $destacado)";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$result = $referencia;
+				$result = $connection->lastInsertId();
+
+				$prodCat = saveProdCategoria ($categorias, $result);
+
+				if ($prodCat == $result ) {
+					$result = $result;
+				} else {
+					$result = 'Erro en las categorias.';
+				}
 			} else {
 				$result = null;
 			}

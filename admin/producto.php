@@ -165,16 +165,16 @@
 							<form action="" method="POST" autocomplete="off">
 								<div class="modal-body">
 									<div class="row">
-										<div class="col-md-5">
+										<div class="col-md-4">
 											<div class="form-group">
 												<label for="nombre">Referencia</label>
-												<input type="text" class="form-control" id="codigo" name="codigo" placeholder="Codigo" maxlength="20">
+												<input type="text" class="form-control" id="referencia" name="referencia" placeholder="Referencia" maxlength="20">
 											</div>
 										</div>
-										<div class="col-md-7">
+										<div class="col-md-8">
 											<div class="form-group">
 												<label for="tipo">Categoría</label>
-												<select class="selectpicker show-tick" id="categoria" name="categoria" data-width="100%" data-live-search="true">
+												<select class="selectpicker show-tick" id="categoria" name="categoria[]" data-width="100%" data-live-search="true" multiple required>
 													<?php
 														if ($categorias != null) {
 															foreach ($categorias as $row) {	
@@ -227,31 +227,19 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<div class="form-group">
-												<label for="nombre">Estoque</label>
-												<input type="text" class="form-control" id="estoque" name="estoque" placeholder="0" onKeyUp="formatoNro(this, event)" maxlength="5" required>
+												<label for="nombre">Precio Minorista</label>
+												<input type="text" class="form-control" id="valorminorista" name="valorminorista" placeholder="999.999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="20">
 											</div>
 										</div>
 										<div class="col-md-4">
 											<div class="form-group">
-												<label for="nombre">Precio al Contado</label>
-												<input type="text" class="form-control" id="precio" name="precio" placeholder="999.999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="20">
+												<label for="nombre">Precio Mayorista</label>
+												<input type="text" class="form-control" id="valormayorista" name="valormayorista" placeholder="999.999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="20">
 											</div>
 										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<label for="nombre">Cuotas</label>
-												<input type="text" class="form-control" id="cuota" name="cuota" placeholder="99" onKeyUp="formatoNro(this, event)" maxlength="5">
-											</div>
-										</div>
-										<div class="col-md-3">
-											<div class="form-group">
-												<label for="nombre">Precio</label>
-												<input type="text" class="form-control" id="valor" name="valor" placeholder="999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="15">
-											</div>
-										</div>
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<div class="form-group">
 												<label for="descripcion">Destacado</label>
 												<div class="row">
@@ -261,24 +249,8 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label for="nombre">Al Contado Mayorista</label>
-												<input type="text" class="form-control" id="precio" name="precio_mayorista" placeholder="999.999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="20">
-											</div>
-										</div>
-										<div class="col-md-2">
-											<div class="form-group">
-												<label for="nombre">Cuotas</label>
-												<input type="text" class="form-control" id="cuota" name="cuota_mayorista" placeholder="99" onKeyUp="formatoNro(this, event)" maxlength="5">
-											</div>
-										</div>
-										<div class="col-md-3">
-											<div class="form-group">
-												<label for="nombre">Precio Mayorista</label>
-												<input type="text" class="form-control" id="valor" name="valor_mayorista" placeholder="999.999.999" onKeyUp="formatoMoneda(this, event)" maxlength="15">
-											</div>
-										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="descripcion">Descripción</label>
