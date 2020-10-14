@@ -207,53 +207,50 @@ $productos = getProdbyCategoria($categoria);
 								</div>
 								<?php }else{ ?>
 
-					    	<?php foreach ($productos as $producto) { 				
-										
-										//obtenemos la imagen destacada
-										$imgDestacada = $producto['img'];
-										//$cantImagen = count($imgDestacada);
-										
-																
+									<div class="row">
+	<?php				
+				if ($productos != null) { 
+					foreach ($productos as $row) { ?> 				
+
+				<div class="mix col-lg-4 col-md-4 best">
+				    <a href="product.php?id=<?php echo $row['id'];?>">
+					<div class="product-item">
+						<figure>
+							<?php
+								$foto=getProdImages($row['id']);
+								foreach ($foto as $result){
 							?>
-					    
-					    <div class="col-md-4 col-sm-6">		            
-		            <div class="product-grid2">
-		                <div class="product-image2">
-		                    <!--a href="detalles.php?id=<?php //echo($producto['id']) ?>"-->
-                    	
-		                    	<?php if ($imgDestacada){ ?>    
-		                    	                     	        
-										<img src="admin/img/productos/<?php echo $imgDestacada;?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-										                  	        	
-			                    				                    				                    	        
-		                    	    <?php  } else { //SI NO HAY N?> 
-		                    			<img class="pic" src="images/productos/default.jpg">
-		                    	     <?php } ?>
-		                    </a>
-		                    <ul class="social">
-		                        <!--li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li-->
-		                        <!--li><a href="#" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li-->
-		                         <!--li><a href="?action=addcart&id=<?php //echo($producto['id']) ?>" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li-->
-		                    </ul>
-		                    <!--a class="add-to-cart bg-primario" href="detalles.php?id=<?php //echo($producto['id']) ?>">Detalles</a-->
-		                </div>
-		                <div class="product-content">
-		                    <h3 class="title">
-		                    	<!--a href="detalles.php?id=<?php echo($producto['id']) ?>"-->
-		                    	<?php 
-										echo $producto['nombre'];
-										?>
-		                   		</a>
-		                	</h3>
-		                    <span class="price">G$ <?php echo($producto['valor_minorista']) ?></span>
-		                </div>
-		            </div>
-		        </div>        
-			        
-					<?php } 
-					}?>
-			    </div>
+							<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto">
+							<?php }?>
+						</figure>
+					
+						<div class="product-info">
+							<h6><?php echo $row['nombre']?></h6>
+							<p><?php
+											$precio = "";
+											if ($row['valor_minorista'] > 0) {
+												$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+											} else {
+												$precio = "Sobre consulta ";
+											}
+											echo $precio;
+										?></p>
+							<a href="" class="site-btn btn-line">Agregar al Carrito</a>
+						</div>
+					</div>
+					</a>
+				</div>
+
+				
+
+	<?php } } ?>
+	
+	</div>
+
+			<?php }  ?>
+
 			</div>
+			</div>		
 		</div>
 		</div>
 	<!-- Page -->

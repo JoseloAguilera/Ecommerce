@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
-include("includes/head.php");
-include("includes/funciones.php") 
+	include("includes/head.php");
+	include("includes/funciones.php"); 
+	session_start();
+	$cart = array($_SESSION['cart']); 
+	var_dump($cart);
 ?>
-
 <body>
-	<!-- Page Preloder -->
-	<!--div id="preloder">
+	<!-- Page Preloder >
+	<div id="preloder">
 		<div class="loader"></div>
 	</div-->
 	
@@ -38,22 +40,25 @@ include("includes/funciones.php")
 				<table>
 					<thead>
 						<tr>
-							<th class="product-th">Product</th>
-							<th>Price</th>
-							<th>Quantity</th>
+							<th class="product-th">Producto	</th>
+							<th>precio</th>
+							<th>Cantidad</th>
 							<th class="total-th">Total</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						
+						<?php foreach ($_SESSION['cart'] as $producto) { ?>	
+							
+							<tr>
 							<td class="product-col">
-								<img src="img/product/cart.jpg" alt="">
+								<img src="admin/img/<?php echo $producto['img_producto'] ?>" alt="">
 								<div class="pc-title">
-									<h4>Black Shoulder Bag</h4>
-									<a href="#">Edit Product</a>
+									<h4><?php echo $producto['nombre'] ?></h4>
+									<a href="#">Editar</a>
 								</div>
 							</td>
-							<td class="price-col">$59.90</td>
+							<td class="price-col"><?php echo $producto['valor_minorista'] ?></td>
 							<td class="quy-col">
 								<div class="quy-input">
 									<span>Qty</span>
@@ -62,6 +67,9 @@ include("includes/funciones.php")
 							</td>
 							<td class="total-col">$59.90</td>
 						</tr>
+
+
+						<?php 	} ?>
 					</tbody>
 				</table>
 			</div>

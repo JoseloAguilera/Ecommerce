@@ -32,6 +32,7 @@
 		return $result;
 	}
 
+
 	function getProductosDestacados () {
 		$connection = conn();
 		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1'";
@@ -66,12 +67,28 @@
 
 	function getProdImages ($producto) {
 		$connection = conn();
-		$sql = "SELECT * FROM tb_producto_img WHERE tb_producto_img.id_producto = '$producto' AND tb_producto_img.orden = '1'";
+		$sql = "SELECT * FROM tb_producto_img WHERE tb_producto_img.id_producto = '$producto' ORDER BY orden DESC";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
 		if ($query->rowCount() > 0) {
 			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getProdImage ($producto) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_producto_img WHERE tb_producto_img.id_producto = '$producto'  ORDER BY orden DESC LIMIT 1";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
 		} else {
 			$result = null;
 		}
@@ -112,6 +129,23 @@
 		return $result;
 	}
 
+	function getCategoria ($categoria) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_categoria WHERE id = '$categoria' ";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	
 	function getProdbyCategoria ($categoria) {
 		$connection = conn();
 		if($categoria != 'ALL') {
@@ -131,5 +165,8 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+
+
+
 
 ?>

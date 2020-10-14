@@ -69,7 +69,7 @@ include("includes/head.php");
 					foreach ($destaque as $row) { 
 						if($switch<8) {?> 				
 					<div class="mix col-lg-3 col-md-6 best">
-				    <a href="product.php">
+				    <a href="product.php?id=<?php echo $row['id'] ?>">
 					<div class="product-item">
 					<figure>
 						<?php
@@ -153,7 +153,7 @@ include("includes/head.php");
 				foreach ($novedades as $row) { ?>
 				<div class="item">
 					<div class="mix col-lg-12 col-md-12 best">
-				    <a href="product.php">
+				    <a href="product.php?id=<?php echo $row['id'] ?>">
 					<div class="product-item">
 					<figure>
 					<?php
