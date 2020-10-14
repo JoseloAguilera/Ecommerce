@@ -36,13 +36,12 @@ $categorias= getAllMenuCategorias();
 					<div class="col-md-4">
 						<div class="" style="margin-top: 10px;">
 								<div class="header-right">					
-									<a href="/register" class="user-menu register"> <i class="fa fa-user-o" aria-hidden="true"></i>Ingresar | Registrarme</a>			
+									<a href="ingresar.php" class="user-menu register"> <i class="fa fa-user-o" aria-hidden="true"></i>Ingresar | Registrarme</a>
 									<!--div class="carrito"-->
 									<a href="cart.php" class="card-bag"><img src="img/icons/bag.png" alt=""><span>2</span></a>
 								</div>
 							</div>
 						</div>
-					
 					</div>
 					
 
