@@ -19,59 +19,58 @@
 		$lastOrden = $lastOrden['orden'];
 	}
 
+	// var_dump(getProdbyCategoria (11));
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['nuevo'])){
-			var_dump(pagoTeste());
-			$tipomensaje = 'success';
-			$mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
+			// var_dump(pagoTeste());
+			// $tipomensaje = 'success';
+			// $mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
 			
-			
-			
-			// if (basename($_FILES["fileToUpload"]["name"]) == "") {
-			// 	$img = "no-banner.png";
-			// } else {
-			// 	$imgname = "banner-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
-			// 	$img = saveImg ("img/banners/", $imgname, "fileToUpload");
-			// }
+			if (basename($_FILES["fileToUpload"]["name"]) == "") {
+				$img = "no-banner.png";
+			} else {
+				$imgname = "banner-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
+				$img = saveImg ("img/banners/", $imgname, "fileToUpload");
+			}
 
-			// if (substr($img,0,6) == "banner" OR $img == "no-image.png") {
-			// 	$activo = null;
-			// 	if(!isset($_POST['activo'])) {
-			// 		$activo = 0;
-			// 	} else {
-			// 		$activo = 1;
-			// 	}
+			if (substr($img,0,6) == "banner" OR $img == "no-image.png") {
+				$activo = null;
+				if(!isset($_POST['activo'])) {
+					$activo = 0;
+				} else {
+					$activo = 1;
+				}
 
-			// 	$link = "";
-			// 	if($_POST['linktype'] == "categoriatype"){
-			// 		$link = "catalogo.php?categoria=".$_POST['categoria'];
-			// 	} else if($_POST['linktype'] == "productotype"){
-			// 		$link = "producto.php?cod=".$_POST['producto'];
-			// 	} else if($_POST['linktype'] == "promociontype"){
-			// 		$link = "#promo-".$_POST['promocion'];
-			// 	} else {
-			// 		$link = $_POST['link'];
-			// 	}
+				$link = "";
+				if($_POST['linktype'] == "categoriatype"){
+					$link = "categorie.php?cat=".$_POST['categoria'];
+				} else if($_POST['linktype'] == "productotype"){
+					$link = "product.php?id=".$_POST['producto'];
+				// } else if($_POST['linktype'] == "promociontype"){
+				// 	$link = "#promo-".$_POST['promocion'];
+				} else {
+					$link = $_POST['link'];
+				}
 
-			// 	$incluir = newBanner ($img, $_POST['alternativo'], $link, $_POST['orden'], $activo);
+				$incluir = newBanner ($img, $_POST['alternativo'], $link, $_POST['orden'], $activo);
 
-			// 	if ($incluir == $img) {
-			// 		$tipomensaje = 'success';
-			// 		$mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
-			// 		$banners = getAllBanners();
-			// 		$lastOrden = getBannerLO();
-			// 		$lastOrden = $lastOrden['orden'] + 1;
-			// 	} else if ($incluir == null) {
-			// 		$tipomensaje = 'error';
-			// 		$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
-			// 	} else {
-			// 		$tipomensaje = 'error';
-			// 		$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$incluir.'"</p>';
-			// 	}
-			// } else {
-			// 	$tipomensaje = 'error';
-			// 	$mensaje = '<h3>Error!</h3><p>'.$img.'</p>';
-			// }
+				if ($incluir == $img) {
+					$tipomensaje = 'success';
+					$mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
+					$banners = getAllBanners();
+					$lastOrden = getBannerLO();
+					$lastOrden = $lastOrden['orden'] + 1;
+				} else if ($incluir == null) {
+					$tipomensaje = 'error';
+					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+				} else {
+					$tipomensaje = 'error';
+					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$incluir.'"</p>';
+				}
+			} else {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>'.$img.'</p>';
+			}
 		} else if (isset($_POST['excluir'])){
 			$codigo =  $_POST['codigo'];
 			$excluir = deleteBanner ($codigo);

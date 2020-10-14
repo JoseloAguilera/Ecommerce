@@ -121,7 +121,7 @@
 										<div class="col-md-12 text-center">
 											<img src="img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img" name="img">
 										</div>
-										<div class="col-md-12" style="">
+										<div class="col-md-12">
 											<div class="form-group">
 												<label for="fileToUpload"></label>
 												<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
@@ -133,7 +133,7 @@
 												<select class="selectpicker" id="linktype" name="linktype" data-width="100%" data-live-search="true">
 													<option value="categoriatype">Categoría</option> 
 													<option value="productotype">Producto</option> 
-													<option value="marcatype">Marca</option> 
+													<!-- <option value="marcatype">Marca</option>  -->
 													<option value="otrotype" selected>Otro</option> 
 												</select>
 											</div>
@@ -173,7 +173,7 @@
 													?>
 														<optgroup label="<?php echo $row['nombre'];?>">
 														<?php
-															 $productos = getProdbyCategoria ($row['id']);
+															$productos = getProdbyCategoria ($row['id']);
 															if ($productos != null) {
 																foreach ($productos as $linea) {	
 														?>
@@ -274,7 +274,7 @@
 												<select class="selectpicker" id="linktype-alt" name="linktype-alt" data-width="100%" data-live-search="true">
 													<option value="categoriatype-alt">Categoría</option> 
 													<option value="productotype-alt">Producto</option> 
-													<option value="marcatype-alt">Marcas</option> 
+													<!-- <option value="marcatype-alt">Marcas</option>  -->
 													<option value="otrotype-alt" selected>Otro</option> 
 												</select>
 											</div>
