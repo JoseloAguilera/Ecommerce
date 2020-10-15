@@ -1,7 +1,9 @@
+<?php 
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
-	// session_start();
 	include("includes/head.php");
 	include("includes/funciones.php");
     include("includes/cart.php");
@@ -13,14 +15,17 @@
                 $contrasena = md5($_POST['contrasena']);
                 $login = getUsuario ($_POST['email'], $contrasena);
 
-                if (substr($login,0,1) == "E") {
-                    $mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error->"'.$login.'"</p>';
-                } else if ($login == null) {
-                    $mensaje = '<p class="text-center alert alert-danger">¡Verifique sus datos! Su autentificación ha fracasado.</p>';
+                if (!is_array($login)) {
+                    if (substr($login,0,1) == "E") {
+                        $mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error->"'.$login.'"</p>';
+                    } else {
+                        $mensaje = '<p class="text-center alert alert-danger">¡Verifique sus datos! Su autentificación ha fracasado.</p>';
+                    }
                 } else {			
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['usuario'] = $login['nombre'];
                     $_SESSION['mayorista'] = $login['mayorista'];
+                    
                     echo "<script type='text/javascript'>document.location.href='index.php';</script>";
                 }                
             } else {
@@ -53,6 +58,7 @@
 			<div class="login-box" id="login">
                 <div class="register-logo">
                     <h3 class="text-center">Iniciar Sesión</h3>
+                    <?php //var_dump($_SESSION);?>
                 </div>
                 <div class="login-box-body">
                     <p class="login-box-msg">Ingrese su email y contraseña</p>

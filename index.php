@@ -1,8 +1,11 @@
+<?php 
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
-require "includes/funciones.php";
-include("includes/head.php"); 
+	require "includes/funciones.php";
+	include("includes/head.php"); 
 ?>
 <body>
 	<!-- Page Preloder -->

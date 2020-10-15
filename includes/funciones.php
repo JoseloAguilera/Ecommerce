@@ -201,7 +201,7 @@
 	function getUsuario ($email, $contrasena) {
 		$connection = conn();
 
-		$sql= "SELECT tb_usuario_cliente.*, tb_cliente.nombre from tb_usuario_cliente LEFT JOIN tb_cliente ON tb_usuario_cliente.id_cliente = tb_cliente.id WHERE email = '$email' AND contrasena = '$contrasena'";
+		$sql= "SELECT tb_usuario_cliente.*, tb_cliente.nombre, tb_cliente.mayorista from tb_usuario_cliente LEFT JOIN tb_cliente ON tb_usuario_cliente.id_cliente = tb_cliente.id WHERE email = '$email' AND contrasena = '$contrasena'";
 		$query= $connection->prepare($sql);
 		$query->execute();
 		$result = null;
