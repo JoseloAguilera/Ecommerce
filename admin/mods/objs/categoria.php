@@ -57,7 +57,7 @@
 				$categorias = getAllCategorias();
 			} else if ($excluir == "inactivo") {
 				$tipomensaje = 'warning';
-				$mensaje= '<h3>Atención!</h3><p>No se pudo eliminar el registro devido a productos y subcategorias pendientes.<br>La categoría fue INACTIVADA.</p>';
+				$mensaje= '<h3>Atención!</h3><p>No se pudo eliminar el registro debido a productos y subcategorias pendientes.<br>La categoría fue INACTIVADA.</p>';
 				$categorias = getAllCategorias();
 			} else if ($excluir == null) {
 				$tipomensaje = 'error';

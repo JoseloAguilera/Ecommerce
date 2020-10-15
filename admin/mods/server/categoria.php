@@ -165,7 +165,7 @@
 				return "inactivo";
 			}
 
-			$sql = "SELECT id from tb_producto WHERE id_categoria = '$id'";
+			$sql = "SELECT id_producto from tb_producto_categoria WHERE id_categoria = '$id'";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
