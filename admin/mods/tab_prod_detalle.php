@@ -1,6 +1,7 @@
 <form action="" method="POST"  autocomplete="off">
     <div class="modal-body">
         <div class="row">
+            <input type="hidden" class="form-control" id="codigo" name="codigo" value="<?php echo $producto['id'];?>" required>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="nombre">Referencia</label>

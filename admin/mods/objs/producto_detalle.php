@@ -133,7 +133,13 @@
 				$valormayorista = "NULL";
 			}
 
-			$guardar = saveProducto ($_GET['producto'], $_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $_POST['atributo'], $destacado, $activo);
+			if (!isset($_POST['atributo'])){
+				$atributo = null;
+			} else {
+				$atributo = $_POST['atributo'];
+			}
+
+			$guardar = saveProducto ($_GET['producto'], $_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $atributo, $destacado, $activo);
 			if ($guardar == $_GET['producto']) {
 				$tipomensaje = 'success';
 				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';

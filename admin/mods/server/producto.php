@@ -120,12 +120,16 @@
 				}
 
 				if ($result == $codigo) {
-					$prodAtr = saveProdAtributo ($atributos, $codigo);
+					if ($atributos != null) {
+						$prodAtr = saveProdAtributo ($atributos, $codigo);
 
-					if ($prodAtr == $codigo ) {
-						$result = $codigo;
+						if ($prodAtr == $codigo ) {
+							$result = $codigo;
+						} else {
+							$result = 'Erro en las categorias.';
+						}	
 					} else {
-						$result = 'Erro en las categorias.';
+						$result = $codigo;
 					}
 				}
 			} else {
@@ -154,6 +158,26 @@
 			}
 			//Delete Imagenes
 			$sql = "DELETE FROM tb_producto_img WHERE id_producto = '$codigo'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			//Delete Atributos
+			$sql = "DELETE FROM tb_producto_atributo WHERE id_producto = '$codigo'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			//Delete Categoria
+			$sql = "DELETE FROM tb_producto_categoria WHERE id_producto = '$codigo'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			//Delete Stock
+			$sql = "DELETE FROM tb_producto_stock WHERE id_producto = '$codigo'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			//Delete Stock Valor
+			$sql = "DELETE FROM tb_stock_valor WHERE id_producto = '$codigo'";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -194,6 +218,29 @@
 				if ($query->rowCount() <= 0) {
 					$result = null;
 				}
+			}
+
+			$sql = "SELECT * FROM tb_categoria WHERE tb_categoria.id IN (SELECT id_categoria FROM tb_producto_categoria WHERE id_producto = '$producto')";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			$cats = $query->fetchAll();
+
+			foreach ($cats as $cat) {
+				if ($cat['id_padre'] != null) { //categoria é uma subcategoria
+					$id_padre = $cat['id_padre'];
+					$sql = "SELECT id_categoria FROM tb_producto_categoria WHERE id_producto = '$producto' AND id_categoria = '$id_padre'";
+					$query = $connection->prepare($sql);
+					$query->execute();
+					
+					// Caso no esté registrado, registra categoria padre
+					if ($query->rowCount() <= 0) {
+						$sql = "INSERT INTO tb_producto_categoria (id_producto, id_categoria)
+						VALUES ('$producto', '$id_padre')";
+
+						$query = $connection->prepare($sql);
+						$query->execute();
+					}
+				}				
 			}
 
 		} catch (\Exception $e) {

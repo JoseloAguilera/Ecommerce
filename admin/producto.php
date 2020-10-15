@@ -89,6 +89,7 @@
 									<td>
 									<?php
 										$categoriasprod = getProdCategorias($row['id']);
+										// var_dump($categoriasprod);
 										foreach ($categoriasprod as $categoria) {
 											echo '<b>'.$categoria['nombre'].'</b><br>';
 											$subcategoriasprod = getProdSubCategorias($categoria['id'], $row['id']);
