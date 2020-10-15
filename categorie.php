@@ -159,15 +159,20 @@ $productos = getProdbyCategoria($categoria);
 								 	  foreach ($categorias as $categoria){
 									  ?>
 									  	
-										<button type="button" class="btn" data-toggle="collapse" data-target="#demo" ><?php echo($categoria['nombre']) ?></button>
-  										<div id="demo<?php //echo $i; ?>" class="collapse">
+										<a type="button" class="listado" href="categorie.php?cat=<?php echo($categoria['id']) ?>"><b><?php echo($categoria['nombre']) ?></b></a><!--a data-toggle="collapse" data-target="#demo"><i class="fas fa-caret-down"></i></a--><br>
+  										<div >
 										<?php 
 											$subcategorias = getSubCategorias($categoria['id']); 
 											$i=$i+1;
-											foreach ($subcategorias as $subcategoria) {
+											if($subcategorias){
+
+												foreach ($subcategorias as $subcategoria) {
 										?>
-      													<a href="categorie.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?></a><br>
-										<?php }?>
+      													<a  class="listado" href="categorie.php?cat=<?php echo($subcategoria['id']) ?>"><?php echo($subcategoria['nombre']) ?></a><br>
+										<?php }
+										
+										}
+										?>
 
     									</div>
   										
