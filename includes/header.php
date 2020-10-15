@@ -1,5 +1,6 @@
 <?php
-$categorias= getAllMenuCategorias();
+	session_start();
+	$categorias= getAllMenuCategorias();
 ?>
 <header>
 <div class="container-fluid">
@@ -35,9 +36,19 @@ $categorias= getAllMenuCategorias();
 					
 					<div class="col-md-4">
 						<div class="" style="margin-top: 10px;">
-								<div class="header-right">					
-									<a href="ingresar.php" class="user-menu register"> <i class="fa fa-user-o" aria-hidden="true"></i>Ingresar | Registrarme</a>
+								<div class="header-right">		
+									<?php
+										if (!isset($_SESSION['usuario'])){
+									?>			
+										<a href="ingresar.php" class="user-menu register" style="margin-right: 10px;"> <i class="fa fa-user-o" aria-hidden="true"></i>Ingresar</a>
+										<span class="user-menu register" style="margin-right: 10px;">|</span>
+										<a href="registrar.php" class="user-menu register" style="margin-left: 0px;"> Registrarme</a>
+									<?php } else { ?>
+										<a href="perfil.php" class="user-menu register" style="margin-right: 10px;"> <i class="fa fa-user-o" aria-hidden="true"></i><?php echo $_SESSION['usuario'];?></a>
+										<span class="user-menu register" style="margin-right: 10px;"> | </span>
+										<a href="salir.php" class="user-menu register" style="margin-left: 0px;">Salir</a>
 									<!--div class="carrito"-->
+									<?php } ?>
 									<a href="cart.php" class="card-bag"><img src="img/icons/bag.png" alt=""><span>2</span></a>
 								</div>
 							</div>

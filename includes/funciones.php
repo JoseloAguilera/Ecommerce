@@ -166,7 +166,55 @@
 		return $result;
 	}
 
+	function newUsuario ($nombre, $apellido, $email, $contrasena) {
+		$connection = conn();
+		try {
+			$sql = "INSERT INTO tb_cliente (nombre, apellido, mayorista)
+		 			VALUES ('$nombre', '$apellido', 0)";
+			$query = $connection->prepare($sql);
+			$query->execute();
 
+			if ($query->rowCount() > 0) {
+				$id_cliente = $connection->lastInsertId();
 
+				$sql = "INSERT INTO tb_usuario_cliente (id_cliente, email, contrasena, creado_en)
+		 			VALUES ('$id_cliente', '$email', '$contrasena', NOW())";
+				$query = $connection->prepare($sql);
+				$query->execute();
+
+				if ($query->rowCount() > 0) {
+					$result = $connection->lastInsertId();
+				} else {
+					$result = null;
+				}	
+			} else {
+				$result = null;
+			}
+		} catch (\Exception $e) {
+			$result = "Erro ->".$e;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getUsuario ($email, $contrasena) {
+		$connection = conn();
+
+		$sql= "SELECT tb_usuario_cliente.*, tb_cliente.nombre from tb_usuario_cliente LEFT JOIN tb_cliente ON tb_usuario_cliente.id_cliente = tb_cliente.id WHERE email = '$email' AND contrasena = '$contrasena'";
+		$query= $connection->prepare($sql);
+		$query->execute();
+		$result = null;
+
+		if ($query->rowCount() > 0) {
+			$result = $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+
+		return $result;
+	}
 
 ?>

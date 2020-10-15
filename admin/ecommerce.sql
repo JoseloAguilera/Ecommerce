@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 09-Out-2020 às 18:43
+-- Tempo de geração: 15-Out-2020 às 00:10
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -85,7 +85,16 @@ CREATE TABLE IF NOT EXISTS `tb_banner` (
   `orden` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_banner`
+--
+
+INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALUES
+(3, 'banner-2020-10-14-59a0369461ad3_thumb900.jpg', 'Bienvenido a nuestra tienda', '', 1, 1),
+(4, 'banner-2020-10-14-banner_marcas_aire_acondicionado_h2.jpg', 'Nuestras Marcas de Aire Acondicionado', 'categorie.php?cat=21', 2, 1),
+(5, 'banner-2020-10-14-jbl-bluetooth-wireless-banner-4.jpg', 'Nuevos Auriculares JBL', 'product.php?id=2', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -155,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
 --
 
 INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`) VALUES
-(1, 'Ana Carolina', 'dos Anjos Pereira de Vernazza', 'RUC', 24987603, 'Mario Vernazza', 1);
+(1, 'Ana', 'Carolina', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -256,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
 DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
   `id_cliente` int(11) NOT NULL,
   `id_met_pago` int(11) NOT NULL,
   `id_met_envio` int(11) NOT NULL,
@@ -301,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
   `destaque` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_producto`
@@ -309,7 +318,8 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
 
 INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`) VALUES
 (1, '0012X2', 'Aire Condicionado', 'Teste', 1000000, 900000, 2, 0, 1),
-(2, '', 'Auricular', 'Auricular', 150000, 100000, 4, 1, 1);
+(2, '', 'Auricular', 'Auricular', 150000, 100000, 4, 1, 1),
+(3, 'COD011', 'Caneca Personalizada', 'Caneca Personalizada', 100000, 95000, 4, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -350,14 +360,13 @@ CREATE TABLE IF NOT EXISTS `tb_producto_categoria` (
 --
 
 INSERT INTO `tb_producto_categoria` (`id_producto`, `id_categoria`) VALUES
-(1, 11),
 (1, 19),
 (1, 20),
-(1, 113),
-(1, 114),
 (2, 11),
 (2, 12),
-(2, 13);
+(2, 13),
+(3, 113),
+(3, 114);
 
 -- --------------------------------------------------------
 
@@ -454,6 +463,30 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
 
 INSERT INTO `tb_usuario` (`id`, `usuario`, `password`, `nombre`) VALUES
 (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Administrador');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_usuario_cliente`
+--
+
+DROP TABLE IF EXISTS `tb_usuario_cliente`;
+CREATE TABLE IF NOT EXISTS `tb_usuario_cliente` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `email_verificado` date DEFAULT NULL,
+  `contrasena` varchar(100) NOT NULL,
+  `creado_en` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_usuario_cliente`
+--
+
+INSERT INTO `tb_usuario_cliente` (`id`, `id_cliente`, `email`, `email_verificado`, `contrasena`, `creado_en`) VALUES
+(1, 1, 'anacarolinaapv@gmail.com', NULL, '9e32b70e18928d1dcbd73a8f4c8e119f', '2020-10-14');
 
 -- --------------------------------------------------------
 

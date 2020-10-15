@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
-	session_start();
+	// session_start();
 	include("includes/head.php");
 	include("includes/funciones.php");
-	include("includes/cart.php");
+    include("includes/cart.php");
+    
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+		if (isset($_POST['login'])){
+            // var_dump($_POST);
+            if(isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['contrasena']) &&  $_POST['contrasena'] != '' ) {
+                $contrasena = md5($_POST['contrasena']);
+                $login = getUsuario ($_POST['email'], $contrasena);
+
+                if (substr($login,0,1) == "E") {
+                    $mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error->"'.$login.'"</p>';
+                } else if ($login == null) {
+                    $mensaje = '<p class="text-center alert alert-danger">¡Verifique sus datos! Su autentificación ha fracasado.</p>';
+                } else {			
+                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['usuario'] = $login['nombre'];
+                    $_SESSION['mayorista'] = $login['mayorista'];
+                    echo "<script type='text/javascript'>document.location.href='index.php';</script>";
+                }                
+            } else {
+                $mensaje = '<p class="alert alert-danger">Por favor, ¡Ingrese Todos los Datos!</p>';
+            }
+        }
+    }
  ?>
 <body>
 		
@@ -32,7 +55,7 @@
                     <h3 class="text-center">Iniciar Sesión</h3>
                 </div>
                 <div class="login-box-body">
-                    <p class="login-box-msg">Ingrese su Usuario y Contraseña</p>
+                    <p class="login-box-msg">Ingrese su email y contraseña</p>
                     <?php
                         if (isset($mensaje)) {
                             echo $mensaje; //mensaje de error
@@ -40,7 +63,7 @@
                     ?>
                     <form action="" method="post" autocomplete="off">
                         <div class="form-group has-feedback">
-                            <input type="email" name="usuario" class="form-control" placeholder="Email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
@@ -50,7 +73,7 @@
                         <div class="row">
                             <div class="col"></div>
                             <div class="col-xs-6 col-xs-offset-3">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat">Iniciar Sesión</button>
+                                <button type="submit" class="btn btn-primary btn-block btn-flat" name="login">Iniciar Sesión</button>
                             </div>
                             <div class="col"></div>
                         </div>
@@ -64,110 +87,17 @@
                     </div>
                     <br>
                     <div class="text-center">
-                        <a nohref class="text-center" onClick="viewForgot()" style="cursor:pointer;">¿Olvidaste tu contraseña?</a><br>
-                        <a nohref class="text-center" onClick="viewRegister()" style="cursor:pointer;">¿Aún no te has registrado?</a>
+                        <a href="resetar.php">¿Olvidaste tu contraseña?</a><br>
+                        <a href="registrar.php">¿Aún no te has registrado?</a>
+                        <!-- <a nohref class="text-center" onClick="viewForgot()" style="cursor:pointer;">¿Olvidaste tu contraseña?</a><br>
+                        <a nohref class="text-center" onClick="viewRegister()" style="cursor:pointer;">¿Aún no te has registrado?</a> -->
                     </div>
                 </div> <!-- /.login-box-body -->
             </div> <!-- /.login-box -->
-            
-            <div class="register-box" id="register" style="display: none;">
-                <div class="register-logo">
-                    <h3 class="text-center">Regístrese</h3>
-                </div>
-
-                <div class="register-box-body">
-                    <p class="login-box-msg">Ingrese sus datos</p>
-                    <form method="post">
-                        <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Nombre Completo">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <input type="email" class="form-control" placeholder="Email">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <input type="password" class="form-control" placeholder="Contraseña">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-feedback">
-                            <input type="password" class="form-control" placeholder="Repita la contraseña">
-                            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                        </div>
-                        <div class="row">
-                            <div class="col"></div>
-                            <div class="col-xs-4">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat">Registrarse</button>
-                            </div>
-                            <div class="col"></div>
-                        </div>
-                    </form>
-                    <div class="social-auth-links text-center">
-                        <br>
-                        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrá usando
-                            Facebook</a>
-                        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Entrá usando
-                            Google+</a>
-                    </div>
-                    <!-- /.social-auth-links -->
-                    <br>
-                    <div class="text-center">
-                        <a nohref class="text-center" onClick="viewLogin()" style="cursor:pointer;">¡Estoy registrado!</a>
-                    </div>
-                </div> <!-- /.form-box -->
-            </div> <!-- /.register-box -->
-
-            <div class="register-box" id="forgot" style="display: none;">
-                <div class="register-logo">
-                    <h3 class="text-center">Recuperar contraseña</h3>
-                </div>
-
-                <div class="register-box-body">
-                    <p class="login-box-msg">Ingrese sus datos</p>
-                    <form method="post">
-                        <div class="form-group has-feedback">
-                            <input type="email" class="form-control" placeholder="Email">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
-                        <div class="row">
-                            <div class="col"></div>
-                            <div class="col-xs-4">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat">Recuperar</button>
-                            </div>
-                            <div class="col"></div>
-                        </div>
-                    </form>
-                    <br>
-                    <div class="text-center">
-                        <a nohref class="text-center" onClick="viewLogin()" style="cursor:pointer;">¡Recordé mi contraseña!</a><br>
-                        <a nohref class="text-center" onClick="viewRegister()" style="cursor:pointer;">¿Aún no te has registrado?</a>
-                    </div>
-                </div> <!-- /.form-box -->
-            </div> <!-- /.forgor-box -->
 		</div>
 	</div>
 	<!-- Page end -->
 
-    <script>
-        //Hide Login Show Register
-        function viewRegister(){
-            $('#login').hide();
-            $('#forgot').hide();
-            $('#register').show();
-        }
-        //Hide Login Show Register
-        function viewLogin(){
-            $('#register').hide();
-            $('#forgot').hide();
-            $('#login').show();
-        }
-        //Hide Login Show Register
-        function viewForgot(){
-            $('#login').hide();
-            $('#register').hide();
-            $('#forgot').show();
-        }
-    </script>
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
 </script>
