@@ -217,6 +217,7 @@ $productos = getProdbyCategoria($categoria);
 					   
 					    <div class="row">
 						
+						
 							<?php 
 								if ($productos == NULL){?>
 								<div class="alert alert-danger" role="alert">
@@ -226,47 +227,101 @@ $productos = getProdbyCategoria($categoria);
 								<?php }else{ ?>
 
 									<div class="row">
-	<?php				
-				if ($productos != null) { 
-					$cantProd = count($productos);
-					foreach ($productos as $row) { ?> 				
+									<div id="content" class="col-lg-12">
 
-				<div class="mix col-lg-4 col-md-4 best">
-				    <a href="product.php?id=<?php echo $row['id'];?>">
-					<div class="product-item">
-						<figure>
-							<?php
-								$foto=getProdImages($row['id']);
-								foreach ($foto as $result){
-							?>
-							<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto">
-							<?php }?>
-						</figure>
+	 				
+
+<?php
+$cantProd = count($productos);
+if ($cantProd > 0) {
+    $page = false;
+
+    //examino la pagina a mostrar y el inicio del registro a mostrar
+    if (isset($_GET["page"])) {
+        $page = $_GET["page"];
+    }
+
+    if (!$page) {
+        $start = 0;
+        $page = 1;
+    } else {
+        $start = ($page - 1) * NUM_ITEMS_BY_PAGE;
+    }
+    //calculo el total de paginas
+    $total_pages = ceil($cantProd / NUM_ITEMS_BY_PAGE);
+
+    //pongo el n�mero de registros total, el tama�o de p�gina y la p�gina que se muestra
+    echo '<h3>Numero de articulos: '.$cantProd.'</h3>';
+    echo '<h3>En cada pagina se muestra '.NUM_ITEMS_BY_PAGE.' articulos ordenados por fecha en formato descendente.</h3>';
+    echo '<h3>Mostrando la pagina '.$page.' de ' .$total_pages.' paginas.</h3>';
 					
-						<div class="product-info">
-							<h6><?php echo $row['nombre']?></h6>
-							<p><?php
-											$precio = "";
-											if ($row['valor_minorista'] > 0) {
-												$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-											} else {
-												$precio = "Sobre consulta ";
-											}
-											echo $precio;
-										?></p>
-							<a href="" class="site-btn btn-line">Agregar al Carrito</a>
-						</div>
-					</div>
-					</a>
+				if ($productos != null) { 
+					
+					echo '<ul class="row items">';
+					foreach ($productos as $row) {
+        
+              
+            echo '<li class="col-lg-4">';?>
+			<a href="product.php?id=<?php echo $row['id'];?>">
+			<div class="product-item">
+				<figure>
+					<?php
+						$foto=getProdImages($row['id']);
+						foreach ($foto as $result){
+					?>
+					<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto">
+					<?php }?>
+				</figure>
+			
+				<div class="product-info">
+					<h6><?php echo $row['nombre']?></h6>
+					<p><?php
+									$precio = "";
+									if ($row['valor_minorista'] > 0) {
+										$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+									} else {
+										$precio = "Sobre consulta ";
+									}
+									echo $precio;
+								?></p>
+					<a href="" class="site-btn btn-line">Agregar al Carrito</a>
 				</div>
+			</div>
+			</a>
+           <?php echo '</li>';
+        }
+        echo '</ul>';
+    }
 
-				
+    echo '<nav>';
+    echo '<ul class="pagination">';
 
-	<?php } } ?>
+    if ($total_pages > 1) {
+        if ($page != 1) {
+            echo '<li class="page-item"><a class="page-link" href="categorie.php?page='.($page-1).'"><span aria-hidden="true">&laquo;</span></a></li>';
+        }
+
+        for ($i=1;$i<=$total_pages;$i++) {
+            if ($page == $i) {
+                echo '<li class="page-item active"><a class="page-link" href="#">'.$page.'</a></li>';
+            } else {
+                echo '<li class="page-item"><a class="page-link" href="categorie.php?page='.$i.'">'.$i.'</a></li>';
+            }
+        }
+
+        if ($page != $total_pages) {
+            echo '<li class="page-item"><a class="page-link" href="categorie.php?page='.($page+1).'"><span aria-hidden="true">&raquo;</span></a></li>';
+        }
+    }
+    echo '</ul>';
+    echo '</nav>';
+}
+?>
 	
 	</div>
+	</div>
 
-			<?php }  ?>
+<?php  } ?>
 
 			</div>
 			</div>		

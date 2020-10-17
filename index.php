@@ -152,7 +152,7 @@
 			<div class="owl-carousel owl-theme">
 			
 			<?php 
-				$novedades=getAllProductos();			
+				$novedades=getAllProductosHome();			
 				foreach ($novedades as $row) { ?>
 				<div class="item">
 					<div class="mix col-lg-12 col-md-12 best">

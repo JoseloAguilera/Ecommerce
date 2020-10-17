@@ -72,7 +72,7 @@
 						<ul class="main-menu">
 								<li><a class="m-activ" href="index.php">Inicio</a></li>
 								<?php foreach ($categorias as $cat) { ?>
-									<li><a href="categorie.php?id=<?php echo $cat['id']?>"><?php echo $cat['nombre']?></a></li>
+									<li><a href="categorie.php?cat=<?php echo $cat['id']?>"><?php echo $cat['nombre']?></a></li>
 								<?php } ?>
 								
 								

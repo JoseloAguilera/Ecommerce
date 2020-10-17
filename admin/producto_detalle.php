@@ -34,7 +34,9 @@
 						}	
 					?>
 					<small>Detalle del producto y sus imagenes.</small>
+					<a type="button" class="btn btn-primary" href="producto.php"><i class="fa fa-arrow-circle-left"></i> Atrás</a>
 				</h1>
+				
 			</section>
 			<!-- Modal de Mensagns Sucess and Error -->
 			<div class="modal fade modal-mensaje" id="modal-mensaje" tabindex="-1" role="dialog">

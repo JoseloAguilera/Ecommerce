@@ -16,9 +16,9 @@
 		return $result;
 	}
 	
-	function getAllProductos () {
+	function getAllProductosHome () {
 		$connection = conn();
-		$sql = "SELECT tb_producto.* FROM tb_producto ORDER BY id ASC";
+		$sql = "SELECT tb_producto.* FROM tb_producto ORDER BY id ASC LIMIT 20";
 		$query = $connection->prepare($sql);
 		$query->execute();
 	
@@ -35,7 +35,7 @@
 
 	function getProductosDestacados () {
 		$connection = conn();
-		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1'";
+		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1' AND tb_producto.activo = '1' ORDER BY RAND()";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
