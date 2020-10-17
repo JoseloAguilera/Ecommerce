@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 15-Out-2020 às 00:10
--- Versão do servidor: 10.4.10-MariaDB
--- versão do PHP: 7.3.12
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 17-10-2020 a las 00:09:06
+-- Versión del servidor: 5.7.21
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `ecommerce`
+-- Base de datos: `ecommerce`
 --
+CREATE DATABASE IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ecommerce`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_atributo`
+-- Estructura de tabla para la tabla `tb_atributo`
 --
 
 DROP TABLE IF EXISTS `tb_atributo`;
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `tb_atributo` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_atributo`
+-- Volcado de datos para la tabla `tb_atributo`
 --
 
 INSERT INTO `tb_atributo` (`id`, `nombre`, `activo`) VALUES
@@ -47,7 +49,7 @@ INSERT INTO `tb_atributo` (`id`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_atr_valor`
+-- Estructura de tabla para la tabla `tb_atr_valor`
 --
 
 DROP TABLE IF EXISTS `tb_atr_valor`;
@@ -60,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `tb_atr_valor` (
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_atr_valor`
+-- Volcado de datos para la tabla `tb_atr_valor`
 --
 
 INSERT INTO `tb_atr_valor` (`id`, `id_atributo`, `nombre`, `activo`) VALUES
@@ -73,7 +75,7 @@ INSERT INTO `tb_atr_valor` (`id`, `id_atributo`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_banner`
+-- Estructura de tabla para la tabla `tb_banner`
 --
 
 DROP TABLE IF EXISTS `tb_banner`;
@@ -88,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `tb_banner` (
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_banner`
+-- Volcado de datos para la tabla `tb_banner`
 --
 
 INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALUES
@@ -99,7 +101,7 @@ INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALU
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_categoria`
+-- Estructura de tabla para la tabla `tb_categoria`
 --
 
 DROP TABLE IF EXISTS `tb_categoria`;
@@ -110,41 +112,31 @@ CREATE TABLE IF NOT EXISTS `tb_categoria` (
   `menu` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_categoria`
+-- Volcado de datos para la tabla `tb_categoria`
 --
 
 INSERT INTO `tb_categoria` (`id`, `nombre`, `id_padre`, `menu`, `activo`) VALUES
-(114, 'Tazas', 113, 1, 1),
-(113, 'Personalizados', NULL, 1, 1),
-(11, 'Electrónicos\r\n', NULL, 1, 1),
-(12, 'Auriculares\r\n', 11, 1, 1),
-(13, 'Equipos de sonido\r\n', 11, 1, 1),
-(14, 'Celulares\r\n', 11, 1, 1),
-(15, 'Impresoras\r\n', 11, 1, 1),
-(16, 'Notebooks\r\n', 11, 1, 1),
-(17, 'Televisores\r\n', 11, 1, 1),
-(18, 'Play Station \r\n', 11, 1, 1),
-(19, 'Climatizacion\r\n', NULL, 1, 1),
-(20, 'Aires split\r\n', 19, 1, 1),
-(21, 'Aires portátiles\r\n', 19, 1, 1),
-(22, 'Estufas\r\n', 19, 1, 1),
-(23, 'Ventiladores\r\n', 19, 1, 1),
-(24, 'Termocalefon\r\n', 19, 1, 1),
-(25, 'Refrigeración\r\n', NULL, 1, 1),
-(26, 'Bebederos\r\n', 25, 1, 1),
-(27, 'Congeladores\r\n', 25, 1, 1),
-(28, 'Conservadoras\r\n', 25, 1, 1),
-(29, 'Enfriador de vino\r\n', 25, 1, 1),
-(30, 'Frigobar\r\n', 25, 1, 1),
-(31, 'Heladeras \r\n', 25, 1, 1);
+(127, 'Oculos', NULL, 1, 1),
+(122, 'Cuchillos', 121, 1, 1),
+(123, 'Conjunto', 121, 0, 1),
+(124, 'Canivete', NULL, 1, 1),
+(125, 'Joyas', NULL, 1, 1),
+(126, 'Medallas', 125, 1, 1),
+(121, 'Utensilios', NULL, 0, 1),
+(120, 'Bombillas', 118, 1, 1),
+(119, 'Guampas', 118, 1, 1),
+(118, 'Personalizados', NULL, 0, 1),
+(117, 'Sombreros', 115, 1, 1),
+(116, 'Quepis', 115, 1, 1),
+(115, 'Gorros', NULL, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cliente`
+-- Estructura de tabla para la tabla `tb_cliente`
 --
 
 DROP TABLE IF EXISTS `tb_cliente`;
@@ -160,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_cliente`
+-- Volcado de datos para la tabla `tb_cliente`
 --
 
 INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`) VALUES
@@ -169,7 +161,7 @@ INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_doc
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cli_contacto`
+-- Estructura de tabla para la tabla `tb_cli_contacto`
 --
 
 DROP TABLE IF EXISTS `tb_cli_contacto`;
@@ -183,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `tb_cli_contacto` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_cli_contacto`
+-- Volcado de datos para la tabla `tb_cli_contacto`
 --
 
 INSERT INTO `tb_cli_contacto` (`id`, `id_cliente`, `tipo`, `contacto`, `favorito`) VALUES
@@ -193,7 +185,7 @@ INSERT INTO `tb_cli_contacto` (`id`, `id_cliente`, `tipo`, `contacto`, `favorito
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_cli_direccion`
+-- Estructura de tabla para la tabla `tb_cli_direccion`
 --
 
 DROP TABLE IF EXISTS `tb_cli_direccion`;
@@ -210,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `tb_cli_direccion` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_marca`
+-- Estructura de tabla para la tabla `tb_marca`
 --
 
 DROP TABLE IF EXISTS `tb_marca`;
@@ -223,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `tb_marca` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_marca`
+-- Volcado de datos para la tabla `tb_marca`
 --
 
 INSERT INTO `tb_marca` (`id`, `nombre`, `url`, `activo`) VALUES
@@ -233,7 +225,7 @@ INSERT INTO `tb_marca` (`id`, `nombre`, `url`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_met_envio`
+-- Estructura de tabla para la tabla `tb_met_envio`
 --
 
 DROP TABLE IF EXISTS `tb_met_envio`;
@@ -246,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `tb_met_envio` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_met_pago`
+-- Estructura de tabla para la tabla `tb_met_pago`
 --
 
 DROP TABLE IF EXISTS `tb_met_pago`;
@@ -259,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_pedido`
+-- Estructura de tabla para la tabla `tb_pedido`
 --
 
 DROP TABLE IF EXISTS `tb_pedido`;
@@ -278,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_ped_detalle`
+-- Estructura de tabla para la tabla `tb_ped_detalle`
 --
 
 DROP TABLE IF EXISTS `tb_ped_detalle`;
@@ -295,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `tb_ped_detalle` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_producto`
+-- Estructura de tabla para la tabla `tb_producto`
 --
 
 DROP TABLE IF EXISTS `tb_producto`;
@@ -310,21 +302,30 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
   `destaque` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_producto`
+-- Volcado de datos para la tabla `tb_producto`
 --
 
 INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`) VALUES
-(1, '0012X2', 'Aire Condicionado', 'Teste', 1000000, 900000, 2, 0, 1),
-(2, '', 'Auricular', 'Auricular', 150000, 100000, 4, 1, 1),
-(3, 'COD011', 'Caneca Personalizada', 'Caneca Personalizada', 100000, 95000, 4, 0, 1);
+(4, '12345', 'Cuchillo Criolla', 'Cuchillo filoso de la marca Criolla', 30000, 20000, 4, 1, 1),
+(5, '12', 'Cuchillo Rodeio Negro', 'Cuchilo color negro, rodeio, personalizable', 500000, 340000, 4, 0, 1),
+(6, '13', 'Conj, Rodeio Cuchillo + Afilador', 'Conjunto de cuchilo + afilador, rodeio con mango de madera y estuche de cuero marrón', 250000, 134000, 4, 1, 1),
+(7, '14', 'Quepis blanco Choraboy', 'Quepis color blanco, en tela de algodon ', 80000, 50000, 4, 0, 1),
+(8, '15', 'Quepis ChoraBoy Rosa ', 'Quepis ChoraBoy Rosa Tamaño XL', 76800, 56000, 4, 1, 1),
+(9, '16', 'Quepis Choraboy con Bordado de Rosa', 'Quepis Choraboy Blanco con Bordado de Rosa en color negro', 99000, 56789, 4, 1, 1),
+(10, '17', 'Quepis Gallo Negro + Marrón ', 'Quepis Gallo Negro + Marrón con logo en cuerina y parte de atrás en malla agujereada', 88700, 56789, 4, 1, 1),
+(11, '18', 'Quepis Made in Mato Negro', 'Quepis Made in Mato Negro de tela con logo en  color blanco', 57890, 33555, 4, 1, 1),
+(12, '19', 'Quepis Made in Mato Negro + Marron 4x4', 'Quepis Made in Mato Negro Frente + Marrón Atrás con logo 4x4 ', 78650, 500000, 4, 1, 1),
+(13, '20', 'Medalla de Oro Maiz y Soja', 'Medalla en forma de Maiz y Soja en oro de 18K', 100000, 78900, 4, 1, 1),
+(14, '21', 'Quepis Choraboy Naranja', 'Quepis Choraboy Naranja con Logo en color negro, rasgado al frente', 109000, 78000, 4, 1, 1),
+(15, '22', 'Quepis Chora Boy Celeste', 'Quepis Chora Boy Celeste con logo letras bordado en rectángulo negro ', 76000, 45000, 4, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_producto_atributo`
+-- Estructura de tabla para la tabla `tb_producto_atributo`
 --
 
 DROP TABLE IF EXISTS `tb_producto_atributo`;
@@ -335,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_atributo` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_producto_atributo`
+-- Volcado de datos para la tabla `tb_producto_atributo`
 --
 
 INSERT INTO `tb_producto_atributo` (`id_producto`, `id_atributo`) VALUES
@@ -345,7 +346,7 @@ INSERT INTO `tb_producto_atributo` (`id_producto`, `id_atributo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_producto_categoria`
+-- Estructura de tabla para la tabla `tb_producto_categoria`
 --
 
 DROP TABLE IF EXISTS `tb_producto_categoria`;
@@ -356,22 +357,43 @@ CREATE TABLE IF NOT EXISTS `tb_producto_categoria` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_producto_categoria`
+-- Volcado de datos para la tabla `tb_producto_categoria`
 --
 
 INSERT INTO `tb_producto_categoria` (`id_producto`, `id_categoria`) VALUES
-(1, 19),
-(1, 20),
-(2, 11),
-(2, 12),
-(2, 13),
-(3, 113),
-(3, 114);
+(4, 118),
+(4, 121),
+(4, 122),
+(5, 118),
+(5, 121),
+(5, 122),
+(6, 118),
+(6, 121),
+(6, 122),
+(6, 123),
+(7, 115),
+(7, 116),
+(8, 115),
+(8, 116),
+(9, 115),
+(9, 116),
+(10, 115),
+(10, 116),
+(11, 115),
+(11, 116),
+(12, 115),
+(12, 116),
+(13, 125),
+(13, 126),
+(14, 115),
+(14, 116),
+(15, 115),
+(15, 116);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_producto_img`
+-- Estructura de tabla para la tabla `tb_producto_img`
 --
 
 DROP TABLE IF EXISTS `tb_producto_img`;
@@ -382,20 +404,31 @@ CREATE TABLE IF NOT EXISTS `tb_producto_img` (
   `orden` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_producto_img`
+-- Volcado de datos para la tabla `tb_producto_img`
 --
 
 INSERT INTO `tb_producto_img` (`id`, `url`, `id_producto`, `orden`, `activo`) VALUES
 (9, 'cod1-2020-10-08-aire-split.jpg', 1, 1, 1),
-(10, 'cod2-2020-10-08-JBL-T450-BT.jpg', 2, 1, 1);
+(11, 'cod4-2020-10-15-294d6510-e91d-42ea-844b-d4585b8b5696.jpg', 4, 1, 1),
+(12, 'cod5-2020-10-15-6c463152-ff32-4dda-a8e5-edc7abb06dd7.jpg', 5, 1, 1),
+(13, 'cod6-2020-10-15-6d4da8f8-5e8b-435e-b993-89a649a8a466.jpg', 6, 1, 1),
+(14, 'cod7-2020-10-15-dfdaf1c2-b0a6-4525-951a-29cd87e6760a.jpg', 7, 1, 1),
+(15, 'cod8-2020-10-16-3a480051-6c0b-473a-be05-f3e6fa76c87a.jpg', 8, 1, 1),
+(16, 'cod9-2020-10-16-f1f7e916-42da-4d2f-a0f0-6af141806379.jpg', 9, 1, 1),
+(17, 'cod10-2020-10-16-e21d1dbb-ef7b-48e2-828b-65436505b275.jpg', 10, 1, 1),
+(18, 'cod11-2020-10-16-bcb0cdfd-4555-4c4a-b350-59ee72c894bb.jpg', 11, 1, 1),
+(19, 'cod12-2020-10-16-b373cab3-a3c0-4ef8-833b-65ea64ad494b.jpg', 12, 1, 1),
+(20, 'cod13-2020-10-16-99b302fd-2e15-42e0-8099-6fbbdf6af8c5.jpg', 13, 1, 1),
+(21, 'cod14-2020-10-16-eb2cf728-0aaa-4bca-85f5-492d7041a019.jpg', 14, 1, 1),
+(22, 'cod15-2020-10-16-2f47b40c-cfe4-44cc-92bc-970fd587e5bf.jpg', 15, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_producto_stock`
+-- Estructura de tabla para la tabla `tb_producto_stock`
 --
 
 DROP TABLE IF EXISTS `tb_producto_stock`;
@@ -407,21 +440,32 @@ CREATE TABLE IF NOT EXISTS `tb_producto_stock` (
   `valor_mayorista` int(11) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_producto_stock`
+-- Volcado de datos para la tabla `tb_producto_stock`
 --
 
 INSERT INTO `tb_producto_stock` (`id`, `id_producto`, `stock`, `valor_minorista`, `valor_mayorista`, `activo`) VALUES
 (1, 1, 10, 1000000, 900000, 1),
 (2, 1, 12, 1000000, 900000, 1),
-(3, 2, 15, 150000, 100000, 1);
+(4, 4, 20, 30000, 20000, 1),
+(5, 5, 39, 500000, 340000, 1),
+(6, 6, 90, 250000, 134000, 1),
+(7, 7, 900, 80000, 50000, 1),
+(8, 8, 33, 76800, 56000, 1),
+(9, 9, 99, 99000, 56789, 1),
+(10, 10, 999, 88700, 56789, 1),
+(11, 11, 154, 57890, 33555, 1),
+(12, 12, 19, 78650, 500000, 1),
+(13, 13, 72, 100000, 78900, 1),
+(14, 14, 45, 109000, 78000, 1),
+(15, 15, 43, 76000, 45000, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_stock_valor`
+-- Estructura de tabla para la tabla `tb_stock_valor`
 --
 
 DROP TABLE IF EXISTS `tb_stock_valor`;
@@ -433,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `tb_stock_valor` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_stock_valor`
+-- Volcado de datos para la tabla `tb_stock_valor`
 --
 
 INSERT INTO `tb_stock_valor` (`id_atr_valor`, `id_stock`, `id_producto`) VALUES
@@ -445,7 +489,7 @@ INSERT INTO `tb_stock_valor` (`id_atr_valor`, `id_stock`, `id_producto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_usuario`
+-- Estructura de tabla para la tabla `tb_usuario`
 --
 
 DROP TABLE IF EXISTS `tb_usuario`;
@@ -458,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_usuario`
+-- Volcado de datos para la tabla `tb_usuario`
 --
 
 INSERT INTO `tb_usuario` (`id`, `usuario`, `password`, `nombre`) VALUES
@@ -467,7 +511,7 @@ INSERT INTO `tb_usuario` (`id`, `usuario`, `password`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tb_usuario_cliente`
+-- Estructura de tabla para la tabla `tb_usuario_cliente`
 --
 
 DROP TABLE IF EXISTS `tb_usuario_cliente`;
@@ -482,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `tb_usuario_cliente` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `tb_usuario_cliente`
+-- Volcado de datos para la tabla `tb_usuario_cliente`
 --
 
 INSERT INTO `tb_usuario_cliente` (`id`, `id_cliente`, `email`, `email_verificado`, `contrasena`, `creado_en`) VALUES
@@ -491,7 +535,7 @@ INSERT INTO `tb_usuario_cliente` (`id`, `id_cliente`, `email`, `email_verificado
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `transactions`
+-- Estructura de tabla para la tabla `transactions`
 --
 
 DROP TABLE IF EXISTS `transactions`;
@@ -504,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `buyerId` int(11) DEFAULT NULL,
   `orderItems` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `created` datetime DEFAULT current_timestamp(),
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
