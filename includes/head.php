@@ -30,4 +30,15 @@
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<!--====== Javascripts & Jquery ======-->
+	<!--script src="js/jquery-3.2.1.min.js"></script-->
+	<script data-require="jquery@3.1.1" data-semver="3.1.1" 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/mixitup.min.js"></script>
+	<script src="js/sly.min.js"></script>
+	<script src="js/jquery.nicescroll.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/script.js"></script>
 </head>
