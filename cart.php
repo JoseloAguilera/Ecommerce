@@ -1,14 +1,21 @@
 <?php 
+    ini_set('display_errors', 1);
 	session_start();
+	if (isset($_SESSION['cart'])) {
+		$cart = array($_SESSION['cart']); 
+	}
+	//var_dump($cart);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
 	include("includes/head.php");
 	include("includes/funciones.php"); 
-	session_start();
-	$cart = array($_SESSION['cart']); 
-	var_dump($cart);
+	include("includes/cart.php");
+	
+	
+	//var_dump($cart);
+	//session_destroy();
 ?>
 <body>
 	<!-- Page Preloder >
@@ -26,11 +33,10 @@
 		<div class="container">
 			<div class="site-breadcrumb">
 				<a href="">Home</a> / 
-				<a href="">Sales</a> / 
-				<a href="">Bags</a> / 
-				<span>Cart</span>
+				<a href="categorie.php">Produtos</a> / 
+				<span>Carrito de Compras</span>
 			</div>
-			<img src="img/page-info-art.png" alt="" class="page-info-art">
+			
 		</div>
 	</div>
 	<!-- Page Info end -->
@@ -39,7 +45,11 @@
 	<!-- Page -->
 	<div class="page-area cart-page spad">
 		<div class="container">
-			<div class="cart-table">
+			<?php if (!isset($cart)) {
+				echo "NO PROSEE NINGUN PRODUCTO EN SU CARRITO DE COMPRAS";
+			} else { ?>
+				<div class="cart-table">
+				<br><br>
 				<table>
 					<thead>
 						<tr>
@@ -52,84 +62,83 @@
 					<tbody>
 						
 						<?php foreach ($_SESSION['cart'] as $producto) { ?>	
+						 
+							<tr>		
+							<form action="cart.php"  method="post" ?>				
+							    <!--input type="text" class="d-none" name="action" value="updatecart"-->
+								<input type="text" name="id" value="<?php echo $producto['idproducto'] ?>" class="d-none">
 							
-							<tr>
+						
 							<td class="product-col">
-								<img src="admin/img/<?php echo $producto['img_producto'] ?>" alt="">
-								<div class="pc-title">
-									<h4><?php echo $producto['nombre'] ?></h4>
-									<a href="#">Editar</a>
-								</div>
-							</td>
-							<td class="price-col"><?php echo $producto['valor_minorista'] ?></td>
-							<td class="quy-col">
-								<div class="quy-input">
-									<span>Qty</span>
-									<input type="number" value="01">
-								</div>
-							</td>
-							<td class="total-col">$59.90</td>
-						</tr>
 
-
+									<img src="admin/img/<?php echo $producto['img_producto'] ?>" alt="">
+									<div class="pc-title">
+										<h4><?php echo $producto['nombre'] ?></h4>
+										
+									</div>
+								</td>
+								<td class="price-col"><?php echo $producto['valor_minorista'] ?></td>
+								
+								<td class="quy-col">
+									<div class="quy-input">
+										<span>Qty</span>
+										<input type="number" name="qty" value="<?php echo($producto['qty']) ?>" >
+									</div>
+								</td>
+								
+								<?php $precio = $producto['qty']*$producto['valor_minorista']?>
+								<td class="total-col">
+									<span>
+										<?php echo $precio ?>
+										
+										<!--input type="text" name="qtyup" value="" class=""-->
+										<button type="submit" name=action value="updatecart" class="btn btn-success">  <i class="fa fa-refresh" aria-hidden="true"></i></button>
+									
+									    <button type="submit" name=action value="deletecart" class="btn btn-danger">  <i class="fa fa-trash" aria-hidden="true"></i></button>
+								</span>
+									
+								</td>
+								</form>	
+							</tr>	
+									
 						<?php 	} ?>
+						
 					</tbody>
-				</table>
+				</table>	
+			
+				<div class="text-right">
+					<br>
+				<h4>TOTAL DECOMPRAS</h4>
+
+				
+				<?php
+				$total=0;
+				foreach ($_SESSION['cart'] as $TotalProducto) { 					
+					$TotalItem = $TotalProducto['qty']*$TotalProducto['valor_minorista'];
+					$total = $total + $TotalItem;
+					$_SESSION['total'] =$total;
+				}
+				if ($_SESSION['total_item_cart'] == 0) {
+					$_SESSION['total'] =0;
+					unset($_SESSION['cart']);
+				}
+				?>
+
+				<?php echo number_format($_SESSION['total'], 0, ',', '.')." gs";?>
+				</div>
 			</div>
 			<div class="row cart-buttons">
 				<div class="col-lg-5 col-md-5">
-					<div class="site-btn btn-continue">Continue shooping</div>
+					<div class="site-btn btn-continue">Continuar Comprando</div>
 				</div>
 				<div class="col-lg-7 col-md-7 text-lg-right text-left">
-					<div class="site-btn btn-clear">Clear cart</div>
-					<div class="site-btn btn-line btn-update">Update Cart</div>
+					<div class="site-btn btn-clear">Cancelar Pedido</div>
+					<a href="checkout.php"><div class="site-btn btn-line btn-update">FINALIZAR COMPRA</div></a>
 				</div>
 			</div>
+		<?php }?>
 		</div>
-		<div class="card-warp">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="shipping-info">
-							<h4>Shipping method</h4>
-							<p>Select the one you want</p>
-							<div class="shipping-chooes">
-								<div class="sc-item">
-									<input type="radio" name="sc" id="one">
-									<label for="one">Next day delivery<span>$4.99</span></label>
-								</div>
-								<div class="sc-item">
-									<input type="radio" name="sc" id="two">
-									<label for="two">Standard delivery<span>$1.99</span></label>
-								</div>
-								<div class="sc-item">
-									<input type="radio" name="sc" id="three">
-									<label for="three">Personal Pickup<span>Free</span></label>
-								</div>
-							</div>
-							<h4>Cupon code</h4>
-							<p>Enter your cupone code</p>
-							<div class="cupon-input">
-								<input type="text">
-								<button class="site-btn">Apply</button>
-							</div>
-						</div>
-					</div>
-					<div class="offset-lg-2 col-lg-6">
-						<div class="cart-total-details">
-							<h4>Cart total</h4>
-							<p>Final Info</p>
-							<ul class="cart-total-card">
-								<li>Subtotal<span>$59.90</span></li>
-								<li>Shipping<span>Free</span></li>
-								<li class="total">Total<span>$59.90</span></li>
-							</ul>
-							<a class="site-btn btn-full" href="checkout.php">Proceed to checkout</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	<!-- Page end -->
 

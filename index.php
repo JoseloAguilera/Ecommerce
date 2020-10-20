@@ -2,7 +2,7 @@
 	session_start();
 ?>
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="es">
 <?php 
 	require "includes/funciones.php";
 	include("includes/head.php"); 
@@ -30,10 +30,10 @@
 				  </ol>
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img class="d-block w-100" src="img/bg2.jpg" alt="First slide">
+				      <img class="d-block w-100" src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1603121583962-1650454221-02b45b607b78830556e74e08a8e69ded1603121587.jpg?164778436" alt="First slide">
 				    </div>
 				    <div class="carousel-item">
-				      <img class="d-block w-100" src="img/bg3.jpg" alt="Second slide">
+				      <img class="d-block w-100" src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1597096638181-1942437578-7ed2caa366b1f105f1790a02db9a36291597096639.jpg?164778436" alt="Second slide">
 				    </div>
 				  </div>
 				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -93,10 +93,16 @@
 										}
 										echo $precio;
 									?></p>
-						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
+									</a>
+									<form action="cart.php" method="post">
+						   				<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+						   				<input type="hidden" value="1" name="qty">
+						    			<button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
+
+									</form>
+
 					</div>
 				</div>
-				</a>
 				</div>
 
 				<?php 	$switch=$switch+1;	
@@ -177,10 +183,17 @@
 										}
 										echo $precio;
 									?></p>
-						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
+									</a>
+						<form action="cart.php" method="post">
+						   <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+						   <input type="hidden" value="1" name="qty">
+						    <button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
+
+						</form>
+						<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
 					</div>
 				</div>
-				</a>
+				
 				</div>
 				</div>
 

@@ -1,11 +1,12 @@
-<?php 
-	session_start();
+<?php
+ob_start();
+session_start();	
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
 <?php 
-    $id= $_GET['id'];
-	session_start();
+	$id= $_GET['id'];
+	ini_set('display_errors', 1);
 	include("includes/head.php");
 	include("includes/funciones.php");
 	include("includes/cart.php");
@@ -23,8 +24,7 @@
 	<div class="page-info-section page-info">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="index.php">Inicio</a> / 
-				<!--a href="">Femenino</a> /--> 
+				<a href="categorie.php">Productos</a> / 
 				<span><?php echo $producto['nombre'];?></span>
 			</div>
 			<!--h2 class="product-tittle">Cartera femenina</h2-->
@@ -36,6 +36,18 @@
 
 	<!-- Page -->
 	<div class="page-area product-page spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">	
+				<?php if (isset($_GET['action']) && $_GET['action'] == "addcart") {	echo "
+				<hr><br><div class='alert alert-success' role='alert'>PRODUCTO AÑADIDO AL CARRITO<br> 
+				<a class='white' href='index.php'>CONTINUAR COMPRANDO?</a> 
+				<a class='white' href='cart.php'>REALIZAR PAGO</a></div><hr><br>";
+				} else {echo "";}?>	
+			</div>
+		</div>
+	</div>
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
@@ -103,7 +115,17 @@
 								<label for="xxl-size">XXL</label>
 							</div>
 						</div-->
-						<a href="#" class="site-btn btn-buy">ANADIR AL CARRITO</a>
+						<form action="" method="post">
+						   <input type="hidden" value="<?php echo $id; ?>" name="id">
+						   <input type="number" value="1" name="qty">
+						   <br><br>
+						   <hr>
+						   <button type="submit" class="site-btn btn-buy" name="action" value="addcart" >AÑADIR AL CARRITO</button>
+
+						</form>
+						
+						<!--a href="?id=<?php //echo $id ?>&action=addcart&qty=1" class="site-btn btn-buy">ANADIR AL CARRITO</a-->
+						
 						<br><br>
 						<hr>
 						<h4><?php echo $producto['descripcion'];?>

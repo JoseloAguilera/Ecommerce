@@ -217,4 +217,18 @@
 		return $result;
 	}
 
+	function countCart() {
+		$total=0;
+		if (isset($_SESSION['cart'])) {
+			foreach ($_SESSION['cart'] as $counter) { 				
+				$total++;		
+			}
+			$_SESSION['total_item_cart'] = $total;
+			return $total;
+		} else {
+			return $total;
+		}
+		
+	}
+
 ?>

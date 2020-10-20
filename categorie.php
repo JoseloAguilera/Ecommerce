@@ -254,10 +254,13 @@ $productos = getProdbyCategoria($categoria);
 											}
 											echo $precio;
 										?></p>
-							<a href="" class="site-btn btn-line">Agregar al Carrito</a>
+										</a>
+										<form action="cart.php" method="post">
+						   					<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+						   					<input type="hidden" value="1" name="qty">
+						    				<button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
+										</form>
 						</div>
-					</div>
-					</a>
 				</div>
 
 				
