@@ -8,22 +8,26 @@
 	include("includes/head.php");
 	include("includes/funciones.php");
     include("includes/cart.php");
-    
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
-		if (isset($_POST['login'])){
-            // var_dump($_POST);
-            if(isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['contrasena']) &&  $_POST['contrasena'] != '' ) {
-                $contrasena = md5($_POST['contrasena']);
-                $login = getUsuario ($_POST['email'], $contrasena);
+	
+	$cliente = getCliente($_SESSION['cli']);
+	$direccion = getDireccion($_SESSION['cli']);
+	$telefono = getContacto($_SESSION['cli'], "cel");
+	$email = getContacto($_SESSION['cli'], "email");
+    // if($_SERVER['REQUEST_METHOD'] == "POST") {
+	// 	if (isset($_POST['login'])){
+    //         // var_dump($_POST);
+    //         if(isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['contrasena']) &&  $_POST['contrasena'] != '' ) {
+    //             $contrasena = md5($_POST['contrasena']);
+    //             $login = getUsuario ($_POST['email'], $contrasena);
                 
-                $_SESSION['email'] = $_POST['email'];
-                $_SESSION['usuario'] = $login['nombre'];
-                echo "<script type='text/javascript'>document.location.href='index.php';</script>";
-            } else {
-                $mensaje = '<p class="alert alert-danger">Por favor, Ingrese Todos los Datos!</p>';
-            }
-        }
-    }
+    //             $_SESSION['email'] = $_POST['email'];
+    //             $_SESSION['usuario'] = $login['nombre'];
+    //             echo "<script type='text/javascript'>document.location.href='index.php';</script>";
+    //         } else {
+    //             $mensaje = '<p class="alert alert-danger">Por favor, Ingrese Todos los Datos!</p>';
+    //         }
+    //     }
+    // }
  ?>
 <body>
 		
@@ -59,10 +63,16 @@
 							<h3>Tus Datos</h3>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label for="nombre">Nombre Completo</label>
-									<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Completo" maxlength="80">
+									<label for="nombre">Nombre</label>
+									<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="<?php echo $cliente['nombre'];?>" maxlength="80">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="nombre">Apellido</label>
+									<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" value="<?php echo $cliente['apellido'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -74,14 +84,14 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">+595</span>
 										</div>
-										<input type="text" class="form-control" placeholder="telefono" aria-label="telefono" placeholder="9999 999999">
+										<input type="text" class="form-control" placeholder="telefono" aria-label="telefono" placeholder="9999 999999" value="<?php echo $telefono['contacto'];?>">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Email</label>
-									<input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" maxlength="80">
+									<input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" value="<?php echo $email['contacto'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -95,13 +105,13 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="nombre">RUC</label>
-									<input type="text" class="form-control" id="ruc" name="ruc" placeholder="9999999999" maxlength="20">
+									<input type="text" class="form-control" id="ruc" name="ruc" placeholder="9999999999" value="<?php echo $cliente['nro_documento'];?>" maxlength="20">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Razón Social</label>
-									<input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="Razón Social" maxlength="80">
+									<input type="text" class="form-control" id="razonsocial" name="razonsocial" placeholder="Razón Social" value="<?php echo $cliente['razon_social'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -113,13 +123,13 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Ciudad</label>
-									<input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" maxlength="80">
+									<input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="<?php echo $direccion['ciudad'];?>" maxlength="80">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Barrio</label>
-									<input type="text" class="form-control" id="barrio" name="barrio" placeholder="Barrio" maxlength="80">
+									<input type="text" class="form-control" id="barrio" name="barrio" placeholder="Barrio" value="<?php echo $direccion['barrio'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -127,7 +137,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="nombre">Calle</label>
-									<input type="text" class="form-control" id="calle" name="calle" placeholder="Calle, Nro 0" maxlength="80">
+									<input type="text" class="form-control" id="calle" name="calle" placeholder="Calle, Nro 0" value="<?php echo $direccion['calle'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>

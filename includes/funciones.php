@@ -231,4 +231,58 @@
 		
 	}
 
+	function getCliente ($id) {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cliente 
+                WHERE tb_cliente.id = $id";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	
+	function getDireccion ($id) {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cli_direccion 
+                WHERE tb_cli_direccion.id_cliente = $id";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	
+	function getContacto ($id, $tipo) {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cli_contacto
+                WHERE tb_cli_contacto.id_cliente = $id AND tb_cli_contacto.tipo = '$tipo'";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+    }
+
 ?>

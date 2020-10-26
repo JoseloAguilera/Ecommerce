@@ -25,6 +25,7 @@
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['usuario'] = $login['nombre'];
                     $_SESSION['mayorista'] = $login['mayorista'];
+                    $_SESSION['cli'] = $login['id_cliente'];
                     
                     echo "<script type='text/javascript'>document.location.href='index.php';</script>";
                 }                
