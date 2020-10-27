@@ -1,5 +1,9 @@
 <?php 
 	session_start();
+
+	if (!isset($_SESSION['usuario'])) {
+		header('Location: ingresar.php');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -11,23 +15,32 @@
 	
 	$cliente = getCliente($_SESSION['cli']);
 	$direccion = getDireccion($_SESSION['cli']);
-	$telefono = getContacto($_SESSION['cli'], "cel");
-	$email = getContacto($_SESSION['cli'], "email");
-    // if($_SERVER['REQUEST_METHOD'] == "POST") {
-	// 	if (isset($_POST['login'])){
-    //         // var_dump($_POST);
-    //         if(isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['contrasena']) &&  $_POST['contrasena'] != '' ) {
-    //             $contrasena = md5($_POST['contrasena']);
-    //             $login = getUsuario ($_POST['email'], $contrasena);
-                
-    //             $_SESSION['email'] = $_POST['email'];
-    //             $_SESSION['usuario'] = $login['nombre'];
-    //             echo "<script type='text/javascript'>document.location.href='index.php';</script>";
-    //         } else {
-    //             $mensaje = '<p class="alert alert-danger">Por favor, Ingrese Todos los Datos!</p>';
-    //         }
-    //     }
-    // }
+
+	$departs = getDepartamentos();
+	
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+		var_dump($_POST);
+		if (isset($_POST['guardar'])){
+			$ruc = preg_replace('/\D/', '', $_POST['ruc']);
+			$guardar = saveCliente ($_SESSION['cli'], $_POST['nombre'], $_POST['apellido'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], "depart", "ciudad", "calle");
+
+			if ($guardar == $_SESSION['cli']) {
+				$tipomensaje = 'success';
+				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';
+				
+				$cliente = getCliente($_SESSION['cli']);
+				$direccion = getDireccion($_SESSION['cli']);
+			} else if ($guardar == null) {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+			} else {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$guardar.'"</p>';
+			}
+
+			var_dump($guardar);
+        }
+    }
  ?>
 <body>
 		
@@ -84,14 +97,14 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">+595</span>
 										</div>
-										<input type="text" class="form-control" placeholder="telefono" aria-label="telefono" placeholder="9999 999999" value="<?php echo $telefono['contacto'];?>">
+										<input type="text" class="form-control" id="telefono" name="telefono" aria-label="telefono" placeholder="9999 999999" value="<?php echo $cliente['telefono'];?>">
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Email</label>
-									<input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" value="<?php echo $email['contacto'];?>" maxlength="80">
+									<input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" value="<?php echo $cliente['email'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -122,14 +135,27 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="nombre">Ciudad</label>
-									<input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="<?php echo $direccion['ciudad'];?>" maxlength="80">
+									<label for="tipo">Departamento</label>
+									<select class="selectpicker" id="departamento" name="departamento" data-width="100%" data-live-search="true" onchange="carregaCiudades()">
+										<option value="NULL"> -- Seleccione un Departamento -- </option>
+										<?php
+											if ($departs != null) {
+												foreach ($departs as $row) {														
+										?>
+											<option value="<?php echo $row['id'];?>"><?php echo $row['nombre'];?></option> 
+										<?php 
+												} //END FOREACH
+											} //END IF
+										?>
+									</select>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="nombre">Barrio</label>
-									<input type="text" class="form-control" id="barrio" name="barrio" placeholder="Barrio" value="<?php echo $direccion['barrio'];?>" maxlength="80">
+									<label for="nombre">Ciudad</label>
+									<select class="selectpicker" id="ciudad" name="ciudad" data-width="100%" data-live-search="true">
+										<option value="NULL"> -- Seleccione una Ciudad -- </option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -160,7 +186,7 @@
 						<hr>
 						<div class="row text-center">
 							<div class="col-md-12">
-								<button type="submit" class="btn btn-primary" name="nuevo">Guardar los Cambios</button>
+								<button type="submit" class="btn btn-primary" name="guardar">Guardar los Cambios</button>
 							</div>
 						</div>
                     </form>
@@ -169,6 +195,11 @@
 		</div>
 	</div>
 	<!-- Page end -->
+
+	<script>
+		$('select').selectpicker();
+	</script>
+	<script src="js/u_depart_ciudades.js"></script>
 
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>

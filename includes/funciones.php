@@ -129,6 +129,7 @@
 		return $result;
 	}
 
+
 	function getCategoria ($categoria) {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_categoria WHERE id = '$categoria' ";
@@ -201,7 +202,10 @@
 	function getUsuario ($email, $contrasena) {
 		$connection = conn();
 
-		$sql= "SELECT tb_usuario_cliente.*, tb_cliente.nombre, tb_cliente.mayorista from tb_usuario_cliente LEFT JOIN tb_cliente ON tb_usuario_cliente.id_cliente = tb_cliente.id WHERE email = '$email' AND contrasena = '$contrasena'";
+		$sql= "SELECT tb_usuario_cliente.*, tb_cliente.* from tb_usuario_cliente 
+		LEFT JOIN tb_cliente ON tb_usuario_cliente.id_cliente = tb_cliente.id 
+		WHERE tb_usuario_cliente.email = '$email' AND contrasena = '$contrasena'";
+
 		$query= $connection->prepare($sql);
 		$query->execute();
 		$result = null;
@@ -217,6 +221,7 @@
 		return $result;
 	}
 
+
 	function countCart() {
 		$total=0;
 		if (isset($_SESSION['cart'])) {
@@ -229,6 +234,94 @@
 			return $total;
 		}
 		
+	}
+
+
+
+	
+	function getMetodosDePago() {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_met_pago ORDER BY id ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+
+	
+	function getMetodosDeEnvio() {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_met_envio ORDER BY id ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getTotalCart(){
+		   $total=0;
+			if (isset($_SESSION['cart'])) {
+				foreach ($_SESSION['cart'] as $TotalProducto) { 					
+					$TotalItem = $TotalProducto['qty']*$TotalProducto['valor_minorista'];
+					$total = $total + $TotalItem;
+					$_SESSION['total'] = $total;
+				}
+				if ($_SESSION['total_item_cart'] == 0) {
+					$_SESSION['total'] = 0;
+					unset($_SESSION['cart']);
+				}
+			} else {
+				$_SESSION['total'] = 0;
+			}
+			return $_SESSION['total'];
+			
+	}
+
+	function getDepartamentos () {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_departamento ORDER BY id ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getCiudades ($id) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_ciudad WHERE id_departamento = '$id' ORDER BY id ASC";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
 	}
 
 	function getCliente ($id) {
@@ -267,22 +360,80 @@
 		return $result;
 	}
 	
-	function getContacto ($id, $tipo) {
+	function saveCliente ($id, $nombre, $apellido, $nrodoc, $razonsocial, $telefono, $email, $depart, $ciudad, $calle) {
 		$connection = conn();
-        $sql = "SELECT * FROM tb_cli_contacto
-                WHERE tb_cli_contacto.id_cliente = $id AND tb_cli_contacto.tipo = '$tipo'";
-        
-		$query = $connection->prepare($sql);
-		$query->execute();
+		try {
+			$sql = "SELECT * from tb_cliente WHERE id = '$id'";
+			$query = $connection->prepare($sql);
+			$query->execute();
 
-		if ($query->rowCount() > 0) {
-			$result= $query->fetch();
-		} else {
-			$result = null;
+			if ($query->rowCount() > 0) {
+				$sql = "UPDATE tb_cliente SET nombre = '$nombre', nombre = '$nombre', apellido = '$apellido', tipo_documento = 'CI', nro_documento = '$nrodoc', razon_social = '$razonsocial', telefono = '$telefono', email = '$email'
+	 					WHERE id = '$id'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+
+				if ($query->rowCount() > 0) {
+					$result = $id;
+				} else {
+					$result = $id; //Sem alteração
+				}
+
+				// if ($result == $id) {
+				// 	$direccion = saveCliDireccion ($id, $depart, $ciudad, $calle);
+
+				// 	if ($direccion == $id ) {
+				// 		$result = $id;
+				// 	} else {
+				// 		$result = 'Erro al guardar las direccion del cliente.';
+				// 	}
+				// } else {
+				// 	$result = 'Erro al guardar los datos del cliente.';
+				// }
+			} else {
+				$result = null;
+			}			
+		} catch (\Exception $e) {
+			$result = $e;
 		}
-
 		$connection = disconn($connection);
 		return $result;
     }
 
+	function saveCliDireccion ($id, $depart, $ciudad, $calle) {
+		$connection = conn();
+		try {
+			$sql = "SELECT * from tb_cli_direccion WHERE id_cliente = '$id'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			if ($query->rowCount() > 0) {
+				$sql = "UPDATE tb_cli_direccion SET departamento = '$depart', ciudad = '$ciudad', calle = '$calle'
+	 					WHERE tb_cli_direccion = '$id'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+
+				if ($query->rowCount() > 0) {
+					$result = $id;
+				} else {
+					$result = $id; //Sem alteração
+				}
+			} else {
+				$sql = "INSERT INTO tb_cli_direccion (id_cliente, departamento, ciudad, calle, favorito)
+		 			VALUES ('$id', '$depart', '$ciudad', '$calle', 1)";
+				$query = $connection->prepare($sql);
+				$query->execute();
+
+				if ($query->rowCount() > 0) {
+					$result = $id;
+				} else {
+					$result = null;
+				}
+			}			
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
+    }
 ?>
