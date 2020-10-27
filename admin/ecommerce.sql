@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 17-10-2020 a las 00:09:06
--- Versión del servidor: 5.7.21
--- Versión de PHP: 7.2.4
+-- Host: 127.0.0.1:3306
+-- Tempo de geração: 27-Out-2020 às 20:00
+-- Versão do servidor: 10.4.10-MariaDB
+-- versão do PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,15 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ecommerce`
+-- Banco de dados: `ecommerce`
 --
-CREATE DATABASE IF NOT EXISTS `ecommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `ecommerce`;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_atributo`
+-- Estrutura da tabela `tb_atributo`
 --
 
 DROP TABLE IF EXISTS `tb_atributo`;
@@ -39,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `tb_atributo` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_atributo`
+-- Extraindo dados da tabela `tb_atributo`
 --
 
 INSERT INTO `tb_atributo` (`id`, `nombre`, `activo`) VALUES
@@ -49,7 +47,7 @@ INSERT INTO `tb_atributo` (`id`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_atr_valor`
+-- Estrutura da tabela `tb_atr_valor`
 --
 
 DROP TABLE IF EXISTS `tb_atr_valor`;
@@ -62,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `tb_atr_valor` (
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_atr_valor`
+-- Extraindo dados da tabela `tb_atr_valor`
 --
 
 INSERT INTO `tb_atr_valor` (`id`, `id_atributo`, `nombre`, `activo`) VALUES
@@ -75,7 +73,7 @@ INSERT INTO `tb_atr_valor` (`id`, `id_atributo`, `nombre`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_banner`
+-- Estrutura da tabela `tb_banner`
 --
 
 DROP TABLE IF EXISTS `tb_banner`;
@@ -90,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tb_banner` (
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_banner`
+-- Extraindo dados da tabela `tb_banner`
 --
 
 INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALUES
@@ -101,7 +99,7 @@ INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALU
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_categoria`
+-- Estrutura da tabela `tb_categoria`
 --
 
 DROP TABLE IF EXISTS `tb_categoria`;
@@ -115,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `tb_categoria` (
 ) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_categoria`
+-- Extraindo dados da tabela `tb_categoria`
 --
 
 INSERT INTO `tb_categoria` (`id`, `nombre`, `id_padre`, `menu`, `activo`) VALUES
@@ -136,7 +134,29 @@ INSERT INTO `tb_categoria` (`id`, `nombre`, `id_padre`, `menu`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_cliente`
+-- Estrutura da tabela `tb_ciudad`
+--
+
+DROP TABLE IF EXISTS `tb_ciudad`;
+CREATE TABLE IF NOT EXISTS `tb_ciudad` (
+  `id` int(11) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
+  `id_departamento` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_ciudad`
+--
+
+INSERT INTO `tb_ciudad` (`id`, `nombre`, `id_departamento`) VALUES
+(1, 'CDE', 1),
+(2, 'HERNANDARIAS', 1),
+(3, 'ASUNCION', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_cliente`
 --
 
 DROP TABLE IF EXISTS `tb_cliente`;
@@ -148,44 +168,24 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nro_documento` int(11) DEFAULT NULL,
   `razon_social` varchar(80) DEFAULT NULL,
   `mayorista` tinyint(1) NOT NULL,
+  `telefono` varchar(20) DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_cliente`
+-- Extraindo dados da tabela `tb_cliente`
 --
 
-INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`) VALUES
-(1, 'Ana', 'Carolina', NULL, NULL, NULL, 0);
+INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`, `telefono`, `email`) VALUES
+(1, 'Ana Carolina', 'de Vernazza', 'RUC', 2498760, 'Mario Vernazza', 0, '0983781248', 'anacarolinaapv@gmail.com'),
+(2, 'Juan', 'richard', NULL, NULL, NULL, 0, NULL, NULL),
+(3, 'RICHARD', 'CABRERA', 'CI', 4402651, 'CAPAICT', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_cli_contacto`
---
-
-DROP TABLE IF EXISTS `tb_cli_contacto`;
-CREATE TABLE IF NOT EXISTS `tb_cli_contacto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_cliente` int(11) NOT NULL,
-  `tipo` varchar(5) NOT NULL COMMENT 'cel/tel/email',
-  `contacto` varchar(80) NOT NULL,
-  `favorito` tinyint(1) NOT NULL COMMENT '0 -> no 1 -> sí',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `tb_cli_contacto`
---
-
-INSERT INTO `tb_cli_contacto` (`id`, `id_cliente`, `tipo`, `contacto`, `favorito`) VALUES
-(1, 1, 'email', 'anacarolinaapv@gmail.com', 1),
-(2, 1, 'cel', '0983 781 248', 0);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tb_cli_direccion`
+-- Estrutura da tabela `tb_cli_direccion`
 --
 
 DROP TABLE IF EXISTS `tb_cli_direccion`;
@@ -194,15 +194,44 @@ CREATE TABLE IF NOT EXISTS `tb_cli_direccion` (
   `id_cliente` int(11) NOT NULL,
   `calle` varchar(80) NOT NULL,
   `ciudad` varchar(80) NOT NULL,
-  `provincia` varchar(80) NOT NULL,
+  `departamento` varchar(80) NOT NULL,
+  `referencia` varchar(80) DEFAULT NULL,
   `favorito` tinyint(1) NOT NULL COMMENT '0 -> no 1 -> sí',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_cli_direccion`
+--
+
+INSERT INTO `tb_cli_direccion` (`id`, `id_cliente`, `calle`, `ciudad`, `departamento`, `referencia`, `favorito`) VALUES
+(1, 3, 'AVDA. SAN BLAS, KM 3 Y MEDIO CDE', '1', '1', '', 1),
+(3, 1, 'Calle Las Tacuaras', '2', '1', 'Cerca de Capitão Bar KM4', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_marca`
+-- Estrutura da tabela `tb_departamento`
+--
+
+DROP TABLE IF EXISTS `tb_departamento`;
+CREATE TABLE IF NOT EXISTS `tb_departamento` (
+  `id` int(11) DEFAULT NULL,
+  `nombre` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_departamento`
+--
+
+INSERT INTO `tb_departamento` (`id`, `nombre`) VALUES
+(1, 'Alto Parana'),
+(2, 'Central');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_marca`
 --
 
 DROP TABLE IF EXISTS `tb_marca`;
@@ -215,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `tb_marca` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_marca`
+-- Extraindo dados da tabela `tb_marca`
 --
 
 INSERT INTO `tb_marca` (`id`, `nombre`, `url`, `activo`) VALUES
@@ -225,20 +254,30 @@ INSERT INTO `tb_marca` (`id`, `nombre`, `url`, `activo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_met_envio`
+-- Estrutura da tabela `tb_met_envio`
 --
 
 DROP TABLE IF EXISTS `tb_met_envio`;
 CREATE TABLE IF NOT EXISTS `tb_met_envio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(80) NOT NULL,
+  `costo` double DEFAULT 0,
+  `default` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_met_envio`
+--
+
+INSERT INTO `tb_met_envio` (`id`, `descripcion`, `costo`, `default`) VALUES
+(1, 'AEX', NULL, 0),
+(2, 'Retirar en la Tienda', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_met_pago`
+-- Estrutura da tabela `tb_met_pago`
 --
 
 DROP TABLE IF EXISTS `tb_met_pago`;
@@ -246,12 +285,32 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_met_pago`
+--
+
+INSERT INTO `tb_met_pago` (`id`, `descripcion`) VALUES
+(1, 'TARJETA / PAGO EXPRESS / PAGOPAR'),
+(2, 'GIROS TIGO');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_pedido`
+-- Estrutura da tabela `tb_pais`
+--
+
+DROP TABLE IF EXISTS `tb_pais`;
+CREATE TABLE IF NOT EXISTS `tb_pais` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_pedido`
 --
 
 DROP TABLE IF EXISTS `tb_pedido`;
@@ -264,13 +323,14 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id_cli_direccion` int(11) NOT NULL,
   `total` double NOT NULL,
   `id_factura` int(11) DEFAULT NULL,
+  `observacion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_ped_detalle`
+-- Estrutura da tabela `tb_ped_detalle`
 --
 
 DROP TABLE IF EXISTS `tb_ped_detalle`;
@@ -287,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `tb_ped_detalle` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_producto`
+-- Estrutura da tabela `tb_producto`
 --
 
 DROP TABLE IF EXISTS `tb_producto`;
@@ -305,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_producto`
+-- Extraindo dados da tabela `tb_producto`
 --
 
 INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`) VALUES
@@ -325,7 +385,7 @@ INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_m
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_producto_atributo`
+-- Estrutura da tabela `tb_producto_atributo`
 --
 
 DROP TABLE IF EXISTS `tb_producto_atributo`;
@@ -336,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_atributo` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_producto_atributo`
+-- Extraindo dados da tabela `tb_producto_atributo`
 --
 
 INSERT INTO `tb_producto_atributo` (`id_producto`, `id_atributo`) VALUES
@@ -346,7 +406,7 @@ INSERT INTO `tb_producto_atributo` (`id_producto`, `id_atributo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_producto_categoria`
+-- Estrutura da tabela `tb_producto_categoria`
 --
 
 DROP TABLE IF EXISTS `tb_producto_categoria`;
@@ -357,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_categoria` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_producto_categoria`
+-- Extraindo dados da tabela `tb_producto_categoria`
 --
 
 INSERT INTO `tb_producto_categoria` (`id_producto`, `id_categoria`) VALUES
@@ -393,7 +453,7 @@ INSERT INTO `tb_producto_categoria` (`id_producto`, `id_categoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_producto_img`
+-- Estrutura da tabela `tb_producto_img`
 --
 
 DROP TABLE IF EXISTS `tb_producto_img`;
@@ -407,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_img` (
 ) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_producto_img`
+-- Extraindo dados da tabela `tb_producto_img`
 --
 
 INSERT INTO `tb_producto_img` (`id`, `url`, `id_producto`, `orden`, `activo`) VALUES
@@ -428,7 +488,7 @@ INSERT INTO `tb_producto_img` (`id`, `url`, `id_producto`, `orden`, `activo`) VA
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_producto_stock`
+-- Estrutura da tabela `tb_producto_stock`
 --
 
 DROP TABLE IF EXISTS `tb_producto_stock`;
@@ -443,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_stock` (
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_producto_stock`
+-- Extraindo dados da tabela `tb_producto_stock`
 --
 
 INSERT INTO `tb_producto_stock` (`id`, `id_producto`, `stock`, `valor_minorista`, `valor_mayorista`, `activo`) VALUES
@@ -465,7 +525,7 @@ INSERT INTO `tb_producto_stock` (`id`, `id_producto`, `stock`, `valor_minorista`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_stock_valor`
+-- Estrutura da tabela `tb_stock_valor`
 --
 
 DROP TABLE IF EXISTS `tb_stock_valor`;
@@ -477,7 +537,7 @@ CREATE TABLE IF NOT EXISTS `tb_stock_valor` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_stock_valor`
+-- Extraindo dados da tabela `tb_stock_valor`
 --
 
 INSERT INTO `tb_stock_valor` (`id_atr_valor`, `id_stock`, `id_producto`) VALUES
@@ -489,7 +549,7 @@ INSERT INTO `tb_stock_valor` (`id_atr_valor`, `id_stock`, `id_producto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_usuario`
+-- Estrutura da tabela `tb_usuario`
 --
 
 DROP TABLE IF EXISTS `tb_usuario`;
@@ -502,7 +562,7 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_usuario`
+-- Extraindo dados da tabela `tb_usuario`
 --
 
 INSERT INTO `tb_usuario` (`id`, `usuario`, `password`, `nombre`) VALUES
@@ -511,7 +571,7 @@ INSERT INTO `tb_usuario` (`id`, `usuario`, `password`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_usuario_cliente`
+-- Estrutura da tabela `tb_usuario_cliente`
 --
 
 DROP TABLE IF EXISTS `tb_usuario_cliente`;
@@ -523,19 +583,21 @@ CREATE TABLE IF NOT EXISTS `tb_usuario_cliente` (
   `contrasena` varchar(100) NOT NULL,
   `creado_en` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `tb_usuario_cliente`
+-- Extraindo dados da tabela `tb_usuario_cliente`
 --
 
 INSERT INTO `tb_usuario_cliente` (`id`, `id_cliente`, `email`, `email_verificado`, `contrasena`, `creado_en`) VALUES
-(1, 1, 'anacarolinaapv@gmail.com', NULL, '9e32b70e18928d1dcbd73a8f4c8e119f', '2020-10-14');
+(1, 1, 'anacarolinaapv@gmail.com', NULL, '9e32b70e18928d1dcbd73a8f4c8e119f', '2020-10-14'),
+(2, 2, 'richardcabrera92@hotmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', '2020-10-22'),
+(3, 3, 'capacitcursoscde@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', '2020-10-22');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `transactions`
+-- Estrutura da tabela `transactions`
 --
 
 DROP TABLE IF EXISTS `transactions`;
@@ -548,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `buyerId` int(11) DEFAULT NULL,
   `orderItems` int(11) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
