@@ -19,26 +19,24 @@
 	$departs = getDepartamentos();
 	
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-		var_dump($_POST);
 		if (isset($_POST['guardar'])){
 			$ruc = preg_replace('/\D/', '', $_POST['ruc']);
-			$guardar = saveCliente ($_SESSION['cli'], $_POST['nombre'], $_POST['apellido'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], "depart", "ciudad", "calle");
+			$guardar = saveCliente ($_SESSION['cli'], $_POST['nombre'], $_POST['apellido'], $_POST['tipo'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], $_POST['departamento'], $_POST['ciudad'], $_POST['calle'], $_POST['referencias']);
 
 			if ($guardar == $_SESSION['cli']) {
 				$tipomensaje = 'success';
-				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';
+				$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente.</p>';
 				
 				$cliente = getCliente($_SESSION['cli']);
 				$direccion = getDireccion($_SESSION['cli']);
 			} else if ($guardar == null) {
 				$tipomensaje = 'error';
-				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
 			} else {
 				$tipomensaje = 'error';
-				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$guardar.'"</p>';
+				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error->"'.$guardar.'"</p>';
 			}
-
-			var_dump($guardar);
+			// var_dump($guardar);
         }
     }
  ?>
@@ -63,10 +61,15 @@
 	<!-- Page -->
 	<div class="page-area product-page spad">
 		<div class="container">
+			<?php
+				if (isset($mensaje)) {
+					echo $mensaje; //mensaje de error
+				}
+			?>
 			<div class="row" style="margin: 50px 0px;">
 				<div class="col-md-3 menu-perfil">
 					<h3>Opciones</h3>
-					<a href="#" class=""> <i class="fas fa-user" aria-hidden="true"></i> Perfil</a>
+					<a href="#" class=""> <i class="fas fa-user" aria-hidden="true"></i> Mi Cuenta</a>
 					<a href="#" class=""> <i class="fas fa-shopping-bag" aria-hidden="true"></i> Mis Compras</a>
 					<a href="salir.php" class=""> <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Salir</a>
 				</div>
@@ -111,13 +114,25 @@
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="nombre">Fecha Nacimento</label>
-									<input type="text" class="form-control" id="nacimento" name="nacimento" placeholder="99/99/9999" maxlength="20">
+									<label for="nombre">Tipo Documento</label>
+									<select class="selectpicker" id="tipo" name="tipo" data-width="100%">
+										<?php 
+											$selectRUC = "";
+											$selectCI = "";
+											if ($cliente['tipo_documento'] == 'RUC') {
+												$selectRUC = " selected";
+											} else {
+												$selectCI = " selected";
+											}
+										?>
+										<option value="RUC" <?php echo $selectRUC;?>> RUC </option>
+										<option value="CI" <?php echo $selectCI;?>> CI </option>
+									</select>
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="nombre">RUC</label>
+									<label for="nombre">Nro Documento</label>
 									<input type="text" class="form-control" id="ruc" name="ruc" placeholder="9999999999" value="<?php echo $cliente['nro_documento'];?>" maxlength="20">
 								</div>
 							</div>
@@ -140,9 +155,14 @@
 										<option value="NULL"> -- Seleccione un Departamento -- </option>
 										<?php
 											if ($departs != null) {
-												foreach ($departs as $row) {														
+												foreach ($departs as $row) {
+													if ($direccion['departamento'] == $row['id']) {
+														$selected = " selected";
+													} else {
+														$selected = "";
+													}										
 										?>
-											<option value="<?php echo $row['id'];?>"><?php echo $row['nombre'];?></option> 
+											<option value="<?php echo $row['id'];?>" <?php echo $selected;?>><?php echo $row['nombre'];?></option> 
 										<?php 
 												} //END FOREACH
 											} //END IF
@@ -153,6 +173,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="nombre">Ciudad</label>
+									<input type="hidden" class="form-control" id="alt-ciudad" placeholder="" value="<?php echo $direccion['ciudad'];?>" maxlength="80">
 									<select class="selectpicker" id="ciudad" name="ciudad" data-width="100%" data-live-search="true">
 										<option value="NULL"> -- Seleccione una Ciudad -- </option>
 									</select>
@@ -171,15 +192,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="nombre">Referencias</label>
-									<input type="text" class="form-control" id="referencias" name="referencias" placeholder="Referencias" maxlength="80">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label for="nombre">Observaciones</label>
-									<input type="text" class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones" maxlength="80">
+									<input type="text" class="form-control" id="referencias" name="referencias" placeholder="Referencias" value="<?php echo $direccion['referencia'];?>" maxlength="80">
 								</div>
 							</div>
 						</div>
@@ -196,10 +209,16 @@
 	</div>
 	<!-- Page end -->
 
+	<script src="js/u_depart_ciudades.js"></script>
 	<script>
 		$('select').selectpicker();
+
+		var ciudad = document.getElementById("alt-ciudad").value;
+		if (ciudad !== "") {
+			selectCiudad(ciudad);
+			console.log();
+		}
 	</script>
-	<script src="js/u_depart_ciudades.js"></script>
 
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>

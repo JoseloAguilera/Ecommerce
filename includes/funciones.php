@@ -170,8 +170,8 @@
 	function newUsuario ($nombre, $apellido, $email, $contrasena) {
 		$connection = conn();
 		try {
-			$sql = "INSERT INTO tb_cliente (nombre, apellido, mayorista)
-		 			VALUES ('$nombre', '$apellido', 0)";
+			$sql = "INSERT INTO tb_cliente (nombre, apellido, email, mayorista)
+		 			VALUES ('$nombre', '$apellido', '$email', 0)";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -360,7 +360,7 @@
 		return $result;
 	}
 	
-	function saveCliente ($id, $nombre, $apellido, $nrodoc, $razonsocial, $telefono, $email, $depart, $ciudad, $calle) {
+	function saveCliente ($id, $nombre, $apellido, $tipodoc, $nrodoc, $razonsocial, $telefono, $email, $depart, $ciudad, $calle, $referencias) {
 		$connection = conn();
 		try {
 			$sql = "SELECT * from tb_cliente WHERE id = '$id'";
@@ -368,7 +368,7 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_cliente SET nombre = '$nombre', nombre = '$nombre', apellido = '$apellido', tipo_documento = 'CI', nro_documento = '$nrodoc', razon_social = '$razonsocial', telefono = '$telefono', email = '$email'
+				$sql = "UPDATE tb_cliente SET nombre = '$nombre', nombre = '$nombre', apellido = '$apellido', tipo_documento = '$tipodoc', nro_documento = '$nrodoc', razon_social = '$razonsocial', telefono = '$telefono', email = '$email'
 	 					WHERE id = '$id'";
 				$query = $connection->prepare($sql);
 				$query->execute();
@@ -379,17 +379,17 @@
 					$result = $id; //Sem alteração
 				}
 
-				// if ($result == $id) {
-				// 	$direccion = saveCliDireccion ($id, $depart, $ciudad, $calle);
+				if ($result == $id) {
+					$direccion = saveCliDireccion ($id, $depart, $ciudad, $calle, $referencias);
 
-				// 	if ($direccion == $id ) {
-				// 		$result = $id;
-				// 	} else {
-				// 		$result = 'Erro al guardar las direccion del cliente.';
-				// 	}
-				// } else {
-				// 	$result = 'Erro al guardar los datos del cliente.';
-				// }
+					if ($direccion == $id ) {
+						$result = $id;
+					} else {
+						$result = 'Erro al guardar la direccion del cliente.';
+					}
+				} else {
+					$result = 'Erro al guardar los datos del cliente.';
+				}
 			} else {
 				$result = null;
 			}			
@@ -400,7 +400,7 @@
 		return $result;
     }
 
-	function saveCliDireccion ($id, $depart, $ciudad, $calle) {
+	function saveCliDireccion ($id, $depart, $ciudad, $calle, $referencias) {
 		$connection = conn();
 		try {
 			$sql = "SELECT * from tb_cli_direccion WHERE id_cliente = '$id'";
@@ -408,8 +408,8 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_cli_direccion SET departamento = '$depart', ciudad = '$ciudad', calle = '$calle'
-	 					WHERE tb_cli_direccion = '$id'";
+				$sql = "UPDATE tb_cli_direccion SET departamento = '$depart', ciudad = '$ciudad', calle = '$calle', referencia = '$referencias'
+	 					WHERE tb_cli_direccion.id_cliente = '$id'";
 				$query = $connection->prepare($sql);
 				$query->execute();
 
@@ -419,8 +419,8 @@
 					$result = $id; //Sem alteração
 				}
 			} else {
-				$sql = "INSERT INTO tb_cli_direccion (id_cliente, departamento, ciudad, calle, favorito)
-		 			VALUES ('$id', '$depart', '$ciudad', '$calle', 1)";
+				$sql = "INSERT INTO tb_cli_direccion (id_cliente, departamento, ciudad, calle, referencia, favorito)
+		 			VALUES ('$id', '$depart', '$ciudad', '$calle', '$referencias', 1)";
 				$query = $connection->prepare($sql);
 				$query->execute();
 
