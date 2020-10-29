@@ -52,8 +52,8 @@ $productos = getProdbyCategoria($categoria);
 	<div class="page-info-section page-info-big">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="">Inicio</a> / 
-				<span>Personalizados</span>
+				<a href="index.php">Inicio</a> / 
+				<span><?php echo getCategoria($categoria)['nombre']; ?></span>
 			</div>
 		</div>
 	</div>
@@ -254,7 +254,7 @@ $productos = getProdbyCategoria($categoria);
 											}
 											echo $precio;
 										?></p>
-							<!--a href="" class="site-btn btn-line">Agregar al Carrito</a-->
+							<a href="" class="site-btn btn-line">Agregar al Carrito</a>
 						</div>
 					</div>
 					</a>
