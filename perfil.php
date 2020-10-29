@@ -13,22 +13,22 @@
 	include("includes/funciones.php");
     include("includes/cart.php");
 	
-	$cliente = getCliente($_SESSION['cli']);
-	$direccion = getDireccion($_SESSION['cli']);
+	$cliente = getCliente($_SESSION['id_cliente']);
+	$direccion = getDireccion($_SESSION['id_cliente']);
 
 	$departs = getDepartamentos();
 	
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['guardar'])){
 			$ruc = preg_replace('/\D/', '', $_POST['ruc']);
-			$guardar = saveCliente ($_SESSION['cli'], $_POST['nombre'], $_POST['apellido'], $_POST['tipo'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], $_POST['departamento'], $_POST['ciudad'], $_POST['calle'], $_POST['referencias']);
+			$guardar = saveCliente ($_SESSION['id_cliente'], $_POST['nombre'], $_POST['apellido'], $_POST['tipo'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], $_POST['departamento'], $_POST['ciudad'], $_POST['calle'], $_POST['referencias']);
 
-			if ($guardar == $_SESSION['cli']) {
+			if ($guardar == $_SESSION['id_cliente']) {
 				$tipomensaje = 'success';
 				$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente.</p>';
 				
-				$cliente = getCliente($_SESSION['cli']);
-				$direccion = getDireccion($_SESSION['cli']);
+				$cliente = getCliente($_SESSION['id_cliente']);
+				$direccion = getDireccion($_SESSION['id_cliente']);
 			} else if ($guardar == null) {
 				$tipomensaje = 'error';
 				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';

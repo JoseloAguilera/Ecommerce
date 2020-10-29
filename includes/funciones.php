@@ -170,8 +170,8 @@
 	function newUsuario ($nombre, $apellido, $email, $contrasena) {
 		$connection = conn();
 		try {
-			$sql = "INSERT INTO tb_cliente (nombre, apellido, email, mayorista)
-		 			VALUES ('$nombre', '$apellido', '$email', 0)";
+			$sql = "INSERT INTO tb_cliente (nombre, apellido, mayorista)
+		 			VALUES ('$nombre', '$apellido', 0)";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -218,6 +218,23 @@
 
 		$connection = disconn($connection);
 
+		return $result;
+	}
+
+
+	function getClienteDireccion($id) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_cli_direccion WHERE id_cliente = '$id' LIMIT 1";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
 		return $result;
 	}
 
@@ -292,7 +309,7 @@
 			
 	}
 
-	function getDepartamentos () {
+	function getDepartamentos() {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_departamento ORDER BY id ASC";
 		$query = $connection->prepare($sql);
@@ -308,7 +325,7 @@
 		return $result;
 	}
 
-	function getCiudades ($id) {
+	function getCiudades($id) {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_ciudad WHERE id_departamento = '$id' ORDER BY id ASC";
 		$query = $connection->prepare($sql);
@@ -436,4 +453,5 @@
 		$connection = disconn($connection);
 		return $result;
     }
+
 ?>

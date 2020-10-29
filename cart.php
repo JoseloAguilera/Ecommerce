@@ -32,12 +32,13 @@
 	<div class="page-info-section page-info">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="">Home</a> / 
+				<a href="index.php">Inicio</a> / 
 				<a href="categorie.php">Produtos</a> / 
 				<span>Carrito de Compras</span>
 			</div>
 			
 		</div>
+		
 	</div>
 	<!-- Page Info end -->
 
@@ -92,9 +93,9 @@
 										<?php echo $precio ?>
 										
 										<!--input type="text" name="qtyup" value="" class=""-->
-										<button type="submit" name=action value="updatecart" class="btn btn-success">  <i class="fa fa-refresh" aria-hidden="true"></i></button>
+										<button type="submit" name="action" value="updatecart" class="btn btn-success">  <i class="fa fa-refresh" aria-hidden="true"></i></button>
 									
-									    <button type="submit" name=action value="deletecart" class="btn btn-danger">  <i class="fa fa-trash" aria-hidden="true"></i></button>
+									    <button type="submit" name="action" value="deletecart" class="btn btn-danger">  <i class="fa fa-trash" aria-hidden="true"></i></button>
 								</span>
 									
 								</td>
@@ -108,9 +109,7 @@
 			
 				<div class="text-right">
 					<br>
-				<h4>TOTAL DECOMPRAS</h4>
-
-				
+				<h4>TOTAL DECOMPRAS</h4>				
 				<?php
 				$total=0;
 				foreach ($_SESSION['cart'] as $TotalProducto) { 					

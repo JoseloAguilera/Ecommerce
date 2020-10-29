@@ -93,16 +93,14 @@
 										}
 										echo $precio;
 									?></p>
-									</a>
 									<form action="cart.php" method="post">
 						   				<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
 						   				<input type="hidden" value="1" name="qty">
 						    			<button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
-
 									</form>
-
 					</div>
 				</div>
+				</a>
 				</div>
 
 				<?php 	$switch=$switch+1;	
@@ -183,17 +181,10 @@
 										}
 										echo $precio;
 									?></p>
-									</a>
-						<form action="cart.php" method="post">
-						   <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
-						   <input type="hidden" value="1" name="qty">
-						    <button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
-
-						</form>
-						<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>
-				
+				</a>
 				</div>
 				</div>
 

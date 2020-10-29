@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -7,6 +7,9 @@
 	include("includes/head.php");
 	include("includes/funciones.php");
     include("includes/cart.php");
+    if (isset($_GET['redirect'])) {
+        $redirect=$_GET['redirect'];
+    }else {$redirect="index.php";}
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['login'])){
@@ -21,13 +24,17 @@
                     } else {
                         $mensaje = '<p class="text-center alert alert-danger">¡Verifique sus datos! Su autentificación ha fracasado.</p>';
                     }
-                } else {			
+                } else {	
+                    $_SESSION['id_cliente'] = $login['id_cliente'];		
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['usuario'] = $login['nombre'];
+                    $_SESSION['apellido'] = $login['apellido'];
+                    $_SESSION['tipo_documento'] = $login['tipo_documento'];
+                    $_SESSION['nro_documento'] = $login['nro_documento'];
+                    $_SESSION['razon_social'] = $login['razon_social'];
                     $_SESSION['mayorista'] = $login['mayorista'];
-                    $_SESSION['cli'] = $login['id_cliente'];
                     
-                    echo "<script type='text/javascript'>document.location.href='index.php';</script>";
+                    echo "<script type='text/javascript'>document.location.href='.$redirect.;</script>";
                 }                
             } else {
                 $mensaje = '<p class="alert alert-danger">Por favor, ¡Ingrese Todos los Datos!</p>';
