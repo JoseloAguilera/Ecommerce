@@ -116,22 +116,14 @@ session_start();
 							</div>
 						</div-->
 						<form action="" method="post">
-						   <input type="hidden" value="<?php echo $id; ?>" name="id">
-						   <h6 style="margin-left: 3%;">Cantidad</h6>
-						   <div class="quantity buttons_added">
-								<input type="button" value="-" class="minus">
-								<input type="number" step="1" min="1" max="" name="qty" value="1" title="qty" 
-								class="input-text qty text" size="4" pattern="" inputmode="">
-								<input type="button" value="+" class="plus">
-							</div>
-						   
-						   <br><br>
-						   <hr>
-						   <button type="submit" class="site-btn btn-buy" name="action" value="addcart" >AÑADIR AL CARRITO</button>
-
+						   <input type="text" value="<?php echo $id; ?>" name="id" class="d-none">
+						   <div class="quy-input col-2">
+						   <span> Cantidad:</span><input type="number" name="qty" min="1" value="1" class="form-control">	
+						   <br>
+						   </div>	
+						   <button type="submit" name="action" value="addcart" class="site-btn btn-buy">  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
 						</form>
 						
-						<!--a href="?id=<?php //echo $id ?>&action=addcart&qty=1" class="site-btn btn-buy">ANADIR AL CARRITO</a-->
 						
 						<br><br>
 						<hr>
@@ -186,7 +178,7 @@ session_start();
 			<div class="owl-carousel owl-theme">
 			
 			<?php 
-				$relacionados=getAllProductosHome();			
+				$relacionados=getAllProductos();			
 				foreach ($relacionados as $row) { ?>
 				<div class="item">
 					<div class="mix col-lg-12 col-md-12 best">
@@ -194,12 +186,11 @@ session_start();
 					<div class="product-item">
 					<figure>
 					<?php
-							$foto=getProdImages($row['id']);
-							foreach($foto as $result){
+							$foto=getProdImage($row['id']);
 							
 						?>
 						<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-						<?php } ?>
+							
 					</figure>
 					<div class="product-info">
 					<h6><?php echo $row['nombre']?></h6>
@@ -212,7 +203,7 @@ session_start();
 										}
 										echo $precio;
 									?></p>
-						<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
 					</div>
 				</div>
 				</a>
@@ -244,5 +235,4 @@ session_start();
 		}
 	})
 </script>
-
 </html>

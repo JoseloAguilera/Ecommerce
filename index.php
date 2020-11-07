@@ -71,18 +71,19 @@
 				if ($destaque != null) { 
 					foreach ($destaque as $row) { 
 						if($switch<8) {?> 				
-					<div class="mix col-lg-3 col-md-6 best">
-				    <a href="product.php?id=<?php echo $row['id'] ?>">
-					<div class="product-item">
-					<figure>
-						<?php
-							$foto=getProdImages($row['id']);
-							foreach ($foto as $result){
-						?>
-						<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-						<?php }?>
-					</figure>
-					<div class="product-info">
+					<div class="mix col-lg-3 col-md-6 block-product">
+						<div class="product">
+						<a href="product.php?id=<?php echo $row['id'] ?>">
+						<div class="product-item">
+							<figure>
+								<?php
+									$foto=getProdImages($row['id']);
+									foreach ($foto as $result){
+								?>
+								<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+								<?php }?>
+							</figure>
+					    <div class="product-info">
 						<h6><?php echo $row['nombre']?></h6>
 						<p><?php
 										$precio = "";
@@ -96,12 +97,13 @@
 									<form action="cart.php" method="post">
 						   				<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
 						   				<input type="hidden" value="1" name="qty">
-						    			<button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button>
+						    			<!--button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button-->
 									</form>
-					</div>
-				</div>
-				</a>
-				</div>
+					    </div>
+					      </div>
+				         </a>
+						</div>
+				        </div>
 
 				<?php 	$switch=$switch+1;	
 							}
@@ -114,6 +116,191 @@
 	</section>
 	<!-- Product section end -->
 
+
+
+
+	<section class="section-dark">		
+		<div class="container">
+			
+
+		    <div class="col-12">
+				<div class="row">
+					<div class="col-6">
+					<div class="section-title">
+								<h4>Productos Más Recientes</h4>
+							</div>
+			  		  			
+						<div class="owl-carousel owl-theme">			
+							<?php 
+								$novedades=getProductosNuevos();			
+								foreach ($novedades as $row) { ?>
+								<div class="item">
+									<div class="product">
+										<a href="product.php?id=<?php echo $row['id'] ?>">
+											<div class="product-item">
+										
+												<figure>
+													<?php
+														$foto=getProdImages($row['id']);
+														foreach ($foto as $result){
+													?>
+														<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+												</figure>
+												<div class="product-info">
+													<h6><?php echo $row['nombre']?></h6>
+													<p><?php
+																$precio = "";
+																if ($row['valor_minorista'] > 0) {
+																	$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																} else {
+																	$precio = "Sobre consulta ";
+																}
+																echo $precio;
+															?></p>
+												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="col-6">
+					<div class="section-title">
+								<h4>Nuestros Lanzamientos</h4>
+							</div>
+					<div class="row">
+					<?php
+				$destaque=getProductosDestacados();
+				$switch=0;
+				//var_dump($destaque);
+				
+				if ($destaque != null) { 
+					foreach ($destaque as $row) { 
+						if($switch<8) {?> 				
+					<div class="mix col-lg-6 col-md-6 block-product">
+						<div class="product">
+						<a href="product.php?id=<?php echo $row['id'] ?>">
+						<div class="product-item">
+							<figure>
+								<?php
+									$foto=getProdImages($row['id']);
+									foreach ($foto as $result){
+								?>
+								<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+								<?php }?>
+							</figure>
+					    <div class="product-info">
+						<h6><?php echo $row['nombre']?></h6>
+						<p><?php
+										$precio = "";
+										if ($row['valor_minorista'] > 0) {
+											$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+										} else {
+											$precio = "Sobre consulta ";
+										}
+										echo $precio;
+									?></p>
+									<form action="cart.php" method="post">
+						   				<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+						   				<input type="hidden" value="1" name="qty">
+						    			<!--button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button-->
+									</form>
+					    </div>
+					      </div>
+				         </a>
+						</div>
+				        </div>
+
+				<?php 	$switch=$switch+1;	
+							}
+						}
+					} ?>
+					</div>
+					
+					</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-dark">		
+		<div class="container">
+			
+
+		    <div class="col-12">
+				<div class="row">
+					<div class="col-6">
+					<div class="section-title">
+								<h4>Productos Más Recientes</h4>
+							</div>
+			  		  			
+						<div class="owl-carousel owl-theme">			
+							<?php 
+								$novedades=getProductosNuevos();			
+								foreach ($novedades as $row) { ?>
+								<div class="item">
+									<div class="product">
+										<a href="product.php?id=<?php echo $row['id'] ?>">
+											<div class="product-item">
+										
+												<figure>
+													<?php
+														$foto=getProdImages($row['id']);
+														foreach ($foto as $result){
+													?>
+														<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+												</figure>
+												<div class="product-info">
+													<h6><?php echo $row['nombre']?></h6>
+													<p><?php
+																$precio = "";
+																if ($row['valor_minorista'] > 0) {
+																	$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																} else {
+																	$precio = "Sobre consulta ";
+																}
+																echo $precio;
+															?></p>
+												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
+					
+		</div>
+	</section>
+	<!--section>
+		<div class="container banner-footer">
+			<div class="row">
+				<div class="col-12">
+				<div class="row">
+					<div class="col-4">
+						<figure>
+							<img src="img/banners/banner3.png" alt="">
+						</figure>
+					</div>
+					<div class="col-4">
+						<figure>
+						<img src="img/banners/banner1.png" alt="">
+						</figure>
+					</div>
+					<div class="col-4">
+						<figure>
+						<img src="img/banners/banner2.png" alt="">
+						</figure>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section-->
 	<section class="section-info">
 		<div class="container">
 		
@@ -141,80 +328,6 @@
 					</div>
 				</div>
 			</div>	
-		</div>
-	</section>
-
-
-	<section class="section-dark">
-		
-		<div class="container">
-		    <div class="col-xl-8 mx-auto text-center">
-				<div class="section-title">
-					<h4>Productos Más Recientes</h4>
-				</div>
-			</div>		
-			<div class="owl-carousel owl-theme">
-			
-			<?php 
-				$novedades=getAllProductosHome();			
-				foreach ($novedades as $row) { ?>
-				<div class="item">
-					<div class="mix col-lg-12 col-md-12 best">
-				    <a href="product.php?id=<?php echo $row['id'] ?>">
-					<div class="product-item">
-					<figure>
-					<?php
-							$foto=getProdImages($row['id']);
-							foreach ($foto as $result){
-						?>
-							<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-							<?php } ?>
-					</figure>
-					<div class="product-info">
-					<h6><?php echo $row['nombre']?></h6>
-						<p><?php
-										$precio = "";
-										if ($row['valor_minorista'] > 0) {
-											$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-										} else {
-											$precio = "Sobre consulta ";
-										}
-										echo $precio;
-									?></p>
-						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
-					</div>
-				</div>
-				</a>
-				</div>
-				</div>
-
-				<?php } ?>
-		</div>
-	</section>
-
-	<section>
-		<div class="container banner-footer">
-			<div class="row">
-				<div class="col-12">
-				<div class="row">
-					<div class="col-4">
-						<figure>
-							<img src="img/banners/banner3.png" alt="">
-						</figure>
-					</div>
-					<div class="col-4">
-						<figure>
-						<img src="img/banners/banner1.png" alt="">
-						</figure>
-					</div>
-					<div class="col-4">
-						<figure>
-						<img src="img/banners/banner2.png" alt="">
-						</figure>
-					</div>
-				</div>
-				</div>
-			</div>
 		</div>
 	</section>
 	<!-- Footer top section -->	
@@ -248,10 +361,10 @@ $('.owl-carousel').owlCarousel({
             items:1
         },
         600:{
-            items:3
+            items:1
         },
         1000:{
-            items:4
+            items:1
         }
     }
 })

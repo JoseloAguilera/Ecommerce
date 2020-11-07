@@ -110,20 +110,7 @@
 				<div class="text-right">
 					<br>
 				<h4>TOTAL DECOMPRAS</h4>				
-				<?php
-				$total=0;
-				foreach ($_SESSION['cart'] as $TotalProducto) { 					
-					$TotalItem = $TotalProducto['qty']*$TotalProducto['valor_minorista'];
-					$total = $total + $TotalItem;
-					$_SESSION['total'] =$total;
-				}
-				if ($_SESSION['total_item_cart'] == 0) {
-					$_SESSION['total'] =0;
-					unset($_SESSION['cart']);
-				}
-				?>
-
-				<?php echo number_format($_SESSION['total'], 0, ',', '.')." gs";?>
+				<?php echo number_format(getTotalCart(), 0, ',', '.')." Gs";?>
 				</div>
 			</div>
 			<div class="row cart-buttons">
