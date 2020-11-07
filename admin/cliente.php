@@ -10,7 +10,7 @@
     <title><?php echo $_SESSION['empresa'];?> | Cad. Clientes</title>
 	<?php include 'includes/head.php'; ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-yellow sidebar-mini">
 	<div class="wrapper">
 		<!-- MAIN HEADER -->
 		<?php include 'includes/header.php'; ?>
@@ -61,45 +61,21 @@
 							<table class="table table-striped table-bordered display nowra" id="tabladatos">
 							<thead>
 								<tr>
-									<!-- <th>Codigo</th> -->
 									<th>Tipo</th>
 									<th>Nombre Completo</th>
 									<th>Razón Social</th>
 									<th>Tipo Documento</th>
 									<th>Nro Documento</th>
-									<th>Contacto Favorito</th>
-									<!-- <th>Activo</th> -->
+									<th>Telefono</th>
+									<th>Email</th>
 								</tr>
 							</thead>
 							<tbody>
                                 <?php 
 									if ($clientes != null) { 
-										foreach ($clientes as $row) {
-											
-											$contactos = getClienteContacto($row['id']);
-											$tabela = "";
-											if ($contactos != NULL) {
-												foreach ($contactos as $linea) {
-													$favorito = $linea['favorito'];//"";
-                                                    // if ($linea['favorito'] == 1) {
-                                                    //     $favorito = '<span style="color: white">S</span><i class="fa fa-star text-warning"></i>';
-                                                    // } else {
-                                                    //     $favorito = '<span style="color: white">N</span><i class="fa fa-minus text-muted"></i>';
-                                                    // }
-													$aux = $linea['tipo'].";".$linea['contacto'].";".$favorito;
-													
-													// var_dump($aux);
-													if ($tabela == "") {
-														$tabela = $aux;
-													} else {
-														$tabela = $tabela."<".$aux;
-													}
-												}
-											}
+										foreach ($clientes as $row) {											
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['tipo_documento'];?>" data-numero="<?php echo $row['nro_documento'];?>" data-contactos="<?php echo $tabela;?>" data-mayorista="<?php echo $row['mayorista'];?>";>
-								<!-- <tr onclick="window.location.href = 'cliente_detalle.php?cliente=<?php echo $row['id'];?>';"> -->
-									<!-- <td><?php echo $row['id'];?></td> -->
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['tipo_documento'];?>" data-numero="<?php echo $row['nro_documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>">
 									<td>
 										<?php 
 											$mayorista = "";
@@ -126,8 +102,8 @@
 											}
 											echo $nro_documento;?>
 									</td>
-									<td><?php echo $row['tipo']." ".$row['contacto'];?></td>
-									<!-- <td></td> -->
+									<td><?php echo $row['telefono'];?></td>
+									<td><?php echo $row['email'];?></td>
 								</tr>
 								<?php }}?>
 							</tbody>
@@ -162,12 +138,16 @@
 												<input type="text" class="form-control" id="apellido" value="" readonly>
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="nombre">Razón Social</label>
 												<input type="text" class="form-control" id="razon" value="" readonly>
 											</div>
 										</div>
+									</div>
+									<div class="row">
 										<div class="col-md-3">
 											<div class="form-group">
 												<label for="nombre">Tipo Doc.</label>
@@ -188,25 +168,21 @@
 												</div>
 											</div>
 										</div>
-									</div> <!-- row --> 
+									</div>
 									<div class="row">
-										<div class="col-md-12 text-center">
-											<h4>Contactos</h4>		
-										</div> <!-- col-md-12 -->
-										<div class="col-md-12">
-											<table class="table table-striped table-bordered display nowra" id="tablacontacto">
-												<thead>
-													<tr>
-														<th>Tipo</th>
-														<th>Contacto</th>
-														<th>Favorito</th>
-													</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
-										</div> <!-- col-md-12 -->
-									</div> <!-- row -->
+										<div class="col-md-4">
+											<div class="form-group">
+												<label for="telefono">Telefono</label>
+												<input type="text" class="form-control" id="telefono" value="" readonly>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group">
+												<label for="email">Email</label>
+												<input type="text" class="form-control" id="email" value="" readonly>
+											</div>
+										</div>
+									</div> <!-- row --> 
 								</div> <!-- modal-body -->
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

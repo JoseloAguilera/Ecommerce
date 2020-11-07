@@ -12,7 +12,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="index.php"><img src="img/logo.png" class="img-circle" alt="Logo PowerTrade" style="width: 150px;"><br><b><?php echo $_SESSION['empresa'];?></b></a>
+			<a href="index.php"><img src="../img/logo.png" class="img-rounded" alt="Logo" style="width: 300px;"><br></a>
 		</div> <!-- /.login-logo -->
 
 	 	<div class="login-box-body">

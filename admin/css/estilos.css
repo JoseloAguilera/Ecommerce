@@ -22,6 +22,10 @@
 .text-danger {
 	color: #d91e18;
 }
+.text-bold {
+	font-weight: bold;
+}
+
 
 .default-borders {
 	border-left: 1px solid #f4f4f4;
@@ -68,3 +72,10 @@
 	width: 15%;
 	margin: 15px;
 }
+
+.login-page,
+.register-page {
+  height: auto;
+  background: #2e3131 !important;
+}
+

@@ -32,6 +32,8 @@
             var tipo = button.data('tipo')
             var numero = button.data('numero')
             var mayorista = button.data('mayorista')
+            var telefono = button.data('telefono')
+            var email = button.data('email')
 
             var contactos = button.data('contactos');
             
@@ -44,54 +46,13 @@
             modal.find('#razon').val(razon);
             modal.find('#tipo').val(tipo);
             modal.find('#numero').val(numero);
+            modal.find('#telefono').val(telefono);
+            modal.find('#email').val(email);
 
             if (mayorista == "1") {
                 $('#toggle').bootstrapToggle('on')
             } else {
                 $('#toggle').bootstrapToggle('off')
-            }
-
-            var table = document.getElementById("tablacontacto");
-            var tableRows = table.getElementsByTagName('tr');
-            var rowCount = tableRows.length;
-
-            if (rowCount > 1) {
-                for (var x=rowCount-1; x > 0 ; x--) {
-                    table.deleteRow(x);
-                }
-            }
-
-            if (contactos != "") {
-                if (contactos.search("<") > 0) {
-                    contactos = contactos.split('<');
-                    for (var i = 0; i < contactos.length; i++) {
-                        var row = table.insertRow(i+1);
-                        var contaxto = contactos[i].split(";");
-                        row.insertCell(0).innerHTML = contaxto[0];
-                        row.insertCell(1).innerHTML = contaxto[1];
-                        if (contaxto[2] == 1) {
-                            row.insertCell(2).innerHTML = '<span style="color: white">S</span><i class="fa fa-star text-warning"></i>';
-                        } else {
-                            row.insertCell(2).innerHTML = '<span style="color: white">N</span><i class="fa fa-minus text-muted"></i>';
-                        }
-                    }
-                } else {
-                    var row = table.insertRow(1);
-                    var contaxto = contactos.split(";");
-                    row.insertCell(0).innerHTML = contaxto[0];
-                    row.insertCell(1).innerHTML = contaxto[1];
-                    if (contaxto[2] == 1) {
-                        row.insertCell(2).innerHTML = '<span style="color: white">S</span><i class="fa fa-star text-warning"></i>';
-                    } else {
-                        row.insertCell(2).innerHTML = '<span style="color: white">N</span><i class="fa fa-minus text-muted"></i>';
-                    }
-                }
-            } else {
-                var row = table.insertRow(1);
-                var cell = row.insertCell(0);
-                cell.innerHTML = "Aguardando Informaciones de Contacto";
-                cell.colSpan = "3";
-                row.className = 'text-center';
             }
         })
     });

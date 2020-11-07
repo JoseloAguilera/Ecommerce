@@ -13,7 +13,7 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="css/AdminLTE.min.css">
 <!-- AdminLTE Skins -->
-<link rel="stylesheet" href="css/skin-blue.min.css">
+<link rel="stylesheet" href="css/skin-yellow.min.css">
 
 <!-- bootstrap selectpicker -->
 <link rel="stylesheet" href="plugins/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -47,6 +47,6 @@
 <!-- Meus Estilos -->
 <link rel="stylesheet" href="css/select2-alt.css">
 <link rel="stylesheet" href="css/estilos.css">
-<link rel="shortcut icon" href="img/favicon.ico" />
+<link rel="shortcut icon" href="../img/favicon.ico" />
 
 <!-- FONTS -->

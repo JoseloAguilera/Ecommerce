@@ -4,7 +4,7 @@
 		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="img/logo.png" class="img-circle" alt="User Image">
+				<img src="../img/logo.png" class="img-circle" alt="User Image">
 			</div>
 			<div class="pull-left info">
 				<p><?php echo $_SESSION['nome_usuario'];?></p>
@@ -58,10 +58,10 @@
 				$catastro = "active";
 				$subproducto1 = "active";
 				$subproducto2 = "text-aqua";
-			} else if (strpos($_SERVER['REQUEST_URI'], 'pedido.php') !== false){
+			} else if (strpos($_SERVER['REQUEST_URI'], 'pedido.php') !== false OR strpos($_SERVER['REQUEST_URI'], 'pedido_detalle.php') !== false){
 				$ecommerce = "active";
-				$subpedido1 = "active";
-				$subpedido2 = "text-aqua";
+				$subpedidos1 = "active";
+				$subpedidos2 = "text-aqua";
 			} else if (strpos($_SERVER['REQUEST_URI'], 'banner.php') !== false){
 				$ecommerce = "active";
 				$subbanner1 = "active";

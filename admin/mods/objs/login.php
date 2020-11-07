@@ -1,9 +1,9 @@
 <?php
 require "./mods/server/login.php";
 
-$_SESSION['empresa'] = "EDTPY";
-$_SESSION['empresa-menu'] = "Edt<b>PY</b>";
-$_SESSION['empresa-mini'] = "EDT<b>PY</b>";
+$_SESSION['empresa'] = "EdTPY";
+$_SESSION['empresa-menu'] = "<b>EdT</b> Boas Escolhas";
+$_SESSION['empresa-mini'] = "<b>EdT</b>";
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if(isset($_POST['usuario']) || isset($_POST['contrasena'])) {
