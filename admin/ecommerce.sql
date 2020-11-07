@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 27-Out-2020 às 20:00
+-- Tempo de geração: 07-Nov-2020 às 17:34
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -151,6 +151,9 @@ CREATE TABLE IF NOT EXISTS `tb_ciudad` (
 INSERT INTO `tb_ciudad` (`id`, `nombre`, `id_departamento`) VALUES
 (1, 'CDE', 1),
 (2, 'HERNANDARIAS', 1),
+(3, 'ASUNCION', 2),
+(1, 'CDE', 1),
+(2, 'HERNANDARIAS', 1),
 (3, 'ASUNCION', 2);
 
 -- --------------------------------------------------------
@@ -165,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `nombre` varchar(80) NOT NULL,
   `apellido` varchar(80) DEFAULT NULL,
   `tipo_documento` varchar(20) DEFAULT NULL COMMENT 'RUC, RG, CI',
-  `nro_documento` int(11) DEFAULT NULL,
+  `nro_documento` varchar(50) DEFAULT NULL,
   `razon_social` varchar(80) DEFAULT NULL,
   `mayorista` tinyint(1) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
@@ -178,9 +181,9 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
 --
 
 INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`, `telefono`, `email`) VALUES
-(1, 'Ana Carolina', 'de Vernazza', 'RUC', 2498760, 'Mario Vernazza', 0, '0983781248', 'anacarolinaapv@gmail.com'),
+(1, 'Ana Carolina', 'de Vernazza', 'RUC', '2498760', 'Mario Vernazza', 0, '0983781248', 'anacarolinaapv@gmail.com'),
 (2, 'Juan', 'richard', NULL, NULL, NULL, 0, NULL, NULL),
-(3, 'RICHARD', 'CABRERA', 'CI', 4402651, 'CAPAICT', 1, NULL, NULL);
+(3, 'Juan Richard', 'CABRERA', 'CI', '4402658', 'CAPACIT', 1, '09826371278', 'capacitcursoscde@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -198,15 +201,14 @@ CREATE TABLE IF NOT EXISTS `tb_cli_direccion` (
   `referencia` varchar(80) DEFAULT NULL,
   `favorito` tinyint(1) NOT NULL COMMENT '0 -> no 1 -> sí',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_cli_direccion`
 --
 
 INSERT INTO `tb_cli_direccion` (`id`, `id_cliente`, `calle`, `ciudad`, `departamento`, `referencia`, `favorito`) VALUES
-(1, 3, 'AVDA. SAN BLAS, KM 3 Y MEDIO CDE', '1', '1', '', 1),
-(3, 1, 'Calle Las Tacuaras', '2', '1', 'Cerca de Capitão Bar KM4', 1);
+(5, 3, 'Avda. San Blas. Km 3 y medio', '3', '2', 'cerca de mi vecino', 1);
 
 -- --------------------------------------------------------
 
@@ -225,6 +227,8 @@ CREATE TABLE IF NOT EXISTS `tb_departamento` (
 --
 
 INSERT INTO `tb_departamento` (`id`, `nombre`) VALUES
+(1, 'Alto Parana'),
+(2, 'Central'),
 (1, 'Alto Parana'),
 (2, 'Central');
 
@@ -271,8 +275,33 @@ CREATE TABLE IF NOT EXISTS `tb_met_envio` (
 --
 
 INSERT INTO `tb_met_envio` (`id`, `descripcion`, `costo`, `default`) VALUES
-(1, 'AEX', NULL, 0),
+(1, 'AEX', 45000, 1),
 (2, 'Retirar en la Tienda', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_met_envio_costo`
+--
+
+DROP TABLE IF EXISTS `tb_met_envio_costo`;
+CREATE TABLE IF NOT EXISTS `tb_met_envio_costo` (
+  `id` int(11) DEFAULT NULL,
+  `id_met_envio` int(11) DEFAULT NULL,
+  `id_ciudad` int(11) DEFAULT NULL,
+  `precio` double DEFAULT NULL,
+  `tiempo_entrega` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_met_envio_costo`
+--
+
+INSERT INTO `tb_met_envio_costo` (`id`, `id_met_envio`, `id_ciudad`, `precio`, `tiempo_entrega`) VALUES
+(1, 1, 1, 50000, '48hs'),
+(2, 1, 2, 60000, '24hs'),
+(1, 1, 1, 50000, '48hs'),
+(2, 1, 2, 60000, '24hs');
 
 -- --------------------------------------------------------
 
@@ -284,6 +313,8 @@ DROP TABLE IF EXISTS `tb_met_pago`;
 CREATE TABLE IF NOT EXISTS `tb_met_pago` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(80) NOT NULL,
+  `default` int(11) DEFAULT NULL,
+  `instrucciones` mediumtext DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -291,9 +322,9 @@ CREATE TABLE IF NOT EXISTS `tb_met_pago` (
 -- Extraindo dados da tabela `tb_met_pago`
 --
 
-INSERT INTO `tb_met_pago` (`id`, `descripcion`) VALUES
-(1, 'TARJETA / PAGO EXPRESS / PAGOPAR'),
-(2, 'GIROS TIGO');
+INSERT INTO `tb_met_pago` (`id`, `descripcion`, `default`, `instrucciones`) VALUES
+(1, 'TARJETA / PAGO EXPRESS / PAGOPAR', 1, NULL),
+(2, 'GIROS TIGO', NULL, 'Luego de la compra podes realizar el giro al 0983 112 965 y enviar el comprobante al mismo numero');
 
 -- --------------------------------------------------------
 
@@ -324,8 +355,49 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `total` double NOT NULL,
   `id_factura` int(11) DEFAULT NULL,
   `observacion` varchar(255) DEFAULT NULL,
+  `total_envio` double DEFAULT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_pedido`
+--
+
+INSERT INTO `tb_pedido` (`id`, `fecha`, `id_cliente`, `id_met_pago`, `id_met_envio`, `id_cli_direccion`, `total`, `id_factura`, `observacion`, `total_envio`, `status`) VALUES
+(1, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(2, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(3, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(4, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(5, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(6, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(7, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(8, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(9, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(10, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(11, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(12, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(13, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(14, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(15, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(16, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(17, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(18, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(19, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(20, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(21, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(22, '0000-00-00', 3, 1, 2, 1, 4402658, NULL, '528000', 0, 0),
+(23, '0000-00-00', 3, 0, 1, 2, 4402658, NULL, '1088000', 0, 0),
+(24, '0000-00-00', 3, 0, 2, 1, 4402658, NULL, '1098000', 0, 0),
+(25, '0000-00-00', 3, 1, 0, 1, 4402658, NULL, '978000', 0, 0),
+(26, '0000-00-00', 3, 2, 1, 1, 4402658, NULL, '978000', 0, 0),
+(27, '0000-00-00', 3, 1, 1, 1, 978000, NULL, '', 50000, 0),
+(28, '0000-00-00', 3, 2, 2, 1, 978000, NULL, '', 0, 0),
+(29, '0000-00-00', 3, 1, 1, 1, 978000, NULL, 'quiero rapido', 50000, 0),
+(30, '0000-00-00', 3, 2, 2, 0, 78650, NULL, '', 0, 0),
+(31, '0000-00-00', 3, 1, 1, 0, 78650, NULL, '', 80000, 0),
+(32, '0000-00-00', 3, 2, 1, 0, 115780, NULL, '', 50000, 0),
+(33, '0000-00-00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 0);
 
 -- --------------------------------------------------------
 
@@ -343,6 +415,35 @@ CREATE TABLE IF NOT EXISTS `tb_ped_detalle` (
   `valor_total` double NOT NULL,
   PRIMARY KEY (`id_pedido`,`id_producto`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_ped_detalle`
+--
+
+INSERT INTO `tb_ped_detalle` (`id_pedido`, `id_producto`, `valor_unitario`, `ctd`, `descuento`, `valor_total`) VALUES
+(21, 15, 76000, 1, 0, 76000),
+(21, 6, 250000, 1, 0, 250000),
+(22, 15, 76000, 3, 0, 228000),
+(22, 6, 250000, 1, 0, 250000),
+(23, 15, 76000, 3, 0, 228000),
+(23, 6, 250000, 3, 0, 750000),
+(24, 15, 76000, 3, 0, 228000),
+(24, 6, 250000, 3, 0, 750000),
+(25, 15, 76000, 3, 0, 228000),
+(25, 6, 250000, 3, 0, 750000),
+(26, 15, 76000, 3, 0, 228000),
+(26, 6, 250000, 3, 0, 750000),
+(27, 15, 76000, 3, 0, 228000),
+(27, 6, 250000, 3, 0, 750000),
+(28, 15, 76000, 3, 0, 228000),
+(28, 6, 250000, 3, 0, 750000),
+(29, 15, 76000, 3, 0, 228000),
+(29, 6, 250000, 3, 0, 750000),
+(30, 12, 78650, 1, 0, 78650),
+(31, 12, 78650, 1, 0, 78650),
+(32, 11, 57890, 2, 0, 115780),
+(33, 11, 57890, 3, 0, 173670),
+(33, 8, 76800, 3, 0, 230400);
 
 -- --------------------------------------------------------
 
