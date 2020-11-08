@@ -7,7 +7,7 @@ if(isset($_POST['id'])):
 	$connection = conn();
 	$u=getCiudades($_POST['id']);
 	
-	$html="";
+	$html="<option value=''>Seleccione tu ciudad *</option>";
 	foreach ($u as $value)
 		$html.="<option value='".$value['id']."'>".$value['nombre']."</option>";
 	echo $html;	

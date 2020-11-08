@@ -235,7 +235,7 @@
 													if ($productos == "") {
 														$productos = $aux;
 													} else {
-														$productos = $productos."*".$aux;
+														$productos = $productos."#".$aux;
 													}
 												}
 											}
@@ -328,8 +328,8 @@
 				}
 			}
 
-			if (productos.search("/.*/") > 0) {
-				productos = productos.split('*');
+			if (productos.search("#") > 0) {
+				productos = productos.split('#');
 				for (var i = 0; i < productos.length; i++) {
 					var row = table.insertRow(i+1);
 					var prod = productos[i].split(";");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 07-Nov-2020 às 17:34
+-- Tempo de geração: 08-Nov-2020 às 01:40
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -201,14 +201,15 @@ CREATE TABLE IF NOT EXISTS `tb_cli_direccion` (
   `referencia` varchar(80) DEFAULT NULL,
   `favorito` tinyint(1) NOT NULL COMMENT '0 -> no 1 -> sí',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_cli_direccion`
 --
 
 INSERT INTO `tb_cli_direccion` (`id`, `id_cliente`, `calle`, `ciudad`, `departamento`, `referencia`, `favorito`) VALUES
-(5, 3, 'Avda. San Blas. Km 3 y medio', '3', '2', 'cerca de mi vecino', 1);
+(5, 3, 'Avda. San Blas. Km 3 y medio', '3', '2', 'cerca de mi vecino', 1),
+(6, 1, 'Calle Las Orquideas con Los Lapachos', '1', '1', 'Casa de esquina', 1);
 
 -- --------------------------------------------------------
 
@@ -347,18 +348,18 @@ CREATE TABLE IF NOT EXISTS `tb_pais` (
 DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
+  `fecha` date NOT NULL DEFAULT current_timestamp(),
   `id_cliente` int(11) NOT NULL,
   `id_met_pago` int(11) NOT NULL,
   `id_met_envio` int(11) NOT NULL,
-  `id_cli_direccion` int(11) NOT NULL,
+  `id_cli_direccion` int(11) NOT NULL DEFAULT 1,
   `total` double NOT NULL,
   `id_factura` int(11) DEFAULT NULL,
   `observacion` varchar(255) DEFAULT NULL,
   `total_envio` double DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_pedido`
@@ -390,14 +391,16 @@ INSERT INTO `tb_pedido` (`id`, `fecha`, `id_cliente`, `id_met_pago`, `id_met_env
 (23, '0000-00-00', 3, 0, 1, 2, 4402658, NULL, '1088000', 0, 0),
 (24, '0000-00-00', 3, 0, 2, 1, 4402658, NULL, '1098000', 0, 0),
 (25, '0000-00-00', 3, 1, 0, 1, 4402658, NULL, '978000', 0, 0),
-(26, '0000-00-00', 3, 2, 1, 1, 4402658, NULL, '978000', 0, 0),
+(26, '0000-00-00', 3, 2, 1, 1, 4402658, NULL, '978000', 0, 1),
 (27, '0000-00-00', 3, 1, 1, 1, 978000, NULL, '', 50000, 0),
 (28, '0000-00-00', 3, 2, 2, 1, 978000, NULL, '', 0, 0),
 (29, '0000-00-00', 3, 1, 1, 1, 978000, NULL, 'quiero rapido', 50000, 0),
 (30, '0000-00-00', 3, 2, 2, 0, 78650, NULL, '', 0, 0),
 (31, '0000-00-00', 3, 1, 1, 0, 78650, NULL, '', 80000, 0),
 (32, '0000-00-00', 3, 2, 1, 0, 115780, NULL, '', 50000, 0),
-(33, '0000-00-00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 0);
+(33, '0000-00-00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 1),
+(34, '2020-11-07', 1, 1, 1, 1, 76000, NULL, 'Tocar el Timbre', 0, 0),
+(35, '2020-11-07', 1, 2, 1, 1, 326800, NULL, '', 50000, 0);
 
 -- --------------------------------------------------------
 
@@ -443,7 +446,31 @@ INSERT INTO `tb_ped_detalle` (`id_pedido`, `id_producto`, `valor_unitario`, `ctd
 (31, 12, 78650, 1, 0, 78650),
 (32, 11, 57890, 2, 0, 115780),
 (33, 11, 57890, 3, 0, 173670),
-(33, 8, 76800, 3, 0, 230400);
+(33, 8, 76800, 3, 0, 230400),
+(34, 15, 76000, 1, NULL, 76000),
+(35, 8, 76800, 1, 0, 76800),
+(35, 6, 250000, 1, 0, 250000);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tb_ped_status`
+--
+
+DROP TABLE IF EXISTS `tb_ped_status`;
+CREATE TABLE IF NOT EXISTS `tb_ped_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_ped_status`
+--
+
+INSERT INTO `tb_ped_status` (`id`, `descripcion`) VALUES
+(0, 'Pendiente'),
+(1, 'En Revisión');
 
 -- --------------------------------------------------------
 

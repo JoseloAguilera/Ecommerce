@@ -90,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		 $cliente = getCliente($_SESSION['id_cliente']);
 	 } else {  ?>
 			<script type = "text/javascript">
-			  window.location = "ingresar.php?redirect=checkout.php"
+			  window.location = "ingresar.php?redirect=/checkout.php"
 			</script>
 	 <?php }
 	 ?>
