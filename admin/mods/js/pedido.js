@@ -6,7 +6,7 @@ $(document).ready(function() {
         orientation: 'landscape',
         pageSize: 'LEGAL',
         aoColumnDefs: [ {
-            aTargets: [ 4 ],
+            aTargets: [ 5 ],
             mRender: $.fn.dataTable.render.number('.', ',', 0, 'G$ ')
         }],
         columnDefs: [ {

@@ -452,6 +452,47 @@
 		}
 		$connection = disconn($connection);
 		return $result;
-    }
+	}
+	
+	function getPedidosbyCliente ($id_cliente) {
+		$connection = conn();
+		$sql = "SELECT tb_pedido.*, tb_cliente.nombre, tb_cliente.apellido, tb_met_pago.descripcion AS MET_PAGO, tb_met_envio.descripcion AS MET_ENVIO, tb_ped_status.descripcion AS STATUS_PED FROM tb_pedido
+                LEFT JOIN tb_cliente ON tb_pedido.id_cliente = tb_cliente.id 
+                LEFT JOIN tb_met_pago ON tb_pedido.id_met_pago = tb_met_pago.id 
+                LEFT JOIN tb_met_envio ON tb_pedido.id_met_envio = tb_met_envio.id 
+				LEFT JOIN tb_ped_status ON tb_pedido.status = tb_ped_status.id 
+				WHERE tb_pedido.id_cliente = $id_cliente
+                ORDER BY tb_pedido.fecha DESC";
+		$query = $connection->prepare($sql);
+		$query->execute();
 
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getProdPedido ($codigo) {
+		$connection = conn();
+		$sql = "SELECT tb_ped_detalle.*, producto.referencia, producto.nombre, producto.url FROM tb_ped_detalle
+                LEFT JOIN (SELECT tb_producto.id, tb_producto.referencia, tb_producto.nombre, tb_producto_img.url FROM tb_producto
+						  LEFT JOIN tb_producto_img ON tb_producto.id = tb_producto_img.id_producto) AS producto 
+						  ON tb_ped_detalle.id_producto = producto.id 
+				WHERE tb_ped_detalle.id_pedido = '$codigo'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 ?>

@@ -9,7 +9,7 @@
     include("includes/cart.php");
     if (isset($_GET['redirect'])) {
         $redirect=$_GET['redirect'];
-    }else {$redirect="index.php";}
+    }else {$redirect="perfil.php";}
     
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['login'])){
@@ -33,8 +33,11 @@
                     $_SESSION['nro_documento'] = $login['nro_documento'];
                     $_SESSION['razon_social'] = $login['razon_social'];
                     $_SESSION['mayorista'] = $login['mayorista'];
+
+                    // var_dump($redirect);
                     
-                    echo "<script type='text/javascript'>document.location.href='.$redirect.;</script>";
+                    // echo "<script type='text/javascript'>document.location.href='".$redirect."';</script>";
+                    echo "<script type='text/javascript'>document.location.href='".$redirect."';</script>";
                 }                
             } else {
                 $mensaje = '<p class="alert alert-danger">Por favor, ¡Ingrese Todos los Datos!</p>';
