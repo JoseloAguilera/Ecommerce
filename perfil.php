@@ -239,9 +239,9 @@
 													}
 												}
 											}
-											// var_dump($productos);
+											$total =  "G$ ".number_format($row['total'], 0, ',', '.');
 								?>
-                                <tr onclick="showMiPedido(<?php echo $row['id'];?>,'<?php echo $productos;?>')">
+                                <tr onclick="showMiPedido(<?php echo $row['id'];?>,'<?php echo $productos;?>', '<?php echo $total;?>')">
                                     <td><?php echo $row['id'];?></td>									
                                     <td><?php echo substr($row['fecha'], 8,2)."/".substr($row['fecha'], 5,2)."/".substr($row['fecha'], 0,4);?></td>
                                     <td><?php echo "G$ ".number_format($row['total'], 0, ',', '.');?></td>
@@ -311,7 +311,7 @@
 			document.getElementById("mipedido").style.display = "none";
 		}
 
-		function showMiPedido (nropedido, productos) {
+		function showMiPedido (nropedido, productos, total) {
 			document.getElementById("misdatos").style.display = "none";
 			document.getElementById("mihistorial").style.display = "none";
 			document.getElementById("mipedido").style.display = "block";
@@ -348,28 +348,14 @@
 				row.insertCell(3).innerHTML = prod[3];
 				row.insertCell(4).innerHTML = prod[4];
 			}
+
+			var footer = table.createTFoot();
+			var row = footer.insertRow(0);
+			var cell = row.insertCell(0);
+			row.className = 'text-center';
+			cell.innerHTML = "<b>Total Pedido</b>"+"<b>"+total+"</b>";
+			cell.colSpan = "5";
 		}
-		// $(document).ready(function() {
-		// 	$('#tabladatos').DataTable( {
-		// 		dom: 'Bfrtip',
-		// 		order: [[ 1, "asc" ]],
-		// 		orientation: 'landscape',
-		// 		pageSize: 'LEGAL',
-		// 		aoColumnDefs: [ {
-		// 			aTargets: [ 2 ],
-		// 			mRender: $.fn.dataTable.render.number('.', ',', 0, 'G$ ')
-		// 		}],
-		// 		columnDefs: [ {
-		// 			targets: 1,
-		// 			render: $.fn.dataTable.render.moment( 'YYYY-MM-DD', 'DD/MM/YYYY')
-		// 		} ],
-		// 		buttons: [
-		// 			'copyHtml5',
-		// 			'excelHtml5',
-		// 			'pdfHtml5'
-		// 		]
-		// 	});
-		// });
 	</script>
 
 	<!-- Footer top section -->	
