@@ -23,6 +23,7 @@
                     } else {			
                         $_SESSION['email'] = $_POST['email'];
                         $_SESSION['usuario'] = $_POST['nombre'];
+                        $_SESSION['id_cliente'] = $incluir;
                         $_SESSION['mayorista'] = 0;
                         echo "<script type='text/javascript'>document.location.href='index.php';</script>";
                     }    

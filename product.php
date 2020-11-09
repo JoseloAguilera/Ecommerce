@@ -39,17 +39,19 @@ session_start();
 	<div class="container">
 		<div class="row">
 			<div class="col-12">	
-				<?php if (isset($_GET['action']) && $_GET['action'] == "addcart") {	echo "
-				<hr><br><div class='alert alert-success' role='alert'>PRODUCTO AÑADIDO AL CARRITO<br> 
+				<?php if (isset($_GET['addnew']) && $_GET['addnew'] == "success" OR  isset($_GET['addcart']) && $_GET['addcart'] == "success") {	echo "
+				<hr><div class='alert alert-success' role='alert'>PRODUCTO AÑADIDO AL CARRITO<br> 
 				<a class='white' href='index.php'>CONTINUAR COMPRANDO?</a> 
-				<a class='white' href='cart.php'>REALIZAR PAGO</a></div><hr><br>";
+				<a class='white' href='cart.php'>-> REALIZAR PAGO</a></div><hr>";
 				} else {echo "";}?>	
 			</div>
 		</div>
 	</div>
 	
 		<div class="container">
+		<br>
 			<div class="row">
+			
 				<div class="col-lg-6">
 					<figure>
 						<img class="product-big-img" src="admin/img/productos/<?php echo getProdImage($id)['url']; ?>" alt="">
@@ -125,7 +127,7 @@ session_start();
 						</form>
 						
 						
-						<br><br>
+						<br>
 						<hr>
 						<h4><?php echo $producto['descripcion'];?>
 										</h4>
@@ -171,47 +173,50 @@ session_start();
 
 		<div class="text-center rp-title">
 				<h5>Productos Relacionados</h5>
-			</div>
+		</div>
 
 		<div class="row">
-		    		
+						
 			<div class="owl-carousel owl-theme">
-			
-			<?php 
-				$relacionados=getAllProductos();			
-				foreach ($relacionados as $row) { ?>
-				<div class="item">
-					<div class="mix col-lg-12 col-md-12 best">
-				    <a href="product.php">
-					<div class="product-item">
-					<figure>
-					<?php
-							$foto=getProdImage($row['id']);
-							
-						?>
-						<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-							
-					</figure>
-					<div class="product-info">
-					<h6><?php echo $row['nombre']?></h6>
-						<p><?php
-										$precio = "";
-										if ($row['valor_minorista'] > 0) {
-											$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-										} else {
-											$precio = "Sobre consulta ";
-										}
-										echo $precio;
-									?></p>
-						<a href="#" class="site-btn btn-line">Agregar al Carrito</a>
-					</div>
-				</div>
-				</a>
-				</div>
-				</div>
+				
+				<?php 
+					$relacionados=getAllProductosHome();			
+					foreach ($relacionados as $row) { ?>
+					<div class="item">
+									<div class="product">
+											<a href="product.php?id=<?php echo $row['id'] ?>">
+												<div class="product-item">
+											
+													<figure>
+														<?php
+															$foto=getProdImages($row['id']);
+															foreach ($foto as $result){
+														?>
+															<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+															<?php } ?>
+													</figure>
+													<div class="product-info">
+														<h6><?php echo $row['nombre']?></h6>
+														<p><?php
+																	$precio = "";
+																	if ($row['valor_minorista'] > 0) {
+																		$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																	} else {
+																		$precio = "Sobre consulta ";
+																	}
+																	echo $precio;
+																?></p>
+													<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+					
 
 				<?php } ?>
-		</div>
+			</div>
+	    </div>
 	</section>
 
 

@@ -29,15 +29,20 @@
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['usuario'] = $login['nombre'];
                     $_SESSION['apellido'] = $login['apellido'];
-                    $_SESSION['tipo_documento'] = $login['tipo_documento'];
+                    /*$_SESSION['tipo_documento'] = $login['tipo_documento'];
                     $_SESSION['nro_documento'] = $login['nro_documento'];
-                    $_SESSION['razon_social'] = $login['razon_social'];
+                    $_SESSION['razon_social'] = $login['razon_social'];*/
                     $_SESSION['mayorista'] = $login['mayorista'];
 
                     // var_dump($redirect);
                     
                     // echo "<script type='text/javascript'>document.location.href='".$redirect."';</script>";
-                    echo "<script type='text/javascript'>document.location.href='".$redirect."';</script>";
+                    if (isset($_GET['redirect'])) {
+                        echo "<script type='text/javascript'>document.location.href='".$redirect."';</script>";
+                    }else{
+                        echo "<script type='text/javascript'>document.location.href='index.php';</script>";
+                    }
+                    
                 }                
             } else {
                 $mensaje = '<p class="alert alert-danger">Por favor, ¡Ingrese Todos los Datos!</p>';

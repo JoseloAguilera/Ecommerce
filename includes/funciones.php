@@ -34,6 +34,7 @@
 	}
 
 
+
 	function getProductosDestacados () {
 		$connection = conn();
 		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1' AND tb_producto.activo = '1' ORDER BY RAND() LIMIT 12";
@@ -200,7 +201,7 @@
 				$query->execute();
 
 				if ($query->rowCount() > 0) {
-					$result = $connection->lastInsertId();
+					$result = $id_cliente;
 				} else {
 					$result = null;
 				}	
@@ -280,6 +281,38 @@
 
 		if ($query->rowCount() > 0) {
 			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getMetodoEnvio($id) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_met_envio WHERE id = '$id'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getMetodoPago($id) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_met_pago WHERE id = '$id'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
 		} else {
 			$result = null;
 		}
@@ -616,6 +649,22 @@
 
 		if ($query->rowCount() > 0) {
 			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	function getpedido($id) {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_pedido WHERE id = $id";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
 		} else {
 			$result = null;
 		}

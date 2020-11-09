@@ -21,11 +21,13 @@
 	<link rel="stylesheet" href="css/style.css"/>
 	<link rel="stylesheet" href="css/animate.css"/>
 
-	<link rel="stylesheet" href="css/edt.css"/>
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<!-- bootstrap selectpicker -->
 	<link rel="stylesheet" href="css/bootstrap-select.min.css">
+
+	<link rel="stylesheet" href="css/edt.css"/>
 
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

@@ -36,9 +36,7 @@
 						<div class="col-md-4 ">
 							<div class="row">
 								<div class="col-2"  >
-									<div class="nav-switch">
-											<i class="fa fa-bars"></i>
-									</div>	
+									
 								</div><!-- // col-2-->
 								<div class="col-10 col-md-12">
 								<div class="" style="margin-top: 10px;">								
@@ -67,12 +65,27 @@
 					<div class="col-md-12">
 
 						<!-- site menu -->
-						<ul class="main-menu" style="display: block;z-index: 2000;">
+						<!--ul class="main-menu" style="display: block;z-index: 2000;">
 								<li><a class="m-activ" href="index.php">Inicio</a></li>
 								<?php foreach ($categorias as $cat) { ?>
 									<li><a href="categorie.php?cat=<?php echo $cat['id']?>"><?php echo $cat['nombre']?></a></li>
 								<?php } ?>							
-						</ul>
+						</ul-->
+						<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ 
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+	  <a class="nav-item nav-link " href="index.php">Inicio <span class="sr-only">(current)</span></a>
+	  <?php foreach ($categorias as $cat) { ?>
+	  	<a class="nav-item nav-link" href="categorie.php?cat=<?php echo $cat['id']?>"><?php echo $cat['nombre']?></a>
+	  <?php } ?>
+      
+    </div>
+  </div>
+</nav>
 					</div>	
 				</div>
 

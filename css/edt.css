@@ -33,27 +33,27 @@ header .menu-area {
 }
 
 #busqueda i{
-    color: #dca351;
+    color: #fcb800;
 }
 
 
 .social-top i.fa.fa-facebook {
-    background: #dca351;
+    background: #fcb800;
     padding: 15px;
     color: black;
 }
 .social-top .fa.fa-instagram {
-    background: #dca351;
+    background: #fcb800;
     padding: 15px;
     color: black;
     font-weight: 900;
     margin-left: 10px;
 }
 .social-top .fa.fa-instagram:hover {
-    background: #dca351;
+    background: #fcb800;
 }
 .header-right .card-bag span {
-    background-color: #dca351;
+    background-color: #fcb800;
 }
 
 .carrito{
@@ -64,10 +64,11 @@ header .menu-area {
     float: left;
     z-index: 2000;
     background-color: black;
+    margin: 10px 0 0 0;
 }
 
 .main-menu .m-activ{
-    color: #dca351;
+    color: #fcb800;
 }
 .main-menu li a {
     display: inline-block;
@@ -87,9 +88,9 @@ header .menu-area {
     border: 0;
 }
 
-.section-dark{
-    background-color: white;
-    padding-top: 30px;
+.section-dark {
+    background-color: #f0eeee;
+    padding: 15px 0;
 }
 
 
@@ -114,22 +115,26 @@ header .menu-area {
 }
 
 section.section-info {
-    color: white;
+    color: #282828;
     text-align: center;
     padding: 50px;
     background-position: center;
-    margin-top: 100px;
+    margin-top: 15px;
+    background: #fcb800;
 }
 section.section-info .single-service {
-    background: #795548;
+    background: #fcb800;
     padding: 30px;
 }
 section.section-info i {
-    color: #f1c27a;
+    color: #282828;
     font-size: 45px;
 }
 section.section-info h4 {
-    color: white;
+    color:#282828;
+}
+section.section-info p {
+    color:#282828;
 }
 
 .about-widget p {
@@ -140,7 +145,7 @@ section.section-info h4 {
     color: white;
 }
 .about-widget p a:hover{
-    color: #dca351;
+    color: #fcb800;
 }
 .hero-section {
     height: 100%;
@@ -158,15 +163,15 @@ section.section-info h4 {
 }
 
 .page-info-section {
-    background: #dca351;
+    background: #fcb800;
 }
 .product-page {
     background: #fdfdfd;
 }
 
 .site-btn.btn-buy {
-    background: #dca351;
-    border: 2px solid #dca351;
+    background: #fcb800;
+    border: 2px solid #fcb800;
     border-radius: 3px;
     color: #ffffff;
     padding: 12px 20px;
@@ -315,7 +320,7 @@ ul {
 }
 .product-item .product-info h6:hover {    
     text-decoration: none !important;
-    color: #dca351;
+    color: #fcb800;
 }
 
 .order-card .btn-full {
@@ -398,9 +403,7 @@ element.style {
     background: white;
     padding-bottom: 1px;
 }
-section.product-section.spad{
-    background-color: #f1f1f1;
-}
+
 
 .section-title {
     text-align: center;
@@ -412,4 +415,119 @@ section.product-section.spad{
 }
 .product-section .container {
     margin-bottom: 0;
+}
+.product-item .product-info p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #414141;
+    padding: 5px;
+    margin: 0;
+    line-height: 10px;
+    border-top: 0;
+}
+.product-item .product-info h6 {
+    margin-bottom: 5px;
+    min-height: 30px;
+    font-size: 14px;
+}
+.banner-middle:hover{
+    transition: transform .2s;
+    transform: scale(1.05);
+}
+.col-6.banner-middle img {
+    max-height: 525px;
+}
+
+
+.owl-prev,
+.owl-next {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.owl-prev {
+  left: -2rem;
+}
+
+.owl-next {
+  right: -2rem;
+}
+
+.owl-theme .owl-nav [class*='owl-'] {
+    color: #FFF;
+    font-size: 14px;
+    margin: 5px;
+    padding: 10px;
+    background: #fcb800;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 35px;
+}
+
+/*menu**/
+.bg-light {
+    background-color: #000000 !important;
+    margin-top: 5px;
+}
+.navbar-light .navbar-toggler {
+    color: white !important;
+    border-color: white !important;
+    background: #fcb800 !important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+    border-bottom: 1px solid grey;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #fcb800;
+    border-bottom: 1px solid #fcb800;
+}
+
+/*BOTON SUBIR*/
+#button {
+    display: inline-block;
+    background-color: #FF9800;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #button::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #button:hover {
+    cursor: pointer;
+    background-color: #333;
+  }
+  #button:active {
+    background-color: #555;
+  }
+  #button.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Styles for the content section */
+
+  .alert-success {
+    color: #000000;
+    background-color: #4CAF50;
+    border-color: #c3e6cb;
+    font-weight: 700;
 }

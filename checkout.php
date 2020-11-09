@@ -10,6 +10,10 @@ $met_pagos= getMetodosDePago();
 $calc_envio= getMetodosDeEnvio();
 $cart= $_SESSION['cart'];
 
+if (isset($_SESSION['cart'])) {
+	$cart= $_SESSION['cart'];
+} else { echo "<script type='text/javascript'>document.location.href='index.php';</script>";}
+
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	if (isset($_POST['guardar'])){
@@ -35,7 +39,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 						saveDetallePedidos ($guardarpedido, $carrito['idproducto'], $carrito['valor_minorista'], $carrito['qty'],'0', $totalitem);
 					}
 					$tipomensaje = 'success';			   
-					$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
+					//$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
+					echo "<script type='text/javascript'>document.location.href='pedido-completado.php?ped=".$guardarpedido."';</script>";
 				}	else if ($guardarpedido == null) {
 					$tipomensaje = 'error';
 					$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
@@ -90,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		 $cliente = getCliente($_SESSION['id_cliente']);
 	 } else {  ?>
 			<script type = "text/javascript">
-			  window.location = "ingresar.php?redirect=/checkout.php"
+			  window.location = "ingresar.php?redirect=checkout.php"
 			</script>
 	 <?php }
 	 ?>
@@ -341,7 +346,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 								<br>
 								<div class="checkbox-items">
 									<div class="ci-item">
-											<input type="checkbox" name="terminos" id="terminos">
+											<input type="checkbox" name="terminos" id="terminos" required>
 											<label for="terminos">Acepto los terminos y condiciones</label>
 											<br>
 										</div>

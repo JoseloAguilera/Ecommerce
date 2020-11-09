@@ -4,7 +4,9 @@
 	if (isset($_SESSION['cart'])) {
 		$cart = array($_SESSION['cart']); 
 	}
-	//var_dump($cart);
+	if (!isset($_SESSION['mayorista'])){
+		$_SESSION['mayorista']=0;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -78,7 +80,7 @@
 										
 									</div>
 								</td>
-								<td class="price-col"><?php echo number_format($producto['valor_minorista'], 0, ',', '.')." Gs";?></td>
+								<td class="price-col"><?php echo $producto['valor_minorista'] ?></td>
 								
 								<td class="quy-col">
 									<div class="quy-input">
@@ -87,7 +89,7 @@
 									</div>
 								</td>
 								
-								<?php $precio = number_format($producto['qty']*$producto['valor_minorista'], 0, ',', '.')." Gs";?>
+								<?php $precio = $producto['qty']*$producto['valor_minorista']?>
 								<td class="total-col">
 									<span>
 										<?php echo $precio ?>
@@ -115,11 +117,15 @@
 			</div>
 			<div class="row cart-buttons">
 				<div class="col-lg-5 col-md-5">
-				<a href="index.php"><div class="site-btn btn-continue">Continuar Comprando</div></a>
+					<div class="site-btn btn-continue">Continuar Comprando</div>
 				</div>
 				<div class="col-lg-7 col-md-7 text-lg-right text-left">
-					<!--div class="site-btn btn-clear">Cancelar Pedido</div-->
+					<div class="site-btn btn-clear">Cancelar Pedido</div>
 					<a href="checkout.php"><div class="site-btn btn-line btn-update">FINALIZAR COMPRA</div></a>
+					<!--form action="pagopar.php" method="POST">
+						<input type="text" name="pagop" value="<?php echo $_SESSION['total'];?>">
+						<button type="submit" class="site-btn btn-buy" name="action" value="pago" >PAGAR</button>
+					</form-->
 				</div>
 			</div>
 		<?php }?>
