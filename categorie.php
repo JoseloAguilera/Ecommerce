@@ -254,7 +254,7 @@ $productos = getProdbyCategoria($categoria);
 											}
 											echo $precio;
 										?></p>
-							<a href="" class="site-btn btn-line">Agregar al Carrito</a>
+							<!--a href="" class="site-btn btn-line">Agregar al Carrito</a-->
 						</div>
 					</div>
 					</a>
