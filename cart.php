@@ -72,10 +72,9 @@
 						
 							<td class="product-col">
 
-									<img src="admin/img/<?php echo $producto['img_producto'] ?>" alt="">
+									<img src="admin/img/productos/<?php echo $producto['img_producto'] ?>" alt="">
 									<div class="pc-title">
 										<h4><?php echo $producto['nombre'] ?></h4>
-										
 									</div>
 								</td>
 								<td class="price-col"><?php echo number_format($producto['valor_minorista'], 0, ',', '.')." Gs";?></td>
