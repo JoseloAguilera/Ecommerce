@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08-Nov-2020 às 01:40
+-- Tempo de geração: 11-Nov-2020 às 22:36
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -83,18 +83,20 @@ CREATE TABLE IF NOT EXISTS `tb_banner` (
   `text_alt` varchar(100) DEFAULT NULL,
   `url` varchar(100) DEFAULT NULL,
   `orden` int(11) NOT NULL,
+  `posicion` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_banner`
 --
 
-INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `activo`) VALUES
-(3, 'banner-2020-10-14-59a0369461ad3_thumb900.jpg', 'Bienvenido a nuestra tienda', '', 1, 1),
-(4, 'banner-2020-10-14-banner_marcas_aire_acondicionado_h2.jpg', 'Nuestras Marcas de Aire Acondicionado', 'categorie.php?cat=21', 2, 1),
-(5, 'banner-2020-10-14-jbl-bluetooth-wireless-banner-4.jpg', 'Nuevos Auriculares JBL', 'product.php?id=2', 3, 1);
+INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `posicion`, `activo`) VALUES
+(3, 'banner-2020-11-11-jpeg', 'Bienvenido a nuestra tienda', 'categorie.php?cat=127', 1, 0, 0),
+(7, 'banner-2020-11-11-07-56-01-jpeg', 'Quepis Choraboy', '', 1, 1, 1),
+(4, 'banner-2020-11-11-05-34-32-jpeg', 'Nuestros Sombreros', 'categorie.php?cat=117', 2, 0, 1),
+(10, 'banner-2020-11-11-10-25-41-png', '', '', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -359,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `total_envio` double DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_pedido`
@@ -400,7 +402,8 @@ INSERT INTO `tb_pedido` (`id`, `fecha`, `id_cliente`, `id_met_pago`, `id_met_env
 (32, '0000-00-00', 3, 2, 1, 0, 115780, NULL, '', 50000, 0),
 (33, '0000-00-00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 1),
 (34, '2020-11-07', 1, 1, 1, 1, 76000, NULL, 'Tocar el Timbre', 0, 0),
-(35, '2020-11-07', 1, 2, 1, 1, 326800, NULL, '', 50000, 0);
+(35, '2020-11-07', 1, 2, 1, 1, 326800, NULL, '', 50000, 0),
+(36, '2020-11-11', 1, 1, 1, 1, 250000, NULL, 'Teste', 50000, 0);
 
 -- --------------------------------------------------------
 
@@ -449,7 +452,8 @@ INSERT INTO `tb_ped_detalle` (`id_pedido`, `id_producto`, `valor_unitario`, `ctd
 (33, 8, 76800, 3, 0, 230400),
 (34, 15, 76000, 1, NULL, 76000),
 (35, 8, 76800, 1, 0, 76800),
-(35, 6, 250000, 1, 0, 250000);
+(35, 6, 250000, 1, 0, 250000),
+(36, 6, 250000, 1, 0, 250000);
 
 -- --------------------------------------------------------
 

@@ -73,6 +73,7 @@
 									<th>Imagen</th>
 									<th>Link</th>
 									<th>Texto Alternativo</th>
+									<th>Posicion</th>
 									<th>Activo</th>
 								</tr>
 							</thead>
@@ -81,12 +82,21 @@
 									if ($banners != null) { 
 										foreach ($banners as $row) {
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-orden="<?php echo $row['orden'];?>" data-url="<?php echo $row['url'];?>" data-img="<?php echo $row['img'];?>" data-alternativo="<?php echo $row['text_alt'];?>" data-activo="<?php echo $row['activo'];?>">
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-orden="<?php echo $row['orden'];?>" data-url="<?php echo $row['url'];?>" data-img="<?php echo $row['img'];?>" data-alternativo="<?php echo $row['text_alt'];?>" data-posicion="<?php echo $row['posicion'];?>" data-activo="<?php echo $row['activo'];?>">
 									<td><?php echo $row['id'];?></td>
 									<td><?php echo $row['orden'];?></td>
 									<td><?php echo $row['img'];?></td>
 									<td><?php echo $row['url'];?></td>
 									<td><?php echo $row['text_alt'];?></td>
+									<td>
+									<?php
+										if ($row['posicion'] == 0) {
+											echo "Slider";
+										} else {
+											echo "Banner Pequeño";
+										}
+									?>
+									</td>
 									<td>
 									<?php
 										$circle_color = "";
@@ -116,12 +126,14 @@
 								<h4 class="modal-title">Nuevo Banner</h4>
 							</div>
 							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+								<input type="hidden" class="form-control" id="ordenslider" placeholder="99" maxlength="5" value="<?php echo $lastOrdenS;?>">
+								<input type="hidden" class="form-control" id="ordenbanner" placeholder="99" maxlength="5" value="<?php echo $lastOrdenB;?>">
 								<div class="modal-body">
 									<div class="row">
 										<div class="col-md-12 text-center">
 											<img src="img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img" name="img">
 										</div>
-										<div class="col-md-12">
+										<div class="col-md-9">
 											<div class="form-group">
 												<label for="fileToUpload"></label>
 												<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
@@ -129,11 +141,20 @@
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
+												<label for="descripcion">Posición</label>
+												<div class="row">
+													<div class="col-md-12">
+														<input type="checkbox" name="posicion" id="posicion" data-toggle="toggle" data-on="Banner" data-off="Slider" data-onstyle="success" data-offstyle="info" data-width="100%" data-height="35">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
 												<label for="tipo">Tipo de Link</label>
-												<select class="selectpicker" id="linktype" name="linktype" data-width="100%" data-live-search="true">
+												<select class="selectpicker" id="linktype" name="linktype" data-width="100%">
 													<option value="categoriatype">Categoría</option> 
 													<option value="productotype">Producto</option> 
-													<!-- <option value="marcatype">Marca</option>  -->
 													<option value="otrotype" selected>Otro</option> 
 												</select>
 											</div>
@@ -215,7 +236,7 @@
 										<div class="col-md-2">
 											<div class="form-group">
 												<label for="nombre">Orden</label>
-												<input type="text" class="form-control" id="orden" name="orden" placeholder="99" onKeyUp="formatoNro(this, event)" maxlength="5" value="<?php echo $lastOrden;?>">
+												<input type="text" class="form-control" id="orden" name="orden" placeholder="99" onKeyUp="formatoNro(this, event)" maxlength="5" value="<?php echo $lastOrdenS;?>">
 											</div>
 										</div>
 										<div class="col-md-2">
@@ -262,10 +283,20 @@
 										<div class="col-md-12 text-center">
 											<img src="img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img-alt" name="img-alt">
 										</div>
-										<div class="col-md-12" style="margin-bottom:15px;">
+										<div class="col-md-9" style="margin-bottom:15px;">
 											<div class="form-group">
                                                 <label for="fileToUpload"></label>
 												<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label for="descripcion">Posición</label>
+												<div class="row">
+													<div class="col-md-12">
+														<input type="checkbox" name="posicion" id="posicion-alt" data-toggle="toggle" data-on="Banner" data-off="Slider" data-onstyle="success" data-offstyle="info" data-width="100%" data-height="35">
+													</div>
+												</div>
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -364,7 +395,7 @@
 												<label for="descripcion">Activo</label>
 												<div class="row">
 													<div class="col-md-12">
-														<input type="checkbox" name="activo" id="activo" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35" checked>
+														<input type="checkbox" name="activo" id="activo-alt" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35" checked>
 													</div>
 												</div>
 											</div>

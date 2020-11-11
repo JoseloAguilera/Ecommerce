@@ -146,7 +146,6 @@
 		return $result;
 	}
 
-
 	function getCategoria ($categoria) {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_categoria WHERE id = '$categoria' ";
@@ -162,7 +161,6 @@
 		$connection = disconn($connection);
 		return $result;
 	}
-
 	
 	function getProdbyCategoria ($categoria) {
 		$connection = conn();
@@ -259,7 +257,6 @@
 		return $result;
 	}
 
-
 	function getClienteDireccion($id) {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_cli_direccion WHERE id_cliente = '$id' LIMIT 1";
@@ -276,7 +273,6 @@
 		return $result;
 	}
 
-
 	function countCart() {
 		$total=0;
 		if (isset($_SESSION['cart'])) {
@@ -290,9 +286,6 @@
 		}
 		
 	}
-
-
-
 	
 	function getMetodosDePago() {
 		$connection = conn();
@@ -341,8 +334,6 @@
 		$connection = disconn($connection);
 		return $result;
 	}
-
-
 	
 	function getMetodosDeEnvio() {
 		$connection = conn();
@@ -361,22 +352,21 @@
 	}
 
 	function getTotalCart(){
-		   $total=0;
-			if (isset($_SESSION['cart'])) {
-				foreach ($_SESSION['cart'] as $TotalProducto) { 					
-					$TotalItem = $TotalProducto['qty']*$TotalProducto['valor_minorista'];
-					$total = $total + $TotalItem;
-					$_SESSION['total'] = $total;
-				}
-				if ($_SESSION['total_item_cart'] == 0) {
-					$_SESSION['total'] = 0;
-					unset($_SESSION['cart']);
-				}
-			} else {
-				$_SESSION['total'] = 0;
+		$total=0;
+		if (isset($_SESSION['cart'])) {
+			foreach ($_SESSION['cart'] as $TotalProducto) { 					
+				$TotalItem = $TotalProducto['qty']*$TotalProducto['valor_minorista'];
+				$total = $total + $TotalItem;
+				$_SESSION['total'] = $total;
 			}
-			return $_SESSION['total'];
-			
+			if ($_SESSION['total_item_cart'] == 0) {
+				$_SESSION['total'] = 0;
+				unset($_SESSION['cart']);
+			}
+		} else {
+			$_SESSION['total'] = 0;
+		}
+		return $_SESSION['total'];
 	}
 
 	function getDepartamentos() {
@@ -555,8 +545,6 @@
 		$connection = disconn($connection);
 		return $result;
     }
-
-    
     
     function savePedidos ($id, $id_met_pago, $id_met_envio, $total, $observacion, $total_envio){
 		$connection = conn();
@@ -580,29 +568,26 @@
 		$connection = disconn($connection);
 		return $result;
     }
-
-      
+ 
     function saveDetallePedidos ($id_pedido, $id_producto, $valor_unitario, $ctd, $descuento, $valor_total) {
 		$connection = conn();
 		try {
-				$sql = "INSERT INTO tb_ped_detalle (id_pedido, id_producto, valor_unitario, ctd, descuento, valor_total)
-		 			VALUES ('$id_pedido', '$id_producto', '$valor_unitario', '$ctd', '$descuento', '$valor_total')";
-				$query = $connection->prepare($sql);
-                $query->execute();
-                
-				if ($query->rowCount() > 0) {
-					$result = $id_pedido;
-				} else {
-					$result = null;
-                }                
-						
+			$sql = "INSERT INTO tb_ped_detalle (id_pedido, id_producto, valor_unitario, ctd, descuento, valor_total)
+				VALUES ('$id_pedido', '$id_producto', '$valor_unitario', '$ctd', '$descuento', '$valor_total')";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			
+			if ($query->rowCount() > 0) {
+				$result = $id_pedido;
+			} else {
+				$result = null;
+			}                	
 		} catch (\Exception $e) {
 			$result = $e;
 		}
 		$connection = disconn($connection);
 		return $result;
 	}
-	
 
 	function getMetEnvioCiudad($id_met_envio, $id_ciudad) {
 		$connection = conn();
@@ -677,10 +662,10 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+
 	function getpedido($id) {
 		$connection = conn();
         $sql = "SELECT * FROM tb_pedido WHERE id = $id";
-        
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -694,4 +679,41 @@
 		return $result;
 	}
 
+	function getSlider() {
+		$connection = conn();
+		try {
+			$sql = "SELECT * FROM tb_banner WHERE tb_banner.activo = 1 AND tb_banner.posicion = 0 ORDER BY orden";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			
+			if ($query->rowCount() > 0) {
+				$result = $query->fetchAll();
+			} else {
+				$result = null;
+			}                	
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getBanner() {
+		$connection = conn();
+		try {
+			$sql = "SELECT * FROM tb_banner WHERE tb_banner.activo = 1 AND tb_banner.posicion = 1 ORDER BY orden LIMIT 2";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			
+			if ($query->rowCount() > 0) {
+				$result = $query->fetchAll();
+			} else {
+				$result = null;
+			}                	
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
+	}
 ?>

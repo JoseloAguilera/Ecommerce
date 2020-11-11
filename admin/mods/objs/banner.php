@@ -12,24 +12,29 @@
 	$productos = getAllProductos();
 
 	$banners = getAllBanners();
-	$lastOrden = getBannerLO();
-	if ($lastOrden['orden'] >= 0) {
-		$lastOrden = $lastOrden['orden'] + 1;
+	$lastOrdenS = getBannerLO(0);
+	if ($lastOrdenS['orden'] >= 0) {
+		$lastOrdenS = $lastOrdenS['orden'] + 1;
 	} else {
-		$lastOrden = $lastOrden['orden'];
+		$lastOrdenS = $lastOrdenS['orden'];
+	}
+
+	$lastOrdenB = getBannerLO(1);
+	if ($lastOrdenB['orden'] >= 0) {
+		$lastOrdenB = $lastOrdenB['orden'] + 1;
+	} else {
+		$lastOrdenB = $lastOrdenB['orden'];
 	}
 
 	// var_dump(getProdbyCategoria (11));
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['nuevo'])){
-			// var_dump(pagoTeste());
-			// $tipomensaje = 'success';
-			// $mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
-			
+			// var_dump(pagoTeste());			
 			if (basename($_FILES["fileToUpload"]["name"]) == "") {
 				$img = "no-banner.png";
 			} else {
-				$imgname = "banner-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$imgname = "banner-".date("Y-m-d-h-i-s")."-".$extension;
 				$img = saveImg ("img/banners/", $imgname, "fileToUpload");
 			}
 
@@ -39,6 +44,13 @@
 					$activo = 0;
 				} else {
 					$activo = 1;
+				}
+
+				$posicion = null;
+				if(!isset($_POST['posicion'])) {
+					$posicion = 0;
+				} else {
+					$posicion = 1;
 				}
 
 				$link = "";
@@ -52,14 +64,16 @@
 					$link = $_POST['link'];
 				}
 
-				$incluir = newBanner ($img, $_POST['alternativo'], $link, $_POST['orden'], $activo);
+				$incluir = newBanner ($img, $_POST['alternativo'], $link, $_POST['orden'], $posicion, $activo);
 
 				if ($incluir == $img) {
 					$tipomensaje = 'success';
 					$mensaje= '<h3>Perfecto!</h3><p>El banner fue insertado correctamente.</p>';
 					$banners = getAllBanners();
-					$lastOrden = getBannerLO();
-					$lastOrden = $lastOrden['orden'] + 1;
+					$lastOrdenS = getBannerLO(0);
+					$lastOrdenS = $lastOrdenS['orden'] + 1;
+					$lastOrdenB = getBannerLO(1);
+					$lastOrdenB = $lastOrdenB['orden'] + 1;
 				} else if ($incluir == null) {
 					$tipomensaje = 'error';
 					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
@@ -79,12 +93,10 @@
 				$tipomensaje = 'success';
 				$mensaje= '<h3>Perfecto!</h3><p>La imagen fue eliminada correctamente.</p>';
 				$banners = getAllBanners();
-				$lastOrden = getBannerLO();
-				if ($lastOrden['orden'] > 0) {
-					$lastOrden = $lastOrden['orden'] + 1;
-				} else {
-					$lastOrden = $lastOrden['orden'];
-				}
+				$lastOrdenS = getBannerLO(0);
+				$lastOrdenS = $lastOrdenS['orden'] + 1;
+				$lastOrdenB = getBannerLO(1);
+				$lastOrdenB = $lastOrdenB['orden'] + 1;
 			} else if ($excluir == null) {
 				$tipomensaje = 'error';
 				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
@@ -96,7 +108,8 @@
 			if (basename($_FILES["fileToUpload"]["name"]) == "") {
 				$img = $_POST['imgurl'];
 			} else {
-				$imgname = "banner-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$imgname = "banner-".date("Y-m-d-h-i-s")."-".$extension;
 				$img = saveImg ("img/banners/", $imgname, "fileToUpload");
 			}
 
@@ -107,28 +120,33 @@
 				$activo = 1;
 			}
 
+			$posicion = null;
+			if(!isset($_POST['posicion'])) {
+				$posicion = 0;
+			} else {
+				$posicion = 1;
+			}
+
 			$link = "";
-			// if($_POST['linktype-alt'] == "categoriatype-alt"){
-			// 	$link = "catalogo.php?categoria=".$_POST['categoria'];
-			// } else if($_POST['linktype-alt'] == "productotype-alt"){
-			// 	$link = "producto.php?cod=".$_POST['producto'];
+			if($_POST['linktype-alt'] == "categoriatype-alt"){
+				$link = "categorie.php?cat=".$_POST['categoria'];
+			} else if($_POST['linktype-alt'] == "productotype-alt"){
+				$link = "product.php?id=".$_POST['producto'];
 			// } else if($_POST['linktype-alt'] == "promociontype-alt"){
 			// 	$link = "#promo-".$_POST['promocion'];
-			// } else {
-			// 	$link = $_POST['link'];
-			// }
+			} else {
+				$link = $_POST['link'];
+			}
 
-			$guardar = saveBanner ($_POST['codigo'], $img, $_POST['alternativo'], $link, $_POST['orden'], $activo);
+			$guardar = saveBanner ($_POST['codigo'], $img, $_POST['alternativo'], $link, $_POST['orden'], $posicion, $activo);
 			if ($guardar == $_POST['codigo']) {
 				$tipomensaje = 'success';
 				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';
 				$banners = getAllBanners();
-				$lastOrden = getBannerLO();
-				if ($lastOrden['orden'] > 0) {
-					$lastOrden = $lastOrden['orden'] + 1;
-				} else {
-					$lastOrden = $lastOrden['orden'];
-				}
+				$lastOrdenS = getBannerLO(0);
+				$lastOrdenS = $lastOrdenS['orden'] + 1;
+				$lastOrdenB = getBannerLO(1);
+				$lastOrdenB = $lastOrdenB['orden'] + 1;
 			} else if ($guardar == null) {
 				$tipomensaje = 'success';
 				$mensaje = '<h3>Perfecto!</h3><p>No hubo alteración en los datos.</p>';
