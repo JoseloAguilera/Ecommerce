@@ -6,6 +6,9 @@
 <?php 
 	require "includes/funciones.php";
 	include("includes/head.php"); 
+
+	$slider = getSlider();
+	$banner = getBanner();
 ?>
 <body>
 <a id="button"></a>
@@ -19,34 +22,46 @@
 	<!-- Header section end -->	
 	<!-- Hero section -->
 	<section style="padding:0px !important;">
-			<div class="container-fluid ">
-                <div class="row">
-                	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				 	</ol>
-				  <div class="carousel-inner">
-				    <div class="carousel-item active">
-				      <img class="d-block w-100" src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1603121583962-1650454221-02b45b607b78830556e74e08a8e69ded1603121587.jpg?164778436" alt="First slide">
-				    </div>
-				    <div class="carousel-item">
-				      <img class="d-block w-100" src="http://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/slide-1597096638181-1942437578-7ed2caa366b1f105f1790a02db9a36291597096639.jpg?164778436" alt="Second slide">
-				    </div>
-				  </div>
-				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
+		<div class="container-fluid ">
+			<div class="row">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<?php
+							$size = count($slider);
+							$primero = "active";
+							for ($x = 0; $x < $size; $x++) {
+						?>
+						<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $x;?>" class="<?php echo $primero;?>"></li>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</ol>
+					<div class="carousel-inner">
+						<?php 
+							$primero = "active";
+							foreach ($slider as $slide) {
+						?>
+						<div class="carousel-item <?php echo $primero;?>">
+							<a href="<?php echo $slide['url'];?>"><img class="d-block w-100" src="<?php echo "admin/img/banners/".$slide['img'];?>" alt="<?php echo $slide['text_alt'];?>"></a>
+						</div>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
-                </div>
-            </div>
-		</section>
+			</div>
+		</div>
+	</section>
 	<!-- Hero section end -->	
 	
 	<!-- Product section -->
@@ -86,7 +101,8 @@
 											
 											<div class="product-info">
 												<h6><?php echo $row['nombre']?></h6>
-												<p><?php
+												<p>
+													<?php
 														$precio = "";
 														if ($row['valor_minorista'] > 0) {
 															$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
@@ -94,12 +110,13 @@
 															$precio = "Sobre consulta ";
 														}
 														echo $precio;
-													?></p>
-													<form action="cart.php" method="post">
-														<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
-														<input type="hidden" value="1" name="qty">
-														<!--button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button-->
-													</form>
+													?>
+												</p>
+												<form action="cart.php" method="post">
+													<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+													<input type="hidden" value="1" name="qty">
+													<!--button type="submit" class="site-btn btn-buy" name="action" value="addcart">AÑADIR AL CARRITO</button-->
+												</form>
 											</div>
 									   </div>
 									</a>
@@ -117,13 +134,8 @@
 	</section>
 	<!-- Product section end -->
 
-
-
-
 	<section class="section-dark">		
 		<div class="container-fluid">
-			
-
 		    <div class="col-12">
 				<div class="section-title">
 					<h4>Productos Más Recientes</h4>
@@ -131,6 +143,80 @@
 				<div class="row">				
 					<div class="col-4">
 						<div class="owl-carousel owl-theme carousel slide" id="cat-destacada">			
+							<?php 
+								$novedades=getProductosNuevos();			
+								foreach ($novedades as $row) { ?>
+								<div class="item">
+									<div class="product">
+										<a href="product.php?id=<?php echo $row['id'] ?>">
+											<div class="product-item">
+												<figure>
+													<?php
+														$foto=getProdImages($row['id']);
+														foreach ($foto as $result){
+													?>
+														<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+												</figure>
+												<div class="product-info">
+													<h6><?php echo $row['nombre']?></h6>
+													<p>
+														<?php
+															$precio = "";
+															if ($row['valor_minorista'] > 0) {
+																$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+															} else {
+																$precio = "Sobre consulta ";
+															}
+															echo $precio;
+														?>
+													</p>
+												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
+					<?php
+						if ($banner != null) {
+							$col = count($banner);
+							$col = 8/count($banner);
+							if (count($banner) == 1) {
+								$class = "col-md-2";
+							} else {
+								$class = "";
+							}
+
+							foreach ($banner as $bnnr) {
+					?>
+					<div class="<?php echo $class;?>"></div>
+					<div class="col-4 text-center banner-middle">					
+						<div class="">
+							<img src="admin/img/banners/<?php echo $bnnr['img'];?>" alt="<?php echo $bnnr['text_alt'];?>">
+						</div>
+					</div>
+					<div class="<?php echo $class;?>"></div>
+					<?php
+							}
+						}
+					?>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">		
+		<div class="container-fluid">		
+		    <div class="col-12">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h4>Productos Más Vendidos</h4>
+						</div>			  		  			
+						<div class="owl-carousel owl-theme" id="owl-product">			
 							<?php 
 								$novedades=getProductosNuevos();			
 								foreach ($novedades as $row) { ?>
@@ -149,15 +235,17 @@
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>
-													<p><?php
-																$precio = "";
-																if ($row['valor_minorista'] > 0) {
-																	$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-																} else {
-																	$precio = "Sobre consulta ";
-																}
-																echo $precio;
-															?></p>
+													<p>
+														<?php
+															$precio = "";
+															if ($row['valor_minorista'] > 0) {
+																$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+															} else {
+																$precio = "Sobre consulta ";
+															}
+															echo $precio;
+														?>
+													</p>
 												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
 												</div>
 											</div>
@@ -167,66 +255,8 @@
 							<?php } ?>
 						</div>
 					</div>
-					<div class="col-4 banner-middle">					
-						<div class="">
-							<img src="https://d26lpennugtm8s.cloudfront.net/stores/001/152/331/themes/idea/img-585355031-1588298125-9fdbf6ab9064ebf0a9c39afcc83f0efe1588298126-1024-1024.jpg?1742043555" alt="">
-						</div>
-					</div>
-					<div class="col-4 banner-middle">					
-						<div class="">
-							<img src="img/banners/cat_01.png" alt="">
-					   </div>
-					   </div>
-		</div>
-	</section>
-
-	<section class="section">		
-		<div class="container-fluid">		
-
-		    <div class="col-12">
-				<div class="row">
-					<div class="col-12">
-					<div class="section-title">
-								<h4>Productos Más Vendidos</h4>
-							</div>			  		  			
-							<div class="owl-carousel owl-theme" id="owl-product">			
-								<?php 
-									$novedades=getProductosNuevos();			
-									foreach ($novedades as $row) { ?>
-									<div class="item">
-										<div class="product">
-											<a href="product.php?id=<?php echo $row['id'] ?>">
-												<div class="product-item">
-											
-													<figure>
-														<?php
-															$foto=getProdImages($row['id']);
-															foreach ($foto as $result){
-														?>
-															<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-															<?php } ?>
-													</figure>
-													<div class="product-info">
-														<h6><?php echo $row['nombre']?></h6>
-														<p><?php
-																	$precio = "";
-																	if ($row['valor_minorista'] > 0) {
-																		$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-																	} else {
-																		$precio = "Sobre consulta ";
-																	}
-																	echo $precio;
-																?></p>
-													<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
-													</div>
-												</div>
-											</a>
-										</div>
-									</div>
-								<?php } ?>
-							</div>
-					</div>
-					
+				</div>
+		    </div>
 		</div>
 	</section>
 	<!--section>

@@ -26,6 +26,17 @@
         });
     });
     
+    $(document).ready(function(){
+        $('#posicion').change(function() {
+            var toggle = $(this).prop('checked');
+            if (toggle == 1) {
+                document.getElementById("orden").value = document.getElementById("ordenbanner").value;
+            } else {
+                document.getElementById("orden").value = document.getElementById("ordenslider").value;
+            }
+        })
+    })
+
     // Ajusta los itenes para que se vean en el modal
     $(document).ready(function(){
         $(document).on('shown.bs.modal','#AltModal', function (event) {
@@ -35,6 +46,7 @@
             var img = button.data('img')
             var alternativo = button.data('alternativo')
             var orden = button.data('orden')
+            var posicion = button.data('posicion')
             var activo = button.data('activo')
             
             // Actualiza los datos del modal
@@ -47,9 +59,15 @@
             modal.find('#alternativo').val(alternativo);
     
             if (activo == "1") {
-                $('#toggle-activo').bootstrapToggle('on')
+                $('#activo-alt').bootstrapToggle('on')
             } else {
-                $('#toggle-activo').bootstrapToggle('off')
+                $('#activo-alt').bootstrapToggle('off')
+            }
+
+            if (posicion == "1") {
+                $('#posicion-alt').bootstrapToggle('on')
+            } else {
+                $('#posicion-alt').bootstrapToggle('off')
             }
             
             if (url.substring(0, 6) == "promo-") {
@@ -60,19 +78,19 @@
                 $('.selectpicker').selectpicker('refresh');
                 $('.linktype-alt').hide();
                 $('#promociontype-alt').show();
-            } else if (url.substring(0, 23) == "catalogo.php?categoria=") {
-                console.log(url.substring(23));
+            } else if (url.substring(0, 18) == "categorie.php?cat=") {
+                // console.log(url.substring(18));
                 modal.find('#linktype-alt').val("categoriatype-alt");
                 $('.selectpicker').selectpicker('refresh');
-                modal.find('#categoria').val(url.substring(23));
+                modal.find('#categoria').val(url.substring(18));
                 $('.selectpicker').selectpicker('refresh');
                 $('.linktype-alt').hide();
                 $('#categoriatype-alt').show();
-            } else if (url.substring(0, 17) == "producto.php?cod=") {
+            } else if (url.substring(0, 15) == "product.php?id=") {
                 // console.log(url.substring(17));
                 modal.find('#linktype-alt').val("productotype-alt");
                 $('.selectpicker').selectpicker('refresh');
-                modal.find('#producto').val(url.substring(17));
+                modal.find('#producto').val(url.substring(15));
                 $('.selectpicker').selectpicker('refresh');
                 $('.linktype-alt').hide();
                 $('#productotype-alt').show();

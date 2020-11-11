@@ -3,7 +3,7 @@
 
 	function getBanners () {
 		$connection = conn();
-		$sql = "SELECT tb_banner.* FROM tb_banner WHERE tb_banner.activo = 1 ORDER BY tb_banner.orden";
+		$sql = "SELECT tb_banner.* FROM tb_banner WHERE tb_banner.activo = 1 ORDER BY tb_banner.posicion, tb_banner.orden";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -19,7 +19,7 @@
 
 	function getAllBanners () {
 		$connection = conn();
-		$sql = "SELECT tb_banner.* FROM tb_banner ORDER BY tb_banner.orden";
+		$sql = "SELECT tb_banner.* FROM tb_banner ORDER BY tb_banner.posicion, tb_banner.orden";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -33,9 +33,9 @@
 		return $result;
 	}
 	
-	function getBannerLO () {
+	function getBannerLO ($posicion) {
 		$connection = conn();
-		$sql = "SELECT MAX(orden) as orden FROM tb_banner";
+		$sql = "SELECT MAX(orden) as orden FROM tb_banner WHERE posicion = $posicion";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -49,11 +49,11 @@
 		return $result;
 	}
 
-	function newBanner ($img, $alternativo, $url, $orden, $activo) {
+	function newBanner ($img, $alternativo, $url, $orden, $posicion, $activo) {
 		$connection = conn();
 		try {
-			$sql = "INSERT INTO tb_banner (img, text_alt, url, orden, activo)
-		 			VALUES ('$img', '$alternativo', '$url', $orden, $activo)";
+			$sql = "INSERT INTO tb_banner (img, text_alt, url, orden, posicion, activo)
+		 			VALUES ('$img', '$alternativo', '$url', $orden, $posicion, $activo)";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -70,7 +70,7 @@
 		return $result;
 	}
 
-	function saveBanner ($codigo, $img, $alternativo, $url, $orden, $activo) {
+	function saveBanner ($codigo, $img, $alternativo, $url, $orden, $posicion, $activo) {
 		$connection = conn();
 		
 		try {
@@ -86,7 +86,7 @@
 			}
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_banner SET img = '$img', text_alt = '$alternativo', url = '$url', orden = $orden, activo = '$activo'
+				$sql = "UPDATE tb_banner SET img = '$img', text_alt = '$alternativo', url = '$url', orden = $orden, posicion = '$posicion', activo = '$activo'
 	 					WHERE id = $codigo";
 				$query = $connection->prepare($sql);
 				$query->execute();
