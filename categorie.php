@@ -250,7 +250,7 @@ $productos = getProdbyCategoria($categoria);
 											if ($row['valor_minorista'] > 0) {
 												$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
 											} else {
-												$precio = "Sobre consulta ";
+												$precio = "Sobre consulta";
 											}
 											echo $precio;
 										?></p>
