@@ -75,7 +75,7 @@
 									if ($clientes != null) { 
 										foreach ($clientes as $row) {											
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['tipo_documento'];?>" data-numero="<?php echo $row['nro_documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>">
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['ruc'];?>" data-numero="<?php echo $row['documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>">
 									<td>
 										<?php 
 											$mayorista = "";
@@ -88,17 +88,17 @@
 									</td>
 									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 									<td><?php echo $row['razon_social'];?></td>
-									<td><?php echo $row['tipo_documento'];?></td>
+									<td><?php echo $row['ruc'];?></td>
 									<td>
 										<?php 
 											$nro_documento = "";
-											if ($row['tipo_documento'] == "RUC") {
-												$lastnum = strlen($row['nro_documento']) - 1;
-												$nro_documento = substr($row['nro_documento'],0,$lastnum)."-".substr($row['nro_documento'],$lastnum,1);
-											} else if ($row['tipo_documento'] == "CI") {
-												$nro_documento = $row['nro_documento'];
+											if ($row['ruc'] == "RUC") {
+												$lastnum = strlen($row['documento']) - 1;
+												$nro_documento = substr($row['documento'],0,$lastnum)."-".substr($row['documento'],$lastnum,1);
+											} else if ($row['ruc'] == "CI") {
+												$nro_documento = $row['documento'];
 											} else {
-												$nro_documento = $row['nro_documento'];
+												$nro_documento = $row['documento'];
 											}
 											echo $nro_documento;?>
 									</td>
