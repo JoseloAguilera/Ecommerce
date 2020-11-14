@@ -26,7 +26,7 @@ carregaCiudades = function() {
                 $('#ciudad').append('<option value="' + obj.id + '"'+ primero+'>' + obj.nombre + '</option>');
                 primero = '';
             });
-            $('#ciudad').selectpicker('refresh');
+            // $('#ciudad').selectpicker('refresh');
         },
         error: function(data) {
             // $("#ajaxload2").empty();
@@ -67,7 +67,7 @@ selectCiudad = function($ciudad) {
                 }
                 $('#ciudad').append('<option value="' + obj.id + '"'+ primero +'>' + obj.nombre + '</option>');
             });
-            $('#ciudad').selectpicker('refresh');
+            // $('#ciudad').selectpicker('refresh');
         },
         error: function(data) {
             // $("#ajaxload2").empty();

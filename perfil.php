@@ -140,7 +140,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="tipo">Departamento</label>
-									<select class="selectpicker" id="departamento" name="departamento" data-width="100%" data-live-search="true" onchange="carregaCiudades()">
+									<select class="form-control" id="departamento" name="departamento" data-width="100%" data-live-search="true" onchange="carregaCiudades()">
 										<option value="NULL"> -- Seleccione un Departamento -- </option>
 										<?php
 											if ($departs != null) {
@@ -163,7 +163,7 @@
 								<div class="form-group">
 									<label for="nombre">Ciudad</label>
 									<input type="hidden" class="form-control" id="alt-ciudad" placeholder="" value="<?php echo $direccion['ciudad'];?>" maxlength="80">
-									<select class="selectpicker" id="ciudad" name="ciudad" data-width="100%" data-live-search="true">
+									<select class="form-control" id="ciudad" name="ciudad" data-width="100%" data-live-search="true">
 										<option value="NULL"> -- Seleccione una Ciudad -- </option>
 									</select>
 								</div>
