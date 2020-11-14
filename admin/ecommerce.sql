@@ -129,21 +129,22 @@ CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(80) NOT NULL,
   `apellido` varchar(80) DEFAULT NULL,
-  `tipo_documento` varchar(20) DEFAULT NULL COMMENT 'RUC, RG, CI',
-  `nro_documento` varchar(50) DEFAULT NULL,
+  `ruc` varchar(20) DEFAULT NULL COMMENT 'RUC, RG, CI',
+  `documento` varchar(50) DEFAULT NULL,
   `razon_social` varchar(80) DEFAULT NULL,
   `mayorista` tinyint(1) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla ecommerce.tb_cliente: 3 rows
+-- Volcando datos para la tabla ecommerce.tb_cliente: 4 rows
 /*!40000 ALTER TABLE `tb_cliente` DISABLE KEYS */;
-INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `tipo_documento`, `nro_documento`, `razon_social`, `mayorista`, `telefono`, `email`) VALUES
+INSERT INTO `tb_cliente` (`id`, `nombre`, `apellido`, `ruc`, `documento`, `razon_social`, `mayorista`, `telefono`, `email`) VALUES
 	(1, 'Ana Carolina', 'de Vernazza', 'RUC', '2498760', 'Mario Vernazza', 0, '0983781248', 'anacarolinaapv@gmail.com'),
 	(2, 'Juan', 'richard', NULL, NULL, NULL, 0, NULL, NULL),
-	(3, 'Juan Richard', 'CABRERA', 'CI', '4402658', 'CAPACIT', 1, '09826371278', 'capacitcursoscde@gmail.com');
+	(3, 'Juan Richard', 'CABRERA', 'CI', '4402658', 'CAPACIT', 1, '09826371278', 'capacitcursoscde@gmail.com'),
+	(4, 'José', 'Aguilera', '59715570', '5971557', 'José Aguilera', 0, '973 118404', 'joseaguilera1709@gmail.com');
 /*!40000 ALTER TABLE `tb_cliente` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ecommerce.tb_cli_direccion
@@ -157,13 +158,14 @@ CREATE TABLE IF NOT EXISTS `tb_cli_direccion` (
   `referencia` varchar(80) DEFAULT NULL,
   `favorito` tinyint(1) NOT NULL COMMENT '0 -> no 1 -> sí',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla ecommerce.tb_cli_direccion: 2 rows
 /*!40000 ALTER TABLE `tb_cli_direccion` DISABLE KEYS */;
 INSERT INTO `tb_cli_direccion` (`id`, `id_cliente`, `calle`, `ciudad`, `departamento`, `referencia`, `favorito`) VALUES
 	(5, 3, 'Avda. San Blas. Km 3 y medio', '3', '2', 'cerca de mi vecino', 1),
-	(6, 1, 'Calle Las Orquideas con Los Lapachos', '1', '1', 'Casa de esquina', 1);
+	(6, 1, 'Calle Las Orquideas con Los Lapachos', '1', '1', 'Casa de esquina', 1),
+	(7, 4, '', 'NULL', 'NULL', '', 1);
 /*!40000 ALTER TABLE `tb_cli_direccion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ecommerce.tb_departamento
@@ -571,14 +573,15 @@ CREATE TABLE IF NOT EXISTS `tb_usuario_cliente` (
   `contrasena` varchar(100) NOT NULL,
   `creado_en` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla ecommerce.tb_usuario_cliente: 3 rows
+-- Volcando datos para la tabla ecommerce.tb_usuario_cliente: 4 rows
 /*!40000 ALTER TABLE `tb_usuario_cliente` DISABLE KEYS */;
 INSERT INTO `tb_usuario_cliente` (`id`, `id_cliente`, `email`, `email_verificado`, `contrasena`, `creado_en`) VALUES
 	(1, 1, 'anacarolinaapv@gmail.com', NULL, '9e32b70e18928d1dcbd73a8f4c8e119f', '2020-10-14'),
 	(2, 2, 'richardcabrera92@hotmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', '2020-10-22'),
-	(3, 3, 'capacitcursoscde@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', '2020-10-22');
+	(3, 3, 'capacitcursoscde@gmail.com', NULL, '827ccb0eea8a706c4c34a16891f84e7b', '2020-10-22'),
+	(4, 4, 'joseaguilera1709@gmail.com', NULL, '36237e6873f106a31c77bba81980da3d', '2020-11-12');
 /*!40000 ALTER TABLE `tb_usuario_cliente` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ecommerce.transactions
@@ -595,10 +598,12 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla ecommerce.transactions: 1 rows
+-- Volcando datos para la tabla ecommerce.transactions: 3 rows
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
 INSERT INTO `transactions` (`id`, `estado`, `totalMonto`, `hash_pedido`, `maxDateForPayment`, `compradorId`, `descripcion`, `created`) VALUES
-	(19, 0, 20000.00, '307f42c2bc208d42fb6ae8269d89a8738abaa5a59e9eae80a5db5b1786412ad9', '2020-12-12 14:14:48', 1, 'hola', '2020-11-04 20:17:47');
+	(19, 0, 20000.00, '307f42c2bc208d42fb6ae8269d89a8738abaa5a59e9eae80a5db5b1786412ad9', '2020-12-12 14:14:48', 1, 'hola', '2020-11-04 20:17:47'),
+	(20, 0, 20000.00, '8be872ac36842be4654862a16c66b5819eed5ee062dbed2b5319c178ae874a4d', '2020-12-12 14:14:48', 1, 'hola', '2020-11-12 15:13:28'),
+	(21, 0, 20000.00, '5a27b703750ded6736539f1a3e136119bd4386b83490950b2a0e2dc718dd56a8', '2020-12-12 14:14:48', 1, 'hola', '2020-11-12 16:38:20');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

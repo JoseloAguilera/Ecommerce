@@ -469,7 +469,7 @@
 		return $result;
 	}
 	
-	function saveCliente ($id, $nombre, $apellido, $tipodoc, $nrodoc, $razonsocial, $telefono, $email, $depart, $ciudad, $calle, $referencias) {
+	function saveCliente ($id, $nombre, $apellido, $doc, $ruc, $razonsocial, $telefono, $email, $depart, $ciudad, $calle, $referencias) {
 		$connection = conn();
 		try {
 			$sql = "SELECT * from tb_cliente WHERE id = '$id'";
@@ -477,7 +477,7 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_cliente SET nombre = '$nombre', nombre = '$nombre', apellido = '$apellido', tipo_documento = '$tipodoc', nro_documento = '$nrodoc', razon_social = '$razonsocial', telefono = '$telefono', email = '$email'
+				$sql = "UPDATE tb_cliente SET nombre = '$nombre', nombre = '$nombre', apellido = '$apellido', documento = '$doc', ruc = '$ruc', razon_social = '$razonsocial', telefono = '$telefono', email = '$email'
 	 					WHERE id = '$id'";
 				$query = $connection->prepare($sql);
 				$query->execute();
@@ -715,5 +715,89 @@
 		}
 		$connection = disconn($connection);
 		return $result;
+	}
+
+
+	function enviarPagopar($id_pedido,  $total_envio, $total_compra, $id_comprador, $ruc){
+		$token_privado='882a6551ea33c6372be75e868b1b45f7';
+		$token_publico='59fd417c531214db01e3db5c050c1bde';
+		$total=$total_envio+$total_compra;
+		//sha1($datos['comercio_token_privado'] . $idPedido . strval(floatval($j['monto_total'])));
+
+		$pedido_token= sha1($token_privado. $idPedido.strval(floatval($total)));
+		$comprador['ruc']= $ruc;
+		$comprador['email']= "joseaguilera@gmail.com";
+		$comprador['nombre']= "José Aguilera";
+		$comprador['telefono']= "0973118404";
+		$comprador['direccion']= "CDE";
+		$comprador['documento']= "5971557";
+		$comprador['coordenadas']= "";
+		$comprador['razon_social']= "José Aguilera";
+		$comprador['tipo_documento']= "CI";
+		$comprador['direccion_referencia']= null;
+		$comprador['ciudad']= "";
+
+
+		$compras_items['ciudad']= "1";
+		$compras_items['nombre']= "Pedido de EDT - PY";
+		$compras_items['cantidad']= 1;
+		$compras_items['categoria']= "909";
+		$compras_items['public_key']= "$token_publico";
+		$compras_items['url_imagen']= "http://www.fernandogoetz.com/d7/wordpress/wp-content/uploads/2017/10/ticket.png";
+		$compras_items['descripcion']= "Ticket virtual EDT - PY";
+		$compras_items['id_producto']= 895;
+		$compras_items['precio_total']= $total;
+		$compras_items['vendedor_telefono']= "";
+		$compras_items['vendedor_direccion']= "";
+		$compras_items['vendedor_direccion_referencia']= "";
+		$compras_items['vendedor_direccion_coordenadas']= "";
+	
+
+
+		$pedido['token']=$pedido_token;
+		$pedido['comprador']=$comprador;
+		$pedido['public_key']="$token_publico";
+		$pedido['monto_total']=$total;
+		$pedido['tipo_pedido']="VENTA-COMERCIO";
+		$pedido['compras_items'][0]=$compras_items;
+		$pedido['fecha_maxima_pago']="2020-12-12 14:14:48";
+		$pedido['id_pedido_comercio']=$idPedido;
+		$pedido['descripcion_resumen']="";
+
+
+		//API URL
+		$url = "https://api.pagopar.com/api/comercios/1.1/iniciar-transaccion";
+		$postdata = json_encode($pedido);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		$result = json_decode(curl_exec($ch), true);
+		if(curl_errno($ch))	{
+    		echo 'Curl error: ' . curl_error($ch);  		}
+    	else{ 
+        	if($result["respuesta"]==true){
+            	$fecha_maxima=$pedido['fecha_maxima_pago'];
+            	$id_producto=$compras_items['id_producto'];
+            	$hash_pedido=$result['resultado'][0]['data'];
+            	$connection = conn();
+            	$sql = "INSERT INTO transactions (id, totalMonto, hash_pedido, maxDateForPayment, compradorId, descripcion)
+            	VALUES ($idPedido, $total, '$hash_pedido', '$fecha_maxima' , $id_comprador, 'hola' )";
+            	$query = $connection->prepare($sql);
+            	$query->execute();
+
+            	$connection = disconn($connection);
+            
+	            header('Location: https://www.pagopar.com/pagos/'.$hash_pedido);
+            	exit();
+        	}else{
+            	echo "Error, consulte al administrador";
+        	}
+     	}
+		curl_close($ch);
 	}
 ?>

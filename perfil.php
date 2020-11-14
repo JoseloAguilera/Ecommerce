@@ -22,7 +22,7 @@
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['guardar'])){
 			$ruc = preg_replace('/\D/', '', $_POST['ruc']);
-			$guardar = saveCliente ($_SESSION['id_cliente'], $_POST['nombre'], $_POST['apellido'], $_POST['tipo'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], $_POST['departamento'], $_POST['ciudad'], $_POST['calle'], $_POST['referencias']);
+			$guardar = saveCliente ($_SESSION['id_cliente'], $_POST['nombre'], $_POST['apellido'], $_POST['documento'], $ruc, $_POST['razonsocial'], $_POST['telefono'], $_POST['email'], $_POST['departamento'], $_POST['ciudad'], $_POST['calle'], $_POST['referencias']);
 
 			if ($guardar == $_SESSION['id_cliente']) {
 				$tipomensaje = 'success';
@@ -115,26 +115,14 @@
 						<div class="row">
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="nombre">Tipo Documento</label>
-									<select class="selectpicker" id="tipo" name="tipo" data-width="100%">
-										<?php 
-											$selectRUC = "";
-											$selectCI = "";
-											if ($cliente['tipo_documento'] == 'RUC') {
-												$selectRUC = " selected";
-											} else {
-												$selectCI = " selected";
-											}
-										?>
-										<option value="RUC" <?php echo $selectRUC;?>> RUC </option>
-										<option value="CI" <?php echo $selectCI;?>> CI </option>
-									</select>
+									<label for="nombre">Nro. Documento</label>
+									<input type="text" class="form-control" id="documento" name="documento" placeholder="9999999999" value="<?php echo $cliente['documento'];?>" maxlength="20">
 								</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
-									<label for="nombre">Nro Documento</label>
-									<input type="text" class="form-control" id="ruc" name="ruc" placeholder="9999999999" value="<?php echo $cliente['nro_documento'];?>" maxlength="20">
+									<label for="nombre">RUC</label>
+									<input type="text" class="form-control" id="ruc" name="ruc" placeholder="9999999999" value="<?php echo $cliente['ruc'];?>" maxlength="20">
 								</div>
 							</div>
 							<div class="col-md-6">

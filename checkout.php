@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		/* ****************************************** */
 
 		//SAVE
-		$guardar = saveCliente ($_SESSION['id_cliente'], $_POST['nombre'], $_POST['apellido'], $_POST['tipo_documento'], $ruc, $_POST['razon_social'], $_POST['telefono'], $_POST['email'], $_POST['departamentos'], $_POST['ciudades'], $_POST['calle'], $_POST['referencias']);
+		$guardar = saveCliente ($_SESSION['id_cliente'], $_POST['nombre'], $_POST['apellido'], $_POST['documento'], $ruc, $_POST['razon_social'], $_POST['telefono'], $_POST['email'], $_POST['departamentos'], $_POST['ciudades'], $_POST['calle'], $_POST['referencias']);
 
 		if ($guardar == $_SESSION['id_cliente']) {
 			$guardarpedido = savepedidos ($id_cliente, $id_met_pago, $id_met_envio, $total, $_POST['observacion'], $total_envio);
@@ -40,7 +40,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				}
 				$tipomensaje = 'success';			   
 				//$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
-				echo "<script type='text/javascript'>document.location.href='pedido-completado.php?ped=".$guardarpedido."';</script>";
+				if($id_met_pago==1){
+					enviarPagopar($guardarpedido, $total_envio, $total, $id_cliente, $ruc);
+				}else{
+					echo "<script type='text/javascript'>document.location.href='pedido-completado.php?ped=".$guardarpedido."';</script>";
+				}
 			}	else if ($guardarpedido == null) {
 				$tipomensaje = 'error';
 				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
@@ -124,21 +128,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 									<div class="col-md-12">
 										<input type="text" name="telefono" placeholder="Telefono *" value="<?php echo $cliente['telefono'];?>" required> 
 										<input type="text" name="razon_social" placeholder="Razon Social" value="<?php echo $cliente['razon_social'];?>">
+											
 										<div class="row">
-											<div class="col-md-3">
-												<select name="tipo_documento" required>
-													
-													<?php if (isset($cliente['tipo_documento'])) { ?>
-														<option value="<?php echo $cliente['tipo_documento'];?>"><?php echo $cliente['tipo_documento'];?></option>
-														<?php } else { ?><option value="">Seleccione *</option> <?php } ?>
-														<option value="">------------</option>
-													<option value="CI">CI</option>
-													<option value="RUC">RUC</option>
-													<option value="RG">RG</option>
-												</select>
+											<div class="col-md-6">
+												<input type="text" name="ruc" placeholder="RUC" value="<?php echo $cliente['ruc'];?>">
 											</div>
-											<div class="col-md-9">
-												<input type="text" name="ruc" placeholder="Nro. de Documento" value="<?php echo $cliente['nro_documento'];?>" required>
+											<div class="col-md-6">
+												<input type="text" name="documento" placeholder="Nro. de CI | RG | DNI" value="<?php echo $cliente['documento'];?>" required>
 											</div>
 										</div>
 										<input type="email" name="email" placeholder="E-mail *" value="<?php echo $cliente['email'];?>" required>

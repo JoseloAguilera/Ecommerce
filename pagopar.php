@@ -13,13 +13,13 @@ include_once "includes/conn.php";
 //$datos['comercio_token_privado']
 $token_privado='882a6551ea33c6372be75e868b1b45f7';
 $token_publico='59fd417c531214db01e3db5c050c1bde';
-$idPedido=19;
+$idPedido=21;
 $total=20000;
 $id_comprador=1;
 //sha1($datos['comercio_token_privado'] . $idPedido . strval(floatval($j['monto_total'])));
 
 $pedido_token= sha1($token_privado. $idPedido.strval(floatval($total)));
-$comprador['ruc']= "4247903-7";
+$comprador['ruc']= "";
 $comprador['email']= "joseaguilera@gmail.com";
 $comprador['nombre']= "José Aguilera";
 $comprador['telefono']= "0973118404";
@@ -81,9 +81,9 @@ if(curl_errno($ch))	{
             $fecha_maxima=$pedido['fecha_maxima_pago'];
             $id_producto=$compras_items['id_producto'];
             $hash_pedido=$result['resultado'][0]['data'];
-            var_dump($fecha_maxima);
-            var_dump($id_producto);
-            var_dump($hash_pedido);
+            //var_dump($fecha_maxima);
+            //var_dump($id_producto);
+            //var_dump($hash_pedido);
             $connection = conn();
             $sql = "INSERT INTO transactions (id, totalMonto, hash_pedido, maxDateForPayment, compradorId, descripcion)
             VALUES ($idPedido, $total, '$hash_pedido', '$fecha_maxima' , $id_comprador, 'hola' )";
@@ -92,12 +92,11 @@ if(curl_errno($ch))	{
 
             $connection = disconn($connection);
             
-            header('Location: https://www.pagopar.com/pagos/'.$result['resultado']);
+            header('Location: https://www.pagopar.com/pagos/'.$hash_pedido);
             exit();
         }else{
             echo "Error, consulte al administrador";
         }
-        print_r(["resultado"]);
      }
 curl_close($ch);
 
