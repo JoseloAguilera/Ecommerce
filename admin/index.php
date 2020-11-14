@@ -88,6 +88,9 @@
 	</div> <!-- ./Contenido -->
 	
 	<!-- SCRIPTS (js) -->
+	<script type="text/javascript">
+		<?php include_once "mods/js/index.js"; ?>
+	</script>
 	<?php include "includes/scripts.php"; ?>
 	<!-- ./SCRIPTS (js) -->
 </body>

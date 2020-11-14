@@ -35,6 +35,8 @@
 			$configuraciones = "";
 			$subusuario1 = "";
 			$subusuario2 = "";
+			$subinfo1 = "";
+			$subinfo2 = "";
 
 			$reportes = "";
 
@@ -70,6 +72,10 @@
 				$configuraciones = "active";
 				$subusuario1 = "active";
 				$subusuario2 = "text-aqua";
+			} else if (strpos($_SERVER['REQUEST_URI'], 'informaciones.php') !== false){
+				$configuraciones = "active";
+				$subinfo1 = "active";
+				$subinfo2 = "text-aqua";
 			} else {
 				$inicio = "active";
 			}
@@ -120,6 +126,9 @@
 					
 				</ul>
 			</li> -->
+			<?php
+				if ($_SESSION['tipo'] == 0) {
+			?>
 			<li class="<?php echo $configuraciones;?> treeview">
 				<a href="#">
 					<i class="fa fa-gear"></i> <span>Configuraciones</span>
@@ -128,10 +137,13 @@
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li class="<?php echo $subusuario1;?>"><a href="usuario.php"><i class="fa fa-circle-o <?php echo $subusuario2;?>"></i> Informaciones</a></li>
+					<!-- <li class="<?php echo $subinfo1;?>"><a href="usuario.php"><i class="fa fa-circle-o <?php echo $subinfo2;?>"></i> Informaciones</a></li> -->
 					<li class="<?php echo $subusuario1;?>"><a href="usuario.php"><i class="fa fa-circle-o <?php echo $subusuario2;?>"></i> Usuario</a></li>
 				</ul>
 			</li>
+			<?php
+				}
+			?>
 		</ul>
 	</section>
 <!-- /.sidebar -->

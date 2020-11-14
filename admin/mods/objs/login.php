@@ -12,9 +12,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 			$contrasena = md5($_POST['contrasena']); //md5 para encriptar
 	
 			$login = login ($usuario, $contrasena);
-			$_SESSION['logueado'] = 'logueado';
+			$_SESSION['logueado'] = $login['id'];
 			$_SESSION['nome_usuario'] = $login['nombre'];
 			$_SESSION['usuario'] = $login['usuario'];
+			$_SESSION['tipo'] = $login['tipo'];
 			header('Location: index.php');
 		} else { //Si no encontró apresenta error
 			$mensaje = '<p class="alert alert-danger">Por favor, Ingrese Todos los Datos!</p>';
