@@ -718,7 +718,11 @@
 	}
 
 
-	function enviarPagopar($id_pedido,  $total_envio, $total_compra, $id_comprador, $ruc){
+	function enviarPagopar($total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
+							$razonsocial){
+		
+		$id=obtenerIdPedido();
+		$idPedido=$id['id']+1;
 		$token_privado='882a6551ea33c6372be75e868b1b45f7';
 		$token_publico='59fd417c531214db01e3db5c050c1bde';
 		$total=$total_envio+$total_compra;
@@ -726,13 +730,13 @@
 
 		$pedido_token= sha1($token_privado. $idPedido.strval(floatval($total)));
 		$comprador['ruc']= $ruc;
-		$comprador['email']= "joseaguilera@gmail.com";
-		$comprador['nombre']= "José Aguilera";
-		$comprador['telefono']= "0973118404";
-		$comprador['direccion']= "CDE";
-		$comprador['documento']= "5971557";
+		$comprador['email']= $email;
+		$comprador['nombre']= "$nombre "." $apellido";
+		$comprador['telefono']= $telefono;
+		$comprador['direccion']= $direccion;
+		$comprador['documento']= $cedula;
 		$comprador['coordenadas']= "";
-		$comprador['razon_social']= "José Aguilera";
+		$comprador['razon_social']= $razonsocial;
 		$comprador['tipo_documento']= "CI";
 		$comprador['direccion_referencia']= null;
 		$comprador['ciudad']= "";
@@ -752,7 +756,9 @@
 		$compras_items['vendedor_direccion_referencia']= "";
 		$compras_items['vendedor_direccion_coordenadas']= "";
 	
-
+		$fecha_actual=date("Y-m-d H:i:s");
+		$fecha_futura = strtotime('+1 day', strtotime($fecha_actual));
+		$fecha_futura = date('Y-m-d H:i:s', $fecha_futura);
 
 		$pedido['token']=$pedido_token;
 		$pedido['comprador']=$comprador;
@@ -760,11 +766,11 @@
 		$pedido['monto_total']=$total;
 		$pedido['tipo_pedido']="VENTA-COMERCIO";
 		$pedido['compras_items'][0]=$compras_items;
-		$pedido['fecha_maxima_pago']="2020-12-12 14:14:48";
+		$pedido['fecha_maxima_pago']=$fecha_futura;
 		$pedido['id_pedido_comercio']=$idPedido;
 		$pedido['descripcion_resumen']="";
 
-
+		//var_dump($pedido);
 		//API URL
 		$url = "https://api.pagopar.com/api/comercios/1.1/iniciar-transaccion";
 		$postdata = json_encode($pedido);
@@ -781,12 +787,11 @@
     		echo 'Curl error: ' . curl_error($ch);  		}
     	else{ 
         	if($result["respuesta"]==true){
-            	$fecha_maxima=$pedido['fecha_maxima_pago'];
-            	$id_producto=$compras_items['id_producto'];
+            	           	
             	$hash_pedido=$result['resultado'][0]['data'];
             	$connection = conn();
             	$sql = "INSERT INTO transactions (id, totalMonto, hash_pedido, maxDateForPayment, compradorId, descripcion)
-            	VALUES ($idPedido, $total, '$hash_pedido', '$fecha_maxima' , $id_comprador, 'hola' )";
+            	VALUES ($idPedido, $total, '$hash_pedido', '$fecha_futura' , $id_comprador, 'hola' )";
             	$query = $connection->prepare($sql);
             	$query->execute();
 
@@ -799,5 +804,25 @@
         	}
      	}
 		curl_close($ch);
+	}
+
+
+	function obtenerIdPedido(){
+		$connection = conn();
+		try{
+		$sql = "SELECT MAX(id) AS id FROM transactions";
+            	$query = $connection->prepare($sql);
+            	$query->execute();
+
+				if ($query->rowCount() > 0) {
+					$result = $query->fetch();
+				} else {
+					$result = null;
+				}                	
+			} catch (\Exception $e) {
+				$result = $e;
+			}
+			$connection = disconn($connection);
+			return $result;
 	}
 ?>
