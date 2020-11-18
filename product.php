@@ -25,7 +25,7 @@ session_start();
 	<div class="page-info-section page-info">
 		<div class="container">
 			<div class="site-breadcrumb">
-				<a href="categorie.php">Productos</a> / 
+				<a href="categorie.php?search=">Productos</a> / 
 				<span><?php echo $producto['nombre'];?></span>
 			</div>
 			<!--h2 class="product-tittle">Cartera femenina</h2-->

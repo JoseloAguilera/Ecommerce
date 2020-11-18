@@ -5,7 +5,8 @@
 				<div class="col-12 text-center">
 					<div class="footer-widget about-widget">
 						<img src="img/logo.png" class="footer-logo" alt="">
-						<p><a href="#">HOME</a> | <a href="#">EMPRESA</a> |  <a href="#">TERMINOS Y CONICIONES</a> | <a href="">FORMAS DE ENVIO</a> | <a href="#">FORMAS DE PAGO</a></p>
+						<p><a href="index.php">HOME</a> | <a href="empresa.php">EMPRESA</a> |  <a href="terminos-y-condiciones.php">TERMINOS Y CONICIONES</a> | <a href="formas-de-pago.php">FORMAS DE PAGO</a></p> 
+						<!-- <a href="">FORMAS DE ENVIO</a> | -->
 						<div class="cards">
 							<img src="img/cards/5.png" alt="">
 							<img src="img/cards/4.png" alt="">

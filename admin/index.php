@@ -58,7 +58,7 @@
 				<div class="row">
 					<div class="col-lg-3 col-xs-6">
 						<!-- small box -->
-						<div class="small-box bg-aqua">
+						<div class="small-box bg-yellow">
 							<div class="inner">
 								<h3><?php echo $ctd_pedidos['PENDIENTES'];?></h3>
 								<p>Pedidos Pendientes</p>
@@ -71,7 +71,7 @@
 					</div>
 					<div class="col-lg-3 col-xs-6">
 						<!-- small box -->
-						<div class="small-box bg-aqua">
+						<div class="small-box bg-yellow">
 							<div class="inner">
 								<h3><?php echo $ctd_clientes['TOTAL'];?></h3>
 								<p>Clientes</p>
@@ -84,7 +84,7 @@
 					</div>
 					<div class="col-lg-3 col-xs-6">
 						<!-- small box -->
-						<div class="small-box bg-aqua">
+						<div class="small-box bg-yellow">
 							<div class="inner">
 								<h3><?php echo $ctd_productos['EnStock'];?></h3>
 								<p>Productos Activos</p>
@@ -97,7 +97,7 @@
 					</div>
 					<div class="col-lg-3 col-xs-6">
 						<!-- small box -->
-						<div class="small-box bg-aqua">
+						<div class="small-box bg-yellow">
 							<div class="inner">
 								<h3><?php echo $ctd_productos['OutStock'];?></h3>
 								<p>Productos Sin Stock</p>

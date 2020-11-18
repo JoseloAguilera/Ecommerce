@@ -137,7 +137,7 @@
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<!-- <li class="<?php echo $subinfo1;?>"><a href="usuario.php"><i class="fa fa-circle-o <?php echo $subinfo2;?>"></i> Informaciones</a></li> -->
+					<li class="<?php echo $subinfo1;?>"><a href="informaciones.php"><i class="fa fa-circle-o <?php echo $subinfo2;?>"></i> Informaciones</a></li>
 					<li class="<?php echo $subusuario1;?>"><a href="usuario.php"><i class="fa fa-circle-o <?php echo $subusuario2;?>"></i> Usuario</a></li>
 				</ul>
 			</li>

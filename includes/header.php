@@ -9,7 +9,7 @@
 				<div class= "col-md-3">
 					<!-- logo -->
 					<div class="site-logo">
-						<img src="img/logo.png" id="logo" alt="logo" >
+						<a href="index.php"><img src="img/logo.png" id="logo" alt="logo" ></a>
 					</div>
 					<div class="social-top d-xs-block d-sm-block d-md-none pull-right">
 						<br>							

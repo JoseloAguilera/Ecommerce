@@ -1,4 +1,4 @@
-<?php if (isset($mensaje)) {?>
+    <?php if (isset($mensaje)) {?>
     $(document).ready(function(){
         $("#modal-mensaje").modal("show");
     });

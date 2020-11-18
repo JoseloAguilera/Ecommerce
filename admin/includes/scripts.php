@@ -12,6 +12,8 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- Bootstrap CKEDITOR -->
+<script src="plugins/ckeditor/ckeditor.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <!-- <script src="js/bootstrap3-wysihtml5.all.min.js"></script> -->
 

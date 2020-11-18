@@ -750,7 +750,23 @@
             $_SESSION['visited'.$producto] = true;
         }
         return !$visited;
-    }
+	}
+	
+	function getInfo ($pag) {
+		$connection = conn();
+		$sql = "SELECT cms.* FROM cms WHERE pagina = '$pag'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 
 	function enviarPagopar($id_pedido_local, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
 							$razonsocial){
