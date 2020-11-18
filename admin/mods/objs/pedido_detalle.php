@@ -2,6 +2,7 @@
 <?php
     include_once "mods/server/pedido.php";
     include_once "mods/server/cliente.php";
+    include_once "mods/server/funcs.php";
 
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
 		if (isset($_GET['pedido'])){

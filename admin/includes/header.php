@@ -2,7 +2,7 @@
 	include_once "./mods/server/usuario.php";
 	
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
-		if (isset($_POST['guardar'])) {
+		if (isset($_POST['alt-user'])) {
 			// var_dump($_POST);
 			if($_POST['contrasena1'] ==  $_POST['contrasena2']) {
 				if ($_POST['contrasena1'] == "") {
@@ -129,7 +129,7 @@
 				</div> <!-- modal-body -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
+					<button type="submit" class="btn btn-primary" name="alt-user">Guardar</button>
 				</div>
 			</form>
 		</div><!-- /.modal-content -->

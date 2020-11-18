@@ -18,7 +18,24 @@
 		$connection = disconn($connection);
 		return $result;
     }
-    
+	
+	function countAllClientes () {
+		$connection = conn();
+        $sql = "SELECT COUNT(id) AS TOTAL FROM tb_cliente";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	
     function getCliente ($id) {
 		$connection = conn();
         $sql = "SELECT * FROM tb_cliente 

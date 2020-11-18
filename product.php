@@ -11,7 +11,8 @@ session_start();
 	include("includes/funciones.php");
 	include("includes/cart.php");
 	$fotos=getProdImages($id);
-	$producto =getProducto($id);
+	$producto=getProducto($id);
+	visit($id);
  ?>
 <body>
 		

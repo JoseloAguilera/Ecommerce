@@ -88,7 +88,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="documento">Nro. Documento</label>
-                                            <input type="text" class="form-control" id="documento" name="documento" maxlength="20" value="<?php echo $pedido['tipo_documento']." ".$pedido['nro_documento'];?>" readonly>
+                                            <input type="text" class="form-control" id="documento" name="documento" maxlength="20" value="<?php echo $pedido['ruc']." ".$pedido['documento'];?>" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
