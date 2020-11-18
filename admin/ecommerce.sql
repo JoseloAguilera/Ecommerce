@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 14-Nov-2020 às 18:17
+-- Tempo de geração: 18-Nov-2020 às 01:52
 -- Versão do servidor: 10.4.10-MariaDB
 -- versão do PHP: 7.3.12
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `tb_banner` (
 --
 
 INSERT INTO `tb_banner` (`id`, `img`, `text_alt`, `url`, `orden`, `posicion`, `activo`) VALUES
-(3, 'banner-2020-11-11-jpeg', 'Bienvenido a nuestra tienda', 'categorie.php?cat=127', 1, 0, 0),
+(3, 'banner-2020-11-11-jpeg', 'Bienvenido a nuestra tienda', 'categorie.php?cat=127', 1, 0, 1),
 (7, 'banner-2020-11-11-07-56-01-jpeg', 'Quepis Choraboy', '', 1, 1, 1),
 (4, 'banner-2020-11-11-05-34-32-jpeg', 'Nuestros Sombreros', 'categorie.php?cat=117', 2, 0, 1),
 (10, 'banner-2020-11-11-10-25-41-png', '', '', 2, 1, 1);
@@ -370,41 +370,41 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
 --
 
 INSERT INTO `tb_pedido` (`id`, `fecha`, `id_cliente`, `id_met_pago`, `id_met_envio`, `id_cli_direccion`, `total`, `id_factura`, `observacion`, `total_envio`, `status`) VALUES
-(1, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(2, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(3, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(4, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(5, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(6, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(7, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(8, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(9, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(10, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(11, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(12, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(13, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(14, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(15, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(16, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(17, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(18, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(19, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(20, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(21, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
-(22, '0000-00-00 00:00:00', 3, 1, 2, 1, 4402658, NULL, '528000', 0, 0),
-(23, '0000-00-00 00:00:00', 3, 0, 1, 2, 4402658, NULL, '1088000', 0, 0),
-(24, '0000-00-00 00:00:00', 3, 0, 2, 1, 4402658, NULL, '1098000', 0, 0),
-(25, '0000-00-00 00:00:00', 3, 1, 0, 1, 4402658, NULL, '978000', 0, 0),
-(26, '0000-00-00 00:00:00', 3, 2, 1, 1, 4402658, NULL, '978000', 0, 1),
-(27, '0000-00-00 00:00:00', 3, 1, 1, 1, 978000, NULL, '', 50000, 0),
-(28, '0000-00-00 00:00:00', 3, 2, 2, 1, 978000, NULL, '', 0, 0),
-(29, '0000-00-00 00:00:00', 3, 1, 1, 1, 978000, NULL, 'quiero rapido', 50000, 0),
-(30, '0000-00-00 00:00:00', 3, 2, 2, 0, 78650, NULL, '', 0, 0),
-(31, '0000-00-00 00:00:00', 3, 1, 1, 0, 78650, NULL, '', 80000, 0),
-(32, '0000-00-00 00:00:00', 3, 2, 1, 0, 115780, NULL, '', 50000, 0),
-(33, '0000-00-00 00:00:00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 1),
-(34, '2020-11-07 00:00:00', 1, 1, 1, 1, 76000, NULL, 'Tocar el Timbre', 0, 0),
-(35, '2020-11-07 00:00:00', 1, 2, 1, 1, 326800, NULL, '', 50000, 0);
+(1, '2020-11-15 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(2, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(3, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(4, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(5, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(6, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(7, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(8, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(9, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(10, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(11, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(12, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(13, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(14, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(15, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(16, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(17, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(18, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(19, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(20, '2020-11-08 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(21, '2020-11-05 00:00:00', 3, 1, 2, 1, 4402658, NULL, '376000', 0, 0),
+(22, '2020-11-02 00:00:00', 3, 1, 2, 1, 4402658, NULL, '528000', 0, 0),
+(23, '2020-11-02 00:00:00', 3, 0, 1, 2, 4402658, NULL, '1088000', 0, 0),
+(24, '2020-11-02 00:00:00', 3, 0, 2, 1, 4402658, NULL, '1098000', 0, 0),
+(25, '2020-11-02 00:00:00', 3, 1, 0, 1, 4402658, NULL, '978000', 0, 0),
+(26, '2020-11-02 00:00:00', 3, 2, 1, 1, 4402658, NULL, '978000', 0, 1),
+(27, '2020-11-02 00:00:00', 3, 1, 1, 1, 978000, NULL, '', 50000, 0),
+(28, '2020-11-02 00:00:00', 3, 2, 2, 1, 978000, NULL, '', 0, 0),
+(29, '2020-11-02 00:00:00', 3, 1, 1, 1, 978000, NULL, 'quiero rapido', 50000, 0),
+(30, '2020-11-02 00:00:00', 3, 2, 2, 0, 78650, NULL, '', 0, 0),
+(31, '2020-11-02 00:00:00', 3, 1, 1, 0, 78650, NULL, '', 80000, 0),
+(32, '2020-11-02 00:00:00', 3, 2, 1, 0, 115780, NULL, '', 50000, 0),
+(33, '2020-11-02 00:00:00', 3, 2, 1, 0, 404070, NULL, 'urgente', 45000, 1),
+(34, '2020-11-02 00:00:00', 1, 1, 1, 1, 76000, NULL, 'Tocar el Timbre', 0, 0),
+(35, '2020-10-29 00:00:00', 1, 2, 1, 1, 326800, NULL, '', 50000, 3);
 
 -- --------------------------------------------------------
 
@@ -466,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `tb_ped_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_ped_status`
@@ -475,7 +475,8 @@ CREATE TABLE IF NOT EXISTS `tb_ped_status` (
 INSERT INTO `tb_ped_status` (`id`, `descripcion`) VALUES
 (0, 'Pendiente'),
 (1, 'En Revisión'),
-(2, 'Aprobado');
+(2, 'Aprobado'),
+(3, 'Finalizado');
 
 -- --------------------------------------------------------
 
@@ -494,6 +495,8 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
   `id_marca` int(11) NOT NULL,
   `destaque` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
+  `total_hits` int(11) NOT NULL,
+  `unique_hits` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
@@ -501,19 +504,19 @@ CREATE TABLE IF NOT EXISTS `tb_producto` (
 -- Extraindo dados da tabela `tb_producto`
 --
 
-INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`) VALUES
-(4, '12345', 'Cuchillo Criolla', 'Cuchillo filoso de la marca Criolla', 30000, 20000, 4, 1, 1),
-(5, '12', 'Cuchillo Rodeio Negro', 'Cuchilo color negro, rodeio, personalizable', 500000, 340000, 4, 0, 1),
-(6, '13', 'Conj, Rodeio Cuchillo + Afilador', 'Conjunto de cuchilo + afilador, rodeio con mango de madera y estuche de cuero marrón', 250000, 134000, 4, 1, 1),
-(7, '14', 'Quepis blanco Choraboy', 'Quepis color blanco, en tela de algodon ', 80000, 50000, 4, 0, 1),
-(8, '15', 'Quepis ChoraBoy Rosa ', 'Quepis ChoraBoy Rosa Tamaño XL', 76800, 56000, 4, 1, 1),
-(9, '16', 'Quepis Choraboy con Bordado de Rosa', 'Quepis Choraboy Blanco con Bordado de Rosa en color negro', 99000, 56789, 4, 1, 1),
-(10, '17', 'Quepis Gallo Negro + Marrón ', 'Quepis Gallo Negro + Marrón con logo en cuerina y parte de atrás en malla agujereada', 88700, 56789, 4, 1, 1),
-(11, '18', 'Quepis Made in Mato Negro', 'Quepis Made in Mato Negro de tela con logo en  color blanco', 57890, 33555, 4, 1, 1),
-(12, '19', 'Quepis Made in Mato Negro + Marron 4x4', 'Quepis Made in Mato Negro Frente + Marrón Atrás con logo 4x4 ', 78650, 500000, 4, 1, 1),
-(13, '20', 'Medalla de Oro Maiz y Soja', 'Medalla en forma de Maiz y Soja en oro de 18K', 100000, 78900, 4, 1, 1),
-(14, '21', 'Quepis Choraboy Naranja', 'Quepis Choraboy Naranja con Logo en color negro, rasgado al frente', 109000, 78000, 4, 1, 1),
-(15, '22', 'Quepis Chora Boy Celeste', 'Quepis Chora Boy Celeste con logo letras bordado en rectángulo negro ', 76000, 45000, 4, 1, 1);
+INSERT INTO `tb_producto` (`id`, `referencia`, `nombre`, `descripcion`, `valor_minorista`, `valor_mayorista`, `id_marca`, `destaque`, `activo`, `total_hits`, `unique_hits`) VALUES
+(4, '12345', 'Cuchillo Criolla', 'Cuchillo filoso de la marca Criolla', 30000, 20000, 4, 1, 1, 2, 1),
+(5, '12', 'Cuchillo Rodeio Negro', 'Cuchilo color negro, rodeio, personalizable', 500000, 340000, 4, 0, 1, 0, 0),
+(6, '13', 'Conj, Rodeio Cuchillo + Afilador', 'Conjunto de cuchilo + afilador, rodeio con mango de madera y estuche de cuero marrón', 250000, 134000, 4, 1, 1, 0, 0),
+(7, '14', 'Quepis blanco Choraboy', 'Quepis color blanco, en tela de algodon ', 80000, 50000, 4, 0, 1, 0, 0),
+(8, '15', 'Quepis ChoraBoy Rosa ', 'Quepis ChoraBoy Rosa Tamaño XL', 76800, 56000, 4, 1, 1, 0, 0),
+(9, '16', 'Quepis Choraboy con Bordado de Rosa', 'Quepis Choraboy Blanco con Bordado de Rosa en color negro', 99000, 56789, 4, 1, 1, 0, 0),
+(10, '17', 'Quepis Gallo Negro + Marrón ', 'Quepis Gallo Negro + Marrón con logo en cuerina y parte de atrás en malla agujereada', 88700, 56789, 4, 1, 1, 0, 0),
+(11, '18', 'Quepis Made in Mato Negro', 'Quepis Made in Mato Negro de tela con logo en  color blanco', 57890, 33555, 4, 1, 1, 0, 0),
+(12, '19', 'Quepis Made in Mato Negro + Marron 4x4', 'Quepis Made in Mato Negro Frente + Marrón Atrás con logo 4x4 ', 78650, 500000, 4, 1, 1, 0, 0),
+(13, '20', 'Medalla de Oro Maiz y Soja', 'Medalla en forma de Maiz y Soja en oro de 18K', 100000, 78900, 4, 1, 1, 0, 0),
+(14, '21', 'Quepis Choraboy Naranja', 'Quepis Choraboy Naranja con Logo en color negro, rasgado al frente', 109000, 78000, 4, 1, 1, 0, 0),
+(15, '22', 'Quepis Chora Boy Celeste', 'Quepis Chora Boy Celeste con logo letras bordado en rectángulo negro ', 76000, 45000, 4, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -640,9 +643,7 @@ CREATE TABLE IF NOT EXISTS `tb_producto_stock` (
 --
 
 INSERT INTO `tb_producto_stock` (`id`, `id_producto`, `stock`, `valor_minorista`, `valor_mayorista`, `activo`) VALUES
-(1, 1, 10, 1000000, 900000, 1),
-(2, 1, 12, 1000000, 900000, 1),
-(4, 4, 20, 30000, 20000, 1),
+(4, 4, 0, 30000, 20000, 1),
 (5, 5, 39, 500000, 340000, 1),
 (6, 6, 90, 250000, 134000, 1),
 (7, 7, 900, 80000, 50000, 1),
