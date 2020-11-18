@@ -718,7 +718,7 @@
 	}
 
 
-	function enviarPagopar($total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
+	function enviarPagopar($id_pedido_local, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
 							$razonsocial){
 		
 		$id=obtenerIdPedido();
@@ -788,10 +788,10 @@
     	else{ 
         	if($result["respuesta"]==true){
             	           	
-            	$hash_pedido=$result['resultado'][0]['data'];
+				$hash_pedido=$result['resultado'][0]['data'];
             	$connection = conn();
-            	$sql = "INSERT INTO transactions (id, totalMonto, hash_pedido, maxDateForPayment, compradorId, descripcion)
-            	VALUES ($idPedido, $total, '$hash_pedido', '$fecha_futura' , $id_comprador, 'hola' )";
+            	$sql = "INSERT INTO transactions (id, id_pedido_local, totalMonto, fecha_maxima_pago, hash_pedido, compradorId)
+            	VALUES ($idPedido, $id_pedido_local, $total, '$fecha_futura' , '$hash_pedido', $id_comprador )";
             	$query = $connection->prepare($sql);
             	$query->execute();
 

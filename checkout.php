@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				$tipomensaje = 'success';			   
 				//$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
 				if($id_met_pago==1){
-					enviarPagopar($total_envio, $total, $id_cliente, $ruc, $_POST['email'], $_POST['nombre'], $_POST['apellido'], $_POST['telefono'],
+					enviarPagopar($guardarpedido, $total_envio, $total, $id_cliente, $ruc, $_POST['email'], $_POST['nombre'], $_POST['apellido'], $_POST['telefono'],
 									$_POST['calle'], $_POST['documento'], $_POST['razon_social']);
 				}else{
 					echo "<script type='text/javascript'>document.location.href='pedido-completado.php?ped=".$guardarpedido."';</script>";

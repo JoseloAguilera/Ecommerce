@@ -23,15 +23,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'addcart') {
 			'referencia' => $producto['referencia'], 
 			'nombre' => $producto['nombre'], 
 			'descripcion' => $producto['descripcion'], 
-<<<<<<< Updated upstream
-			'img_producto' => $imagen['url'], 
-			'valor_minorista' =>  $producto['valor_minorista'], 
-			'qty' => $qty
-=======
 			'img_producto' => $imagen['url'],
 			'valor_minorista' =>  $precio,
 			'qty' => $_POST['qty'] 
->>>>>>> Stashed changes
 		);
 
 		/*if not empty
