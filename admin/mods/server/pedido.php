@@ -22,10 +22,71 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+
+	function countAllPedidos () {
+		$connection = conn();
+		$sql = "SELECT SUM(CASE 
+							WHEN tb_pedido.status = 3 THEN 1
+							ELSE 0
+						END) AS FINALIZADOS,  
+						SUM(CASE 
+							WHEN tb_pedido.status != 3 THEN 1
+							ELSE 0
+						END) AS PENDIENTES
+				FROM tb_pedido";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function countPedidosClientes () {
+		$connection = conn();
+		$sql = "SELECT COUNT(tb_pedido.id) AS TOTAL, tb_cliente.nombre, tb_cliente.apellido FROM tb_pedido
+                LEFT JOIN tb_cliente ON tb_pedido.id_cliente = tb_cliente.id 
+                GROUP BY tb_pedido.id_cliente";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getPedidosPendientes () {
+		$connection = conn();
+		$sql = "SELECT tb_pedido.*, tb_cliente.nombre, tb_cliente.apellido, tb_ped_status.descripcion AS STATUS_PED FROM tb_pedido
+                LEFT JOIN tb_cliente ON tb_pedido.id_cliente = tb_cliente.id 
+				LEFT JOIN tb_ped_status ON tb_pedido.status = tb_ped_status.id 
+                WHERE tb_pedido.status < 3";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 	
 	function getPedido ($codigo) {
 		$connection = conn();
-		$sql = "SELECT tb_pedido.*, tb_cliente.nombre, tb_cliente.apellido, tb_cliente.tipo_documento, tb_cliente.nro_documento, tb_cliente.razon_social, tb_cliente.mayorista, tb_met_pago.descripcion AS MET_PAGO, tb_met_envio.descripcion AS MET_ENVIO FROM tb_pedido 
+		$sql = "SELECT tb_pedido.*, tb_cliente.nombre, tb_cliente.apellido, tb_cliente.ruc, tb_cliente.documento, tb_cliente.razon_social, tb_cliente.mayorista, tb_met_pago.descripcion AS MET_PAGO, tb_met_envio.descripcion AS MET_ENVIO FROM tb_pedido 
                 LEFT JOIN tb_cliente ON tb_pedido.id_cliente = tb_cliente.id 
                 LEFT JOIN tb_met_pago ON tb_pedido.id_met_pago = tb_met_pago.id 
                 LEFT JOIN tb_met_envio ON tb_pedido.id_met_envio = tb_met_envio.id 

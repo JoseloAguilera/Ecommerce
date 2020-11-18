@@ -77,7 +77,7 @@
                                 ?>
                                 <tr onclick="window.location.href = 'pedido_detalle.php?pedido=<?php echo $row['id'];?>';">
                                     <td><?php echo $row['id'];?></td>									
-                                    <td><?php echo $row['fecha'];?></td>									
+                                    <td><?php echo substr($row['fecha'], 0, 10);?></td>									
 									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 									<td><?php echo $row['MET_PAGO'];?></td>
                                     <td><?php echo $row['MET_ENVIO'];?></td>

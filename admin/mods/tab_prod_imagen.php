@@ -24,7 +24,7 @@
                 ?>
                 <tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-orden="<?php echo $row['orden'];?>" data-url="<?php echo $row['url'];?>" data-activo="<?php echo $row['activo'];?>">
                     <td><?php echo $row['orden'];?></td>
-                    <td><img src="img/productos/<?php echo $row['url'];?>" class="img-fluid img-thumbnail img-prod-table" alt="producto" style="max-width: 300px;"></td>
+                    <td><img src="../img/productos/<?php echo $row['url'];?>" class="img-fluid img-thumbnail img-prod-table" alt="producto" style="max-width: 300px;"></td>
                     <td><?php echo $row['url'];?></td>
                     <td>
                     <?php
@@ -58,7 +58,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <img src="img/productos/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img">
+                            <img src="../img/productos/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img">
                         </div>
                         <div class="col-md-3">
                             <label for="orden">Orden</label>
@@ -101,7 +101,7 @@
                     <input type="hidden" class="form-control" id="imgurl" name="imgurl" required>
                     <div class="row">
                         <div class="col-md-6 text-center">
-                            <img src="img/productos/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img-alt">
+                            <img src="../img/productos/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img-alt">
                         </div>
                         <div class="col-md-3">
                             <label for="orden">Orden</label>

@@ -11,7 +11,8 @@ session_start();
 	include("includes/funciones.php");
 	include("includes/cart.php");
 	$fotos=getProdImages($id);
-	$producto =getProducto($id);
+	$producto=getProducto($id);
+	visit($id);
  ?>
 <body>
 		
@@ -51,19 +52,17 @@ session_start();
 		<div class="container">
 		<br>
 			<div class="row">
-			
 				<div class="col-lg-6">
 					<figure>
-						<img class="product-big-img" src="admin/img/productos/<?php echo getProdImage($id)['url']; ?>" alt="">
+						<img class="product-big-img" src="img/productos/<?php echo getProdImage($id)['url']; ?>" alt="">
 					</figure>
 					<div class="product-thumbs">
 						<div class="product-thumbs-track">
 						<?php
-								foreach ($fotos as $result){
-							?>
-							<div class="pt" data-imgbigurl="admin/img/productos/<?php echo $result['url'];?>"><img src="admin/img/productos/<?php echo $result['url'];?>" alt=""></div>
-							
-							<?php }?>
+							foreach ($fotos as $result){
+						?>
+							<div class="pt" data-imgbigurl="img/productos/<?php echo $result['url'];?>"><img src="img/productos/<?php echo $result['url'];?>" alt=""></div>	
+						<?php }?>
 						</div>
 					</div>
 				</div>
@@ -72,15 +71,17 @@ session_start();
 						<h2><?php echo $producto['nombre'];?></h2>
 						<div class="pc-meta">
 							<h4 class="price">
-								Precio: <?php
-											$precio = "";
-											if ($producto['valor_minorista'] > 0) {
-												$precio = number_format($producto['valor_minorista'], 0, ',', '.')." Gs";
-											} else {
-												$precio = "Sobre consulta ";
-											}
-											echo $precio;
-										?></h4>
+								Precio: 
+								<?php
+									$precio = "";
+									if ($producto['valor_minorista'] > 0) {
+										$precio = number_format($producto['valor_minorista'], 0, ',', '.')." Gs";
+									} else {
+										$precio = "Sobre consulta ";
+									}
+									echo $precio;
+								?>
+							</h4>
 						</div>
 						
 						<!--div class="color-choose">
@@ -126,11 +127,9 @@ session_start();
 						   <button type="submit" name="action" value="addcart" class="site-btn btn-buy">  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
 						</form>
 						
-						
 						<br>
 						<hr>
-						<h4><?php echo $producto['descripcion'];?>
-										</h4>
+						<h4><?php echo $producto['descripcion'];?></h4>
 					</div>
 				</div>
 			</div>
@@ -192,7 +191,7 @@ session_start();
 															$foto=getProdImages($row['id']);
 															foreach ($foto as $result){
 														?>
-															<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+															<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
 															<?php } ?>
 													</figure>
 													<div class="product-info">

@@ -143,7 +143,7 @@
 											$foto = getProdImages($row['id']);
 											foreach ($foto as $result){
 										?>
-										<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto">
+										<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto">
 										<?php } //END FOREACH $foto?>
 									</figure>
 									<div class="product-info">

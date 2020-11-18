@@ -17,6 +17,47 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+
+	function countAllProductos () {
+		$connection = conn();
+		$sql = "SELECT SUM(CASE 
+							WHEN tb_producto_stock.stock > 0 THEN 1
+							ELSE 0
+						END) AS EnStock,  
+						SUM(CASE 
+							WHEN tb_producto_stock.stock = 0 THEN 1
+							ELSE 0
+						END) AS OutStock
+				FROM tb_producto_stock";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getAllProductoStock () {
+		$connection = conn();
+		$sql = "SELECT tb_producto_stock.*, tb_producto.nombre AS PROD, tb_producto.unique_hits, tb_producto.total_hits FROM tb_producto_stock 
+				LEFT JOIN tb_producto ON tb_producto_stock.id_producto = tb_producto.id";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 	
 	function getProducto ($codigo) {
 		$connection = conn();

@@ -82,7 +82,7 @@
 
 			//cambio de imagen
 			if ($banner['img'] != $img && $banner['img'] != "no-banner.png") {
-				unlink("img/banners/".$banner['img']); //apaga imagen anterior
+				unlink("../img/banners/".$banner['img']); //apaga imagen anterior
 			}
 
 			if ($query->rowCount() > 0) {
@@ -115,7 +115,7 @@
 			$banner = $query->fetch();
 
 			if ($banner['img'] != "no-banner.png") {
-				if (!unlink("img/banners/".$banner['img'])) {  
+				if (!unlink("../img/banners/".$banner['img'])) {  
 					return $banner['img']." cannot be deleted due to an error";  
 				}  
 			}

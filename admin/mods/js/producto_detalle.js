@@ -50,7 +50,7 @@ $(document).ready(function(){
             modal.find('.modal-title').text('Imagen ' + url);
             modal.find('#codigo').val(codigo);
             modal.find('#imgurl').val(url);
-            document.getElementById("img-alt").src="img/productos/"+url;
+            document.getElementById("img-alt").src="../img/productos/"+url;
             modal.find('#orden').val(orden);
     
             if (activo == "1") {

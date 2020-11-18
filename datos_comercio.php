@@ -105,7 +105,7 @@ var_dump($_POST);*/
 
 
 
-<script src="https://code.jquery.com/jquery-2.2.2.min.js">script>
-<script src="js/enviar.js">script>
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="js/enviar.js"></script>
 </body>
 </html>

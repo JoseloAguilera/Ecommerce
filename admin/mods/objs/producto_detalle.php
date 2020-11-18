@@ -31,11 +31,14 @@
 			if (basename($_FILES["fileToUpload"]["name"]) == "") {
 				$img = "no-image.png";
 			} else {
-				$imgname = "cod".$_GET['producto']."-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
-				$img = saveImg ("img/productos/", $imgname, "fileToUpload");
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$random_number = mt_rand(10000, 99999);
+				$nombre_prod = str_replace(" ", "-", strtolower($producto['nombre']));
+				$imgname = $nombre_prod."-".$random_number.".".$extension;
+				$img = saveImg ("../img/productos/", $imgname, "fileToUpload");
 			}
 
-			if (substr($img,0,3) == "cod" OR $img == "no-image.png") {
+			if (substr($img,0,3) == substr($nombre_prod, 0, 3) OR $img == "no-image.png") {
 				$activo = null;
 				if(!isset($_POST['activo'])) {
 					$activo = 0;
@@ -83,7 +86,7 @@
 				$img = $_POST['imgurl'];
 			} else {
 				$imgname = "cod".$_GET['producto']."-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
-				$img = saveImg ("img/productos/", $imgname, "fileToUpload");
+				$img = saveImg ("../img/productos/", $imgname, "fileToUpload");
 			}
 
 			$activo = null;

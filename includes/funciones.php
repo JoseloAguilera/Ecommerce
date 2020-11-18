@@ -717,6 +717,40 @@
 		return $result;
 	}
 
+	function visit ($producto) {
+		$connection = conn();
+		
+		try {
+            $sql = "SELECT * from tb_producto WHERE id = '$producto'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			if ($query->rowCount() > 0) {
+                $result = $query->fetch();
+                $total = $result['total_hits'] + 1;
+                $unique = $result['unique_hits'];
+                if (isNewVisitor($producto)) {
+                    $unique = $unique + 1;
+                }
+				$sql = "UPDATE tb_producto SET total_hits = $total, unique_hits = $unique
+	 					WHERE id = '$producto'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+			} 		
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $producto;
+    }
+    
+    function isNewVisitor ($producto) {
+        $visited = array_key_exists('visited'.$producto, $_SESSION);
+        if ($visited == false) {
+            $_SESSION['visited'.$producto] = true;
+        }
+        return !$visited;
+    }
 
 	function enviarPagopar($id_pedido_local, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
 							$razonsocial){
