@@ -131,7 +131,7 @@
 								<div class="modal-body">
 									<div class="row">
 										<div class="col-md-12 text-center">
-											<img src="img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img" name="img">
+											<img src="../img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img" name="img">
 										</div>
 										<div class="col-md-9">
 											<div class="form-group">
@@ -281,7 +281,7 @@
 									<input type="hidden" class="form-control" id="imgurl" name="imgurl" required>
 									<div class="row">
 										<div class="col-md-12 text-center">
-											<img src="img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img-alt" name="img-alt">
+											<img src="../img/banners/no-banner.png" class="img-fluid img-thumbnail banner-modal" alt="no-image" id="img-alt" name="img-alt">
 										</div>
 										<div class="col-md-9" style="margin-bottom:15px;">
 											<div class="form-group">

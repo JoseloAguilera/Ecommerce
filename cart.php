@@ -72,7 +72,7 @@
 						
 							<td class="product-col">
 
-									<img src="admin/img/productos/<?php echo $producto['img_producto'] ?>" alt="">
+									<img src="img/productos/<?php echo $producto['img_producto'] ?>" alt="">
 									<div class="pc-title">
 										<h4><?php echo $producto['nombre'] ?></h4>
 									</div>

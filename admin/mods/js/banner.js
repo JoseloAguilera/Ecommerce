@@ -53,7 +53,7 @@
             var modal = $(this)
             modal.find('.modal-title').text('Banner ' + img);
             modal.find('#codigo').val(codigo);
-            document.getElementById("img-alt").src="img/banners/"+img;
+            document.getElementById("img-alt").src="../img/banners/"+img;
             modal.find('#imgurl').val(img);
             modal.find('#orden').val(orden);
             modal.find('#alternativo').val(alternativo);

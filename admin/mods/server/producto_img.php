@@ -66,7 +66,7 @@
 
 			//cambio de imagen
 			if ($img['url'] != $url && $img['url'] != "no-image.png") {
-				unlink("img/productos/".$img['url']); //apaga imagen anterior
+				unlink("../img/productos/".$img['url']); //apaga imagen anterior
 			}
 
 			if ($query->rowCount() > 0) {
@@ -99,7 +99,7 @@
 			$img = $query->fetch();
 
 			if ($img['url'] != "no-image.png") {
-				if (!unlink("img/productos/".$img['url'])) {  
+				if (!unlink("../img/productos/".$img['url'])) {  
 					return $img." cannot be deleted due to an error";  
 				}  
 			}  

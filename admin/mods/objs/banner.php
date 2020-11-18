@@ -34,8 +34,8 @@
 				$img = "no-banner.png";
 			} else {
 				$extension = substr($_FILES["fileToUpload"]["type"], 6);
-				$imgname = "banner-".date("Y-m-d-h-i-s")."-".$extension;
-				$img = saveImg ("img/banners/", $imgname, "fileToUpload");
+				$imgname = "banner-".date("Y-m-d-h-i-s").".".$extension;
+				$img = saveImg ("../img/banners/", $imgname, "fileToUpload");
 			}
 
 			if (substr($img,0,6) == "banner" OR $img == "no-image.png") {
@@ -109,8 +109,8 @@
 				$img = $_POST['imgurl'];
 			} else {
 				$extension = substr($_FILES["fileToUpload"]["type"], 6);
-				$imgname = "banner-".date("Y-m-d-h-i-s")."-".$extension;
-				$img = saveImg ("img/banners/", $imgname, "fileToUpload");
+				$imgname = "banner-".date("Y-m-d-h-i-s").".".$extension;
+				$img = saveImg ("../img/banners/", $imgname, "fileToUpload");
 			}
 
 			$activo = null;

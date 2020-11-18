@@ -43,7 +43,7 @@
 							foreach ($slider as $slide) {
 						?>
 						<div class="carousel-item <?php echo $primero;?>">
-							<a href="<?php echo $slide['url'];?>"><img class="d-block w-100" src="<?php echo "admin/img/banners/".$slide['img'];?>" alt="<?php echo $slide['text_alt'];?>"></a>
+							<a href="<?php echo $slide['url'];?>"><img class="d-block w-100" src="<?php echo "img/banners/".$slide['img'];?>" alt="<?php echo $slide['text_alt'];?>"></a>
 						</div>
 						<?php
 								$primero = "";
@@ -95,7 +95,7 @@
 													$foto=getProdImages($row['id']);
 													foreach ($foto as $result){
 												?>
-												<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+												<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
 												<?php }?>
 											</figure>
 											
@@ -155,7 +155,7 @@
 														$foto=getProdImages($row['id']);
 														foreach ($foto as $result){
 													?>
-														<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
 														<?php } ?>
 												</figure>
 												<div class="product-info">
@@ -195,7 +195,7 @@
 					<div class="<?php echo $class;?>"></div>
 					<div class="col-4 text-center banner-middle">					
 						<div class="">
-							<img src="admin/img/banners/<?php echo $bnnr['img'];?>" alt="<?php echo $bnnr['text_alt'];?>">
+							<img src="img/banners/<?php echo $bnnr['img'];?>" alt="<?php echo $bnnr['text_alt'];?>">
 						</div>
 					</div>
 					<div class="<?php echo $class;?>"></div>
@@ -224,14 +224,13 @@
 									<div class="product">
 										<a href="product.php?id=<?php echo $row['id'] ?>">
 											<div class="product-item">
-										
 												<figure>
 													<?php
 														$foto=getProdImages($row['id']);
 														foreach ($foto as $result){
 													?>
-														<img src="admin/img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-														<?php } ?>
+														<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+													<?php } ?>
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>
