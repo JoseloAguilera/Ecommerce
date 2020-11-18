@@ -75,7 +75,11 @@ session_start();
 								<?php
 									$precio = "";
 									if ($producto['valor_minorista'] > 0) {
-										$precio = number_format($producto['valor_minorista'], 0, ',', '.')." Gs";
+										if($_SESSION['mayorista']==1){
+											$precio = number_format($producto['valor_mayorista'], 0, ',', '.')." gs";
+										}else{
+											$precio = number_format($producto['valor_minorista'], 0, ',', '.')." gs";
+										}
 									} else {
 										$precio = "Sobre consulta ";
 									}
@@ -199,7 +203,11 @@ session_start();
 														<p><?php
 																	$precio = "";
 																	if ($row['valor_minorista'] > 0) {
-																		$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																		if($_SESSION['mayorista']==1){
+																			$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
+																		}else{
+																			$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																		}
 																	} else {
 																		$precio = "Sobre consulta ";
 																	}

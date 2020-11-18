@@ -4,7 +4,10 @@
 	if (isset($_SESSION['cart'])) {
 		$cart = array($_SESSION['cart']); 
 	}
-	//var_dump($cart);
+	if (!isset($_SESSION['mayorista'])){
+		$_SESSION['mayorista']=0;
+	}
+	//var_dump($_SESSION['mayorista']);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">

@@ -1,6 +1,8 @@
 <?php
 
-
+if (!isset($_SESSION['mayorista'])){
+	$_SESSION['mayorista']=0;
+}
 if (isset($_POST['action']) && $_POST['action'] == 'addcart') {
 	// $_SESSION['Carrito'] = array();
 	$id =$_POST['id'];
@@ -11,6 +13,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'addcart') {
 		$imagen= getProdImage($id);
 		
 		$_SESSION['total'];
+		if($_SESSION['mayorista']==1){
+			$precio =  $producto['valor_mayorista'];
+		}else{
+			$precio =  $producto['valor_minorista'];
+		}
 
 		$newitem = array(
 			'idproducto' => $id, 
@@ -18,7 +25,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'addcart') {
 			'nombre' => $producto['nombre'], 
 			'descripcion' => $producto['descripcion'], 
 			'img_producto' => $imagen['url'], 
-			'valor_minorista' =>  $producto['valor_minorista'], 
+			'valor_minorista' =>  $precio, 
 			'qty' => $qty
 		);
 
@@ -62,7 +69,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'addcart') {
 		} else  {
 			$_SESSION['cart'] = array();
 			$_SESSION['cart'][$id] = $newitem;
-			$_SESSION['total'] = $_SESSION['total'] + $_SESSION['cart'][$id]['valor_minorista'];
+			if($_SESSION['mayorista']==1){
+				$_SESSION['total'] = $_SESSION['total'] + $_SESSION['cart'][$id]['valor_mayorista'];
+			}else{
+				$_SESSION['total'] = $_SESSION['total'] + $_SESSION['cart'][$id]['valor_minorista'];
+			}
+			//$_SESSION['total'] = $_SESSION['total'] + $_SESSION['cart'][$id]['valor_minorista'];
 			if (isset($_SERVER["HTTP_REFERER"])) {
 				header("Location: " . $_SERVER["HTTP_REFERER"]."&addcart=success");
 			}

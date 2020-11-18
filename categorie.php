@@ -6,6 +6,10 @@
 <?php 
 	include("includes/head.php"); 
 
+	if (!isset($_SESSION['mayorista'])){
+		$_SESSION['mayorista']=0;
+	}
+	
 	include_once "includes/funciones.php";
 	define('NUM_ITEMS_BY_PAGE', 6);
 	$totalSubCategorias = 0;
@@ -151,7 +155,11 @@
 										<p><?php
 											$precio = "";
 											if ($row['valor_minorista'] > 0) {
-												$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+												if($_SESSION['mayorista']==1){
+													$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
+												}else{
+													$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+												}
 											} else {
 												$precio = "Sobre consulta";
 											}
