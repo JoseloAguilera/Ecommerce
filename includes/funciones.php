@@ -768,11 +768,9 @@
 		return $result;
 	}
 
-	function enviarPagopar($id_pedido_local, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
+	function enviarPagopar($idPedido, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
 							$razonsocial){
 		
-		$id=obtenerIdPedido();
-		$idPedido=$id['id']+1;
 		$token_privado='882a6551ea33c6372be75e868b1b45f7';
 		$token_publico='59fd417c531214db01e3db5c050c1bde';
 		$total=$total_envio+$total_compra;
@@ -833,46 +831,66 @@
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 		$result = json_decode(curl_exec($ch), true);
+		//var_dump($result);
+	    //var_dump($result['resultado'][0]['data']);
 		if(curl_errno($ch))	{
     		echo 'Curl error: ' . curl_error($ch);  		}
     	else{ 
         	if($result["respuesta"]==true){
-            	           	
-				$hash_pedido=$result['resultado'][0]['data'];
-            	$connection = conn();
-            	$sql = "INSERT INTO transactions (id, id_pedido_local, totalMonto, fecha_maxima_pago, hash_pedido, compradorId)
-            	VALUES ($idPedido, $id_pedido_local, $total, '$fecha_futura' , '$hash_pedido', $id_comprador )";
+            	$hash_pedido=$result['resultado'][0]['data'];
+                $connection = conn();
+                try{
+            	$sql = "INSERT INTO transactions (id, monto, fecha_maxima_pago, hash_pedido, compradorId)
+            	    VALUES ($idPedido, $total, '$fecha_futura' , '$hash_pedido', $id_comprador )";
             	$query = $connection->prepare($sql);
             	$query->execute();
-
+                }catch (\Exception $e) {
+				$result = $e;
+			    }
             	$connection = disconn($connection);
-            
-	            header('Location: https://www.pagopar.com/pagos/'.$hash_pedido);
-            	exit();
+            	//echo $result;
+            	
+            	?>
+            	<script type="text/javascript"> 
+                    window.location="https://www.pagopar.com/pagos/<?php echo $hash_pedido;?>"; 
+                </script> 
+            	<?php
+                
+	            //header('Location:https://www.pagopar.com/pagos/'.$hash_pedido);
+            	//exit();
         	}else{
-            	echo "Error, consulte al administrador";
+				$tipomensaje = 'error';
+				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error: '.$result['resultado'].'</p>';
         	}
      	}
 		curl_close($ch);
 	}
 
 
-	function obtenerIdPedido(){
+	function actualizarPagopar($pagado, $forma_pago, $fecha_pago, $numero_pedido, $cancelado, $forma_pago_identificador, $hash_pedido){
+		//echo "Para saber si esta pagado";
+		//var_dump($pagado);
+		if($pagado==true){
+			$pago=1;
+		}else{
+			$pago=0;
+		}
+		if($cancelado==true){
+			$cancel=1;
+		}else{
+			$cancel=0;
+		}
 		$connection = conn();
 		try{
-		$sql = "SELECT MAX(id) AS id FROM transactions";
-            	$query = $connection->prepare($sql);
+			$sql = "UPDATE transactions SET pagado = '$pago', forma_pago = '$forma_pago', numero_pedido = '$numero_pedido', cancelado = '$cancel', 
+					forma_pago_identificador = '$forma_pago_identificador', updated = 'current_timestamp' WHERE hash_pedido = '$hash_pedido'";
+		        $query = $connection->prepare($sql);
             	$query->execute();
 
-				if ($query->rowCount() > 0) {
-					$result = $query->fetch();
-				} else {
-					$result = null;
-				}                	
 			} catch (\Exception $e) {
 				$result = $e;
+				echo "Error, contacte al administrador. Error -> ".$result;
 			}
 			$connection = disconn($connection);
-			return $result;
 	}
 ?>

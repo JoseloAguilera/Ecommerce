@@ -46,7 +46,7 @@
     	else{ 
         	if($result["respuesta"]==true){
                 $ok=1;
-                $pagado=$result['resultado'][0]['data'];
+                $pagado=$result['resultado'][0]['pagado'];
                 $forma_pago=$result['resultado'][0]['forma_pago'];
                 $fecha_pago=$result['resultado'][0]['fecha_pago'];
                 $monto=$result['resultado'][0]['monto'];
@@ -56,6 +56,7 @@
                 $cancelado=$result['resultado'][0]['cancelado'];
                 $forma_pago_identificador=$result['resultado'][0]['forma_pago_identificador'];
                 $token=$result['resultado'][0]['token'];
+                actualizarPagopar($pagado, $forma_pago, $fecha_pago, $numero_pedido, $cancelado, $forma_pago_identificador, $hash_pedido);
                 			
         	}else{
                 $ok=0;
@@ -88,23 +89,24 @@
                     <?php
                    if($ok==1){
 
-                   
+                    unset($_SESSION['cart']);
                         
                     ?>
                     <h2>GRACIAS POR REALIZAR TU PEDIDO!</h2>
                     <p><?php echo getMetodoPago($pedido['id_met_pago'])['instrucciones'];?></p>
                     <p>
-                    Usted seleccionó <?php echo $forma_pago; ?> como medio de pago.
+                    Usted selecciono <?php echo $forma_pago; ?> como medio de pago.
                     <hr>
                     Su nro. de Pedido es: <?php echo  $numero_pedido;?>
                     <hr>
-                    La fecha máxima de pago: <?php echo  $fecha_maxima_pago;?>
+                    La fecha maxima de pago: <?php echo  $fecha_maxima_pago;?>
                     <hr>
                     Total: <?php echo  $monto;?>
                     <hr>
                     Pagado: <?php if($pagado==true){ echo 'Si'; }else{echo 'No';}?>
                     <hr>
                     Fecha de Pago: <?php echo  $fecha_pago;?>
+                    <hr><hr>
                     <?php 
                     }else{
                     ?>
