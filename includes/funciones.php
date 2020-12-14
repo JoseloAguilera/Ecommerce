@@ -771,8 +771,8 @@
 	function enviarPagopar($idPedido, $total_envio, $total_compra, $id_comprador, $ruc, $email, $nombre, $apellido, $telefono, $direccion, $cedula,
 							$razonsocial){
 		
-		$token_privado='882a6551ea33c6372be75e868b1b45f7';
-		$token_publico='59fd417c531214db01e3db5c050c1bde';
+		$token_privado='b34c07ddf5bff906a3df98cb8c8c4c5a';
+		$token_publico='ca287c91e8fe97e1601c9c6d205d4dab';
 		$total=$total_envio+$total_compra;
 		//sha1($datos['comercio_token_privado'] . $idPedido . strval(floatval($j['monto_total'])));
 
@@ -795,7 +795,7 @@
 		$compras_items['cantidad']= 1;
 		$compras_items['categoria']= "909";
 		$compras_items['public_key']= "$token_publico";
-		$compras_items['url_imagen']= "http://www.fernandogoetz.com/d7/wordpress/wp-content/uploads/2017/10/ticket.png";
+		$compras_items['url_imagen']= "http://www.edtpy.com/img/logo.png";
 		$compras_items['descripcion']= "Ticket virtual EDT - PY";
 		$compras_items['id_producto']= 895;
 		$compras_items['precio_total']= $total;
@@ -859,8 +859,7 @@
 	            //header('Location:https://www.pagopar.com/pagos/'.$hash_pedido);
             	//exit();
         	}else{
-				$tipomensaje = 'error';
-				$mensaje = '<p class="text-center alert alert-danger">Consulte al administrador de sistemas.<br>Error: '.$result['resultado'].'</p>';
+				echo 'Consulte al administrador de sistemas.<br>Error: '.$result['resultado'];
         	}
      	}
 		curl_close($ch);
@@ -868,8 +867,6 @@
 
 
 	function actualizarPagopar($pagado, $forma_pago, $fecha_pago, $numero_pedido, $cancelado, $forma_pago_identificador, $hash_pedido){
-		//echo "Para saber si esta pagado";
-		//var_dump($pagado);
 		if($pagado==true){
 			$pago=1;
 		}else{
@@ -892,5 +889,51 @@
 				echo "Error, contacte al administrador. Error -> ".$result;
 			}
 			$connection = disconn($connection);
+	}
+
+
+	function obtenerPedido($hash){
+		$connection = conn();
+
+		$sql= "SELECT id FROM transactions WHERE hash_pedido = '"."$hash'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+		return $result;
+
+		$connection = disconn($connection);
+
+	}
+
+
+	function actualizarPago($pedido_id){
+		$connection = conn();
+		try{
+			$sql = "UPDATE tb_pedido SET status = '2' WHERE id = '$pedido_id'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+
+			} catch (\Exception $e) {
+				$result = $e;
+				echo "Error, contacte al administrador. Error -> ".$result;
+			}
+			$connection = disconn($connection);
+
+	}
+
+	//include('../Mailer/src/PHPMailer.php');
+	function enviarMail(){
+		$mail = new PHPMailer();
+
+		try{
+
+		}catch (Exception $e){
+
+		} 
+
 	}
 ?>

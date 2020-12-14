@@ -17,8 +17,8 @@
         if(isset($_GET['hash'])){
             $hash=$_GET['hash'];
         }
-        $token_privado='882a6551ea33c6372be75e868b1b45f7';
-        $token_publico='59fd417c531214db01e3db5c050c1bde';
+        $token_privado='b34c07ddf5bff906a3df98cb8c8c4c5a';
+		$token_publico='ca287c91e8fe97e1601c9c6d205d4dab';
         $ok=0;
         $token=Sha1($token_privado.'CONSULTA');
         //var_dump($token);
@@ -30,7 +30,7 @@
         
         $url = "https://api.pagopar.com/api/pedidos/1.1/traer";
         $postdata = json_encode($enviar);
-        var_dump($postdata);
+        //var_dump($postdata);
         $ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -40,7 +40,7 @@
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $result = json_decode(curl_exec($ch), true);
-        var_dump($result);
+       // var_dump($result);
 		if(curl_errno($ch))	{
     		echo 'Curl error: ' . curl_error($ch);  		}
     	else{ 
@@ -57,6 +57,10 @@
                 $forma_pago_identificador=$result['resultado'][0]['forma_pago_identificador'];
                 $token=$result['resultado'][0]['token'];
                 actualizarPagopar($pagado, $forma_pago, $fecha_pago, $numero_pedido, $cancelado, $forma_pago_identificador, $hash_pedido);
+                if($pagado==1){
+					$num_ped= obtenerPedido($hash_pedido);
+					actualizarPago($num_ped['id']);
+				}
                 			
         	}else{
                 $ok=0;
@@ -133,4 +137,5 @@
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
 </script>
+</body>
 </html>

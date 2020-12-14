@@ -1,6 +1,7 @@
 <head>
 	<title>EDT - PY</title>
-	<meta charset="UTF-8">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="description" content="Experientes da Terra">
 	<meta name="keywords" content="edt, eCommerce, tienda, ropas, experientes da terra">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,5 +53,9 @@
 	<script src="js/jquery.nicescroll.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/script.js"></script>
+
+	<?php
+		date_default_timezone_set("America/Asuncion");
+	?>
 
 </head>

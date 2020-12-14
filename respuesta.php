@@ -15,8 +15,8 @@ $token=$variable[0]['token'];
 
 //var_dump($transaction);
 
-$token_privado='882a6551ea33c6372be75e868b1b45f7';
-$token_publico='59fd417c531214db01e3db5c050c1bde';
+$token_privado='b34c07ddf5bff906a3df98cb8c8c4c5a';
+$token_publico='ca287c91e8fe97e1601c9c6d205d4dab';
 //var_dump($token);
 if (sha1( $token_privado.$hash_pedido) === $token) {
    
@@ -33,14 +33,6 @@ if (sha1( $token_privado.$hash_pedido) === $token) {
 }else{
     echo 'Token no coincide';
 }
-
-
-
-
-
-
-
-
 
 
 function  guardarTransaccion($hash_pedido, $pagado, $forma_pago, $fecha_pago, $numero_pedido){

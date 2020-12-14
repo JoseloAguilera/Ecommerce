@@ -31,6 +31,8 @@
 			$subbanner2 = "";
 			$subpedidos1 = "";
 			$subpedidos2 = "";
+			$subconsultapagopar1= "";
+			$subconsultapagopar2= "";
 
 			$configuraciones = "";
 			$subusuario1 = "";
@@ -68,6 +70,10 @@
 				$ecommerce = "active";
 				$subbanner1 = "active";
 				$subbanner2 = "text-aqua";
+			} else if (strpos($_SERVER['REQUEST_URI'], 'consultapagopar.php') !== false){
+				$ecommerce = "active";
+				$subconsultapagopar1 = "active";
+				$subconsultapagopar2 = "text-aqua";
 			} else if (strpos($_SERVER['REQUEST_URI'], 'usuario.php') !== false){
 				$configuraciones = "active";
 				$subusuario1 = "active";
@@ -113,6 +119,7 @@
 				<ul class="treeview-menu">
 					<li class="<?php echo $subbanner1;?>"><a href="banner.php"><i class="fa fa-circle-o <?php echo $subbanner2;?>"></i> Banners</a></li>
 					<li class="<?php echo $subpedidos1;?>"><a href="pedido.php"><i class="fa fa-circle-o <?php echo $subpedidos2;?>"></i> Pedidos</a></li>
+					<li class="<?php echo $subconsultapagopar1;?>"><a href="consultapagopar.php"><i class="fa fa-circle-o <?php echo $subconsultapagopar2;?>"></i>Cons. Pagopar</a></li>
 				</ul>
 			</li>
 			<!-- <li class="<?php echo $reportes;?> treeview">

@@ -94,11 +94,11 @@
 										
 											<figure>
 												<?php
-													$foto=getProdImages($row['id']);
-													foreach ($foto as $result){
+													$foto=getProdImage($row['id']);
+													//foreach ($foto as $result){
 												?>
-												<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-												<?php }?>
+												<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+												<?php //}?>
 											</figure>
 											
 											<div class="product-info">
@@ -158,11 +158,11 @@
 											<div class="product-item">
 												<figure>
 													<?php
-														$foto=getProdImages($row['id']);
-														foreach ($foto as $result){
+														$foto=getProdImage($row['id']);
+														//foreach ($foto as $result){
 													?>
-														<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-														<?php } ?>
+														<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php //} ?>
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>
@@ -236,11 +236,11 @@
 											<div class="product-item">
 												<figure>
 													<?php
-														$foto=getProdImages($row['id']);
-														foreach ($foto as $result){
+														$foto=getProdImage($row['id']);
+														//foreach ($foto as $result){
 													?>
-														<img src="img/productos/<?php echo $result['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-													<?php } ?>
+														<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+													<?php //} ?>
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>

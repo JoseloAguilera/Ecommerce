@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		/* ****************************************** */		
 		/* ****************************************** */
 			$ruc = ($_POST['ruc']);
-			$id_met_pago = 1;/*$_POST['met_pag'];*/
+			$id_met_pago = $_POST['met_pag'];
 			$id_met_envio =substr($_POST['calc_envio'], -1);
 			$id_cliente = $_SESSION['id_cliente'];			
 			$total_envio =  $_SESSION['costo_envio'];
@@ -159,11 +159,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 							<div class="col-md-6 col-sm-12">
 							<hr>
-								<h4 class="checkout-title">2) DIRECCIÓN DE ENVIO</h4>	
+								<h4 class="checkout-title">2) DIRECCION DE ENVIO</h4>	
 								<hr>						
 								<!-- //PAIS -->
 								<select name="pais" disabled="true">
-									<option disabled="true">País *</option>
+									<option disabled="true">Pais *</option>
 									<option value="1" selected="true" >Paraguay</option>
 								</select>
 							<div class="row">
@@ -229,8 +229,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 								<div class="order-details">
 									<div class="od-warp">	
 										<div class="shipping-info">								
-											<h4>3) MÉTODO DE ENVIO</h4>
-											<p>Seleccione un método de envío</p>
+											<h4>METODO DE ENVIO</h4>
+											<p>Seleccione un metodo de envio</p>
 											<?php foreach ($calc_envio as $metodos) { ?>										
 												<div class="sc-item">
 													<input type="radio" name="calc_envio" id="m<?php echo $metodos['id'] ?>" value="<?php echo $metodos['id'] ?>" <?php if($metodos['default']=='1'){echo "checked";} ?> required>
@@ -264,11 +264,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
 						<div class="col-md-6 col-sm-12">
 							<div class="od-warp">	
-								<h4 class="checkout-title">4) RESUMEN DE COMPRA</h4>
+								<h4 class="checkout-title">RESUMEN DE COMPRA</h4>
 								<table class="table order-table">
 									<thead>
 										<tr>
-											<th>Producto</th>
+											<th>Product</th>
 											<th>Total</th>
 										</tr>
 									</thead>
@@ -283,7 +283,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 										</tr>																
 									<?php } } ?>
 										<tr class="cart-subtotal">
-											<td>Envío</td>
+											<td>Envio</td>
 											<td id="totalenvio">Gratis</td>
 										</tr>
 									</tbody>
@@ -295,12 +295,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 										</tr>
 									</tfoot>
 								</table>
-								<br>
-					<input class="form-control" name="observacion" type="text" placeholder="Observacion sobre el pedido(opcional)">	
-				
-					<button type="submit" name="guardar" class="site-btn btn-success">Realizar Pedido con PAGOPAR</button>
-					<hr>
-					<br><br>
 							</div> <!-- old-wrap -->
 						</div> <!-- col-6 -->
 					</div> <!-- row -->
@@ -310,32 +304,37 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 			</div> <!-- container -->
 		<!-- </div>--> <!-- page-area -->
 
-			<!--div class="container">
+			<div class="container">
 				<div class="col-12">
 					<div class="payment-mt">
 						<hr>		
 						<h4>METODO DE PAGO</h4>
 						<p>Seleccione un metodo de pago</p>
 						<p  class="text-success" id="mp-sel"></p>
-						<?php //foreach ($met_pagos as $metodos) { ?>										
+						<?php foreach ($met_pagos as $metodos) { ?>										
 							<div class="pm-item">
-								<input type="radio" name="met_pag" id="<?php //echo $metodos['id'] ?>" value="<?php //echo $metodos['id'] ?>" <?php //if($metodos['default']=='1'){echo "checked";} ?> required>
-								<label for=""><?php //echo $metodos['descripcion'] ?></label>
+								<input type="radio" name="met_pag" id="<?php echo $metodos['id'] ?>" value="<?php echo $metodos['id'] ?>" <?php if($metodos['default']=='1'){echo "checked";} ?> required>
+								<label for=""><?php echo $metodos['descripcion'] ?></label>
 							</div>
-						<?php  //} ?>											
+						<?php  } ?>											
 					</div>
-					
-					< <div class="checkbox-items">
+					<br>
+					<input class="form-control" name="observacion" type="text" placeholder="Observacion sobre el pedido(opcional)">	
+					<br>
+					<!-- <div class="checkbox-items">
 						<div class="ci-item">
 								<input type="checkbox" name="terminos" id="terminos" required>
 								<label for="terminos">Acepto los terminos y condiciones</label>
 								<br>
 							</div>
 						</div>
-					</div> >
+					</div> -->
 					
-				</div> <!-- col-12 ->
-			</div--> <!-- container -->
+					<button type="submit" name="guardar" class="site-btn btn-success">Realizar Pedido</button>
+					<hr>
+					<br><br>
+				</div> <!-- col-12 -->
+			</div> <!-- container -->
 		</form>
 	</div> <!-- page-area -->
 	<!-- </div> -->
