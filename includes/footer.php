@@ -90,10 +90,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 	<script src="js/main.js"></script>
 	<script>
       $(window).scroll(function() {
-        if ($("#menu").offset().top > 56) {
-            $("#menu").addClass("menuscroll");
+        if ($("#menu-top").offset().top > 56) {
+            $("#menu-top").addClass("menuscroll");
         } else {
-            $("#menu").removeClass("menuscroll");
+            $("#menu-top").removeClass("menuscroll");
         }
       });
 	</script>

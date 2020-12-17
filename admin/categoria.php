@@ -68,6 +68,7 @@
 							<table class="table table-striped table-bordered display nowra" id="tabladatos">
 							<thead>
 								<tr>
+									<th></th>
 									<th>Categoría</th>
 									<th>Subcategoría</th>
 									<th>En el Menu</th>
@@ -80,7 +81,8 @@
 									if ($categorias != null) { 
 										foreach ($categorias as $row) {
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-activo="<?php echo $row['activo'];?>" data-categoria="<?php echo $row['id_padre'];?>" data-menu="<?php echo $row['menu'];?>">
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-activo="<?php echo $row['activo'];?>" data-categoria="<?php echo $row['id_padre'];?>" data-menu="<?php echo $row['menu'];?>" data-url="<?php echo $row['url'];?>">
+									<td><img src="img/categorias/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
 									<td>
 									<?php
 										$padre = "";

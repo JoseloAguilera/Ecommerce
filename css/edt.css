@@ -12,8 +12,13 @@ header {
     background: black;
     z-index: 999;
 }
+/*header .menu-area {
+    padding: 10px;
+}*/
+
 header .menu-area {
     padding: 10px;
+    padding-top: 30px;
 }
 #busqueda{
     width: 85%;
