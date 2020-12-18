@@ -37,7 +37,7 @@
 
 	function getProductosDestacados () {
 		$connection = conn();
-		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1' AND tb_producto.activo = '1' ORDER BY RAND() LIMIT 12";
+		$sql = "SELECT tb_producto.* FROM tb_producto WHERE tb_producto.destaque = '1' AND tb_producto.activo = '1' ORDER BY tb_producto.id DESC";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -683,6 +683,25 @@
 		$connection = conn();
 		try {
 			$sql = "SELECT * FROM tb_banner WHERE tb_banner.activo = 1 AND tb_banner.posicion = 0 ORDER BY orden";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			
+			if ($query->rowCount() > 0) {
+				$result = $query->fetchAll();
+			} else {
+				$result = null;
+			}                	
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getSliderMovil() {
+		$connection = conn();
+		try {
+			$sql = "SELECT * FROM tb_banner WHERE tb_banner.activo = 1 AND tb_banner.posicion = 2 ORDER BY orden";
 			$query = $connection->prepare($sql);
 			$query->execute();
 			

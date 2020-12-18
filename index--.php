@@ -10,6 +10,7 @@
 		$_SESSION['mayorista']=0;
 	}
 	$slider = getSlider();
+	$sliderMovil= getSliderMovil();
 	$banner = getBanner();
 ?>
 <body>
@@ -24,7 +25,49 @@
 	<!-- Header section end -->	
 	<!-- Hero section -->
 	<section style="padding:0px !important;">
-		<div class="container-fluid ">
+		<div class="container-fluid d-xs-block d-sm-block d-md-none">
+		<?php //include("includes/header--.php"); ?>
+			<div class="row">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<?php
+							$size = count($sliderMovil);
+							$primero = "active";
+							for ($x = 0; $x < $size; $x++) {
+						?>
+						<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $x;?>" class="<?php echo $primero;?>"></li>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</ol>
+					<div class="carousel-inner">
+						<?php 
+							$primero = "active";
+							foreach ($sliderMovil as $slidemovil) {
+						?>
+						<div class="carousel-item <?php echo $primero;?>">
+							<a href="<?php echo $slidemovil['url'];?>"><img class="d-block w-100" src="<?php echo "img/banners/".$slidemovil['img'];?>" alt="<?php echo $slidemovil['text_alt'];?>"></a>
+						</div>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Segunda Parte -->
+		<div class="container-fluid d-none d-lg-block d-md-block">
 		<?php //include("includes/header--.php"); ?>
 			<div class="row">
 				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -79,27 +122,24 @@
 								<div class="item">
 									<div class="product">
 										<a href="categorie.php?id=<?php echo $row['id'] ?>">
-											<div class="product-item">
+											<div class="product-item d-xs-block d-sm-block d-md-none" style="padding: 1px 1px 1px 1px; margin-top: 8px; align-items: center;">
 												<figure>
-														<img src="img/categorias/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail img-redonda" alt="categoria" style="max-width: 300px;">
+														<img src="img/categorias/<?php echo $row['url'];?>" alt="categoria" style="width:100px; height:100px;border-radius:60px;border:1px solid #666; ">
 													<?php //} ?>
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>
-													<p>
-														<?php
-															$precio = "";
-															if ($row['valor_minorista'] > 0) {
-																if($_SESSION['mayorista']==1){
-																	$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
-																}else{
-																	$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-																}
-															} else {
-																$precio = "Sobre consulta ";
-															}
-															echo $precio;
-														?>
+													</p>
+												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+												</div>
+											</div>
+											<div class="product-item d-none d-lg-block d-md-block" style="padding: 15px 15px 15px 15px">
+												<figure>
+														<img src="img/categorias/<?php echo $row['url'];?>" alt="categoria" style="width:300px; height:300px;border-radius:150px;border:5px solid #666;">
+													<?php //} ?>
+												</figure>
+												<div class="product-info">
+													<h6><?php echo $row['nombre']?></h6>
 													</p>
 												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
 												</div>

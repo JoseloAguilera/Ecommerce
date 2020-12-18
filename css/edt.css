@@ -535,4 +535,18 @@ element.style {
     background-color: #4CAF50;
     border-color: #c3e6cb;
     font-weight: 700;
-}
+    }
+
+    #categ-desktop{
+        width:300px !important; 
+        height:300px !important;
+        border-radius:150px !important;
+        border:10px solid #666 !important;
+    }
+
+    #categ-mobile{
+        width:100px !important;
+        height:100px !important;
+        border-radius:150px !important;
+        border:2px solid #666 !important;
+    }

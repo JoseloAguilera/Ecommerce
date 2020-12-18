@@ -96,4 +96,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
             $("#menu-top").removeClass("menuscroll");
         }
       });
+	  $(window).scroll(function() {
+        if ($("#menu-top1").offset().top > 56) {
+            $("#menu-top1").addClass("menuscroll");
+        } else {
+            $("#menu-top1").removeClass("menuscroll");
+        }
+      });
 	</script>

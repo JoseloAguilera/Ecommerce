@@ -114,7 +114,7 @@
 
 			//cambio de imagen
 			if ($img['url'] != $url && $img['url'] != "no-image.png") {
-				unlink("../img/categorias/".$img['url']); //apaga imagen anterior
+				unlink("../img/categorias/".$img['url'],0777); //apaga imagen anterior
 			}
 
 			if ($query->rowCount() > 0) {
