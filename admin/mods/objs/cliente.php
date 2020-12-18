@@ -1,10 +1,21 @@
 <?php 
     include_once "mods/server/cliente.php";
+	include_once "mods/server/uploads.php";
 
     $clientes = getAllClientes();
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['guardar'])){ 
+			if (basename($_FILES["fileToUpload"]["name"]) == "") {
+				$img = $_POST['imgurl'];
+			} else {
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$random_number = mt_rand(10000, 99999);
+				$nombre_cli = str_replace(" ", "-", strtolower($_POST['nombre']));
+				$imgname = $nombre_cli."-".$random_number.".".$extension;
+				$img = saveImg ("../img/revendedores/", $imgname, "fileToUpload");
+			}
+
             $mayorista = null;
 			if(!isset($_POST['mayorista'])) {
 				$mayorista = 0;
@@ -12,7 +23,7 @@
 				$mayorista = 1;
 			}
 			
-			$guardar = saveClienteADM ($_POST['codigo'], $mayorista);
+			$guardar = saveClienteADM ($_POST['codigo'], $mayorista, $img);
 
 			if ($guardar == $_POST['codigo']) {
 				$tipomensaje = 'success';

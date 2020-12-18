@@ -82,7 +82,13 @@
 										foreach ($categorias as $row) {
 								?>
 								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-activo="<?php echo $row['activo'];?>" data-categoria="<?php echo $row['id_padre'];?>" data-menu="<?php echo $row['menu'];?>" data-url="<?php echo $row['url'];?>">
-									<td><img src="img/categorias/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
+									<td>
+										<?php
+											if ($row['url'] == NULL) {
+												$row['url'] = "no-image.png";
+											}
+										?>
+										<img src="../img/categorias/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
 									<td>
 									<?php
 										$padre = "";
@@ -144,16 +150,19 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								<h4 class="modal-title">Nueva Categoría</h4>
 							</div>
-							<form action="" method="POST" autocomplete="off">
+							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<div class="modal-body">
 									<div class="row">
-										<div class="col-md-8">
+									<div class="col-md-5 text-center">
+											<img src="img/marcas/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img">
+										</div>
+										<div class="col-md-7">
 											<div class="form-group">
 												<label for="nombre">Nombre</label>
 												<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la Categoría" maxlength="80" required>
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-7">
 											<div class="form-group">
 												<label for="tipo">Subcategoria de</label>
 												<select class="selectpicker" id="categoria" name="categoria" data-width="100%" data-live-search="true">
@@ -170,6 +179,12 @@
 														} //END IF
 													?>
 												</select>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="fileToUpload"></label>
+												<input type="file"  name="fileToUpload" id="fileToUpload">
 											</div>
 										</div>
 									</div> <!-- row -->
@@ -192,17 +207,21 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								<h4 class="modal-title">Alteración Categoría</h4>
 							</div>
-							<form action="" method="POST" autocomplete="off">
+							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<div class="modal-body">
 									<div class="row">
 										<input type="hidden" class="form-control" id="codigo" name="codigo" required>
-										<div class="col-md-12">
+										<input type="hidden" class="form-control" id="imgurl" name="imgurl" required>
+										<div class="col-md-5 text-center">
+											<img src="img/marcas/no-image.png" class="img-fluid img-thumbnail img-modal" alt="no-image" id="img-alt">
+										</div>
+										<div class="col-md-7">
 											<div class="form-group">
 												<label for="nombre">Nombre</label>
 												<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la Categoría" maxlength="80" required>
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-7">
 											<div class="form-group">
 												<label for="tipo">Subcategoria de</label>
 												<select class="selectpicker" id="categoria" name="categoria" data-width="100%" data-live-search="true">
@@ -221,7 +240,7 @@
 												</select>
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<label for="menu">Menu</label>
 											<div class="row">
 												<div class="col-md-12">
@@ -235,6 +254,12 @@
 												<div class="col-md-12">
 													<input type="checkbox" name="activo" id="activo" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35" checked>
 												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="fileToUpload"></label>
+												<input type="file"  name="fileToUpload" id="fileToUpload">
 											</div>
 										</div>
 									</div> <!-- row -->

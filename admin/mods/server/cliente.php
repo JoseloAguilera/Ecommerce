@@ -75,7 +75,7 @@
 		return $result;
 	}
 
-	function saveClienteADM ($id, $mayorista) {
+	function saveClienteADM ($id, $mayorista, $url) {
 		$connection = conn();
 		
 		try {
@@ -84,8 +84,21 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_cliente SET mayorista = '$mayorista'
-	 					WHERE id = $id";
+				if ($mayorista == 1) {
+					$sql = "UPDATE tb_cliente SET mayorista = '$mayorista', url = '$url'
+					WHERE id = $id";
+				} else {
+					$img = $query->fetch();
+
+					if ($img['url'] != "no-image.png" && $img['url'] != NULL) {
+						if (!unlink("../img/revendedores/".$img['url'])) {  
+							return $img." cannot be deleted due to an error";  
+						}  
+					} 
+
+					$sql = "UPDATE tb_cliente SET mayorista = '$mayorista', url = NULL
+					WHERE id = $id";					
+				}
 				$query = $connection->prepare($sql);
 				$query->execute();
 

@@ -81,11 +81,11 @@
 		return $result;
 	}
 
-	function newCategoria ($nombre, $padre) {
+	function newCategoria ($nombre, $padre, $url) {
 		$connection = conn();
 		try {
-			$sql = "INSERT INTO tb_categoria (nombre, id_padre, activo, menu)
-		 			VALUES ('$nombre', $padre, 1, 1)";
+			$sql = "INSERT INTO tb_categoria (nombre, id_padre, activo, menu, url)
+		 			VALUES ('$nombre', $padre, 1, 1, '$url')";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -102,7 +102,7 @@
 		return $result;
 	}
 
-	function saveCategoria ($id, $nombre, $padre, $menu, $activo) {
+	function saveCategoria ($id, $nombre, $padre, $menu, $activo, $url) {
 		$connection = conn();
 		
 		try {
@@ -110,8 +110,15 @@
 			$query = $connection->prepare($sql);
 			$query->execute();
 
+			$img = $query->fetch();
+
+			//cambio de imagen
+			if ($img['url'] != $url && $img['url'] != "no-image.png") {
+				unlink("../img/categorias/".$img['url']); //apaga imagen anterior
+			}
+
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_categoria SET nombre = '$nombre', id_padre = $padre, activo = '$activo', menu = '$menu'
+				$sql = "UPDATE tb_categoria SET nombre = '$nombre', id_padre = $padre, activo = '$activo', menu = '$menu', url = '$url'
 	 					WHERE id = $id";
 				$query = $connection->prepare($sql);
 				$query->execute();
@@ -176,6 +183,17 @@
 				$query->execute();
 				return "inactivo";
 			}
+
+			$sql = "SELECT * from tb_categoria WHERE id = $id";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			$img = $query->fetch();
+
+			if ($img['url'] != "no-image.png") {
+				if (!unlink("../img/categorias/".$img['url'])) {  
+					return $img." cannot be deleted due to an error";  
+				}  
+			} 
 
 			$sql = "DELETE FROM tb_categoria WHERE id = '$id'";
 			$query = $connection->prepare($sql);

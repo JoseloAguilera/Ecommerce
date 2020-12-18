@@ -173,7 +173,7 @@
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="fileToUpload"></label>
-												<input type="file"  name="fileToUpload" id="fileToUpload">
+												<input type="file"  name="fileToUpload" id="fileToUpload2">
 											</div>
 										</div>
 									</div> <!-- row -->

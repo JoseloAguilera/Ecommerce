@@ -1,25 +1,50 @@
 <?php
 	include_once "mods/server/categoria.php";
+	include_once "mods/server/uploads.php";
 
 	$categorias = getAllCategorias();
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['nuevo'])){
-			$incluir = newCategoria ($_POST['nombre'], $_POST['categoria']);
-			if (substr($incluir,0,1) == "E") {
-				$tipomensaje = 'error';
-				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$incluir.'"</p>';
-			} else if ($incluir == null) {
-				$tipomensaje = 'error';
-				$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+			if (basename($_FILES["fileToUpload"]["name"]) == "") {
+				$img = "no-image.png";
 			} else {
-				$tipomensaje = 'success';
-				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron insertados correctamente.</p>';
-				
-				$categorias = getAllCategorias();
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$random_number = mt_rand(10000, 99999);
+				$nombre_cat = str_replace(" ", "-", strtolower($_POST['nombre']));
+				$imgname = $nombre_cat."-".$random_number.".".$extension;
+				$img = saveImg ("../img/categorias/", $imgname, "fileToUpload");
+			}
+			if (substr($img,0,3) == substr($nombre_cat, 0, 3) OR $img == "no-image.png") {
+				$incluir = newCategoria ($_POST['nombre'], $_POST['categoria'], $img);
+				if (substr($incluir,0,1) == "E") {
+					$tipomensaje = 'error';
+					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Error->"'.$incluir.'"</p>';
+				} else if ($incluir == null) {
+					$tipomensaje = 'error';
+					$mensaje = '<h3>Error!</h3><p>Consulte al administrador de sistemas.<br>Registro NO ENCONTRADO</p>';
+				} else {
+					$tipomensaje = 'success';
+					$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron insertados correctamente.</p>';
+					
+					$categorias = getAllCategorias();
+				}
+			} else {
+				$tipomensaje = 'error';
+				$mensaje = '<h3>Error!</h3><p>'.$img.'</p>';
 			}
 		} else if (isset($_POST['guardar'])){ 
 			// var_dump($_POST);
+			if (basename($_FILES["fileToUpload"]["name"]) == "") {
+				$img = $_POST['imgurl'];
+			} else {
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$random_number = mt_rand(10000, 99999);
+				$nombre_cat = str_replace(" ", "-", strtolower($_POST['nombre']));
+				$imgname = $nombre_cat."-".$random_number.".".$extension;
+				$img = saveImg ("../img/categorias/", $imgname, "fileToUpload");
+			}
+
 			$menu = null;
 			if(!isset($_POST['menu'])) {
 				$menu = 0;
@@ -33,7 +58,7 @@
 			} else {
 				$activo = 1;
 			}
-			$guardar = saveCategoria ($_POST['codigo'], $_POST['nombre'], $_POST['categoria'], $menu, $activo);
+			$guardar = saveCategoria ($_POST['codigo'], $_POST['nombre'], $_POST['categoria'], $menu, $activo, $img);
 
 			if ($guardar == $_POST['codigo']) {
 				$tipomensaje = 'success';

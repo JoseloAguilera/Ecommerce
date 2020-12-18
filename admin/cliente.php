@@ -75,14 +75,14 @@
 									if ($clientes != null) { 
 										foreach ($clientes as $row) {											
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['ruc'];?>" data-numero="<?php echo $row['documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>">
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['ruc'];?>" data-numero="<?php echo $row['documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>" data-url="<?php echo $row['url'];?>">
 									<td>
 										<?php 
 											$mayorista = "";
 											if ($row['mayorista'] == 0) {
 												$mayorista = "Minorista";
 											} else {
-												$mayorista = "Mayorista";
+												$mayorista = "Revendedor";
 											}
 											echo $mayorista;?>
 									</td>
@@ -122,14 +122,29 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								<h4 class="modal-title">Cliente</h4>
 							</div>
-							<form action="" method="POST" autocomplete="off">
+							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<div class="modal-body">
+									<input type="hidden" class="form-control" id="codigo" name="codigo" required>
+									<input type="hidden" class="form-control" id="imgurl" name="imgurl" required>
+									<div class="row text-center">
+										<div class="col-md-3"></div>
+										<div class="col-md-6 text-center">
+											<img src="../img/revendedores/no-image.png" class="img-fluid img-thumbnail" style="width: 250px; height: 250px;" alt="no-image" id="img-alt">
+										</div>
+										<div class="col-md-3"></div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="fileToUpload"></label>
+											<input type="file"  name="fileToUpload" id="fileToUpload">
+										</div>
+									</div>
 									<div class="row">
 										<input type="hidden" class="form-control" id="codigo" name="codigo" required>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="nombre">Nombre</label>
-												<input type="text" class="form-control" id="nombre" value="" readonly>
+												<input type="text" class="form-control" id="nombre" name="nombre" value="" readonly>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -164,7 +179,7 @@
 											<label for="activo">Tipo</label>
 											<div class="row">
 												<div class="col-md-12">
-													<input type="checkbox" id="toggle" name="mayorista" data-toggle="toggle" data-on="Mayorista" data-off="Minorista" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35">
+													<input type="checkbox" id="toggle" name="mayorista" data-toggle="toggle" data-on="Revendedor" data-off="Minorista" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35">
 												</div>
 											</div>
 										</div>

@@ -35,8 +35,9 @@
             var activo = button.data('activo')
             var menu = button.data('menu')
             var categoria = button.data('categoria')
+            var url = button.data('url')
     
-            console.log(categoria);
+            // console.log(categoria);
             // Actualiza los datos del modal
             var modal = $(this)
             modal.find('.modal-title').text('Categoría ' + nombre);
@@ -56,6 +57,12 @@
             } else {
                 $('#menu').bootstrapToggle('off')
             }
+
+            modal.find('#imgurl').val(url);
+            if (url == "") {
+                url = "no-image.png"
+            }
+            document.getElementById("img-alt").src="../img/categorias/"+url;
         })
     });
     
@@ -84,4 +91,43 @@
             //Acciones si el usuario confirma
             $("#btn-excluir").click();
         }
+    });
+
+
+    //función responsable por mostrar la imagen que el usuario eligió en el elemento img
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("img").src = e.target.result;
+                document.getElementById("img-alt").src = e.target.result;
+                // $(input).next().attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+        else {
+            var img = input.value;
+            document.getElementById("img").src=img;
+            document.getElementById("img-alt").src=img;
+            // $(input).next().attr('src',img);
+        }
+    } 
+    
+    function verificaMostraBotao(){
+        $('input[type=file]').each(function(index){
+            if ($('input[type=file]').eq(index).val() != ""){
+                readURL(this);
+                $('.hide').show();
+            }
+        });
+    }
+    
+    $('input[type=file]').on("change", function(){
+      verificaMostraBotao();
+    });
+    
+    $('.hide').on("click", function(){
+        $(document.body).append($('<input />', {type: "file" }).change(verificaMostraBotao));
+        $(document.body).append($('<img />'));
+        $('.hide').hide();
     });

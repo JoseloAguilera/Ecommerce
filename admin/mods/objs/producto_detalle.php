@@ -85,7 +85,10 @@
 			if (basename($_FILES["fileToUpload"]["name"]) == "") {
 				$img = $_POST['imgurl'];
 			} else {
-				$imgname = "cod".$_GET['producto']."-".date("Y-m-d")."-".basename($_FILES["fileToUpload"]["name"]);
+				$extension = substr($_FILES["fileToUpload"]["type"], 6);
+				$random_number = mt_rand(10000, 99999);
+				$nombre_prod = str_replace(" ", "-", strtolower($producto['nombre']));
+				$imgname = $nombre_prod."-".$random_number.".".$extension;
 				$img = saveImg ("../img/productos/", $imgname, "fileToUpload");
 			}
 

@@ -25,6 +25,6 @@
     // instance, using default configuration.
     CKEDITOR.replace('edtterminos')
     //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
+    // $('.textarea').wysihtml5()
   })
 </script>

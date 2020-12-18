@@ -92,12 +92,12 @@
                                     <td><?php echo $row['nombre'];?></td>
                                     <td>
                                         <?php 
-                                            $tipo = "";
-                                            if ($row['tipo'] == 0) {
+                                            // $tipo = "";
+                                            // if ($row['tipo'] == 0) {
                                                 $tipo = "Admin";
-                                            } else {
-                                                $tipo = "Usuário";
-                                            }
+                                            // } else {
+                                            //     $tipo = "Usuário";
+                                            // }
                                             echo $tipo;
                                         ?>
                                     </td>

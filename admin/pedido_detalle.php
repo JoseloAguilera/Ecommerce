@@ -208,7 +208,7 @@
                                 ?>
                                 <tr>
                                     <td><?php echo $row['referencia'];?></td>
-                                    <td><img src="img/productos/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
+                                    <td><img src="../img/productos/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
                                     <td><?php echo $row['nombre'];?></td>
                                     <td><?php echo $row['valor_unitario'];?></td>
                                     <td><?php echo $row['ctd'];?></td>
