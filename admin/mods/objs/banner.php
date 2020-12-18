@@ -4,7 +4,6 @@
 	include_once "mods/server/categoria.php";
 	include_once "mods/server/marca.php";
 	include_once "mods/server/uploads.php";
-
 	include_once "./mods/server/pagopar.php";
 
 	$categorias = getCategorias();
@@ -24,6 +23,13 @@
 		$lastOrdenB = $lastOrdenB['orden'] + 1;
 	} else {
 		$lastOrdenB = $lastOrdenB['orden'];
+	}
+
+	$lastOrdenM = getBannerLO(2);
+	if ($lastOrdenM['orden'] >= 0) {
+		$lastOrdenM = $lastOrdenM['orden'] + 1;
+	} else {
+		$lastOrdenM = $lastOrdenM['orden'];
 	}
 
 	// var_dump(getProdbyCategoria (11));
@@ -46,12 +52,13 @@
 					$activo = 1;
 				}
 
-				$posicion = null;
-				if(!isset($_POST['posicion'])) {
-					$posicion = 0;
-				} else {
-					$posicion = 1;
-				}
+				// $posicion = null;
+				// if(!isset($_POST['posicion'])) {
+				// 	$posicion = 0;
+				// } else {
+				// 	$posicion = 1;
+				// }
+				$posicion = $_POST['posicion'];
 
 				$link = "";
 				if($_POST['linktype'] == "categoriatype"){
@@ -120,12 +127,13 @@
 				$activo = 1;
 			}
 
-			$posicion = null;
-			if(!isset($_POST['posicion'])) {
-				$posicion = 0;
-			} else {
-				$posicion = 1;
-			}
+			// $posicion = null;
+			// if(!isset($_POST['posicion'])) {
+			// 	$posicion = 0;
+			// } else {
+			// 	$posicion = 1;
+			// }
+			$posicion = $_POST['posicion'];
 
 			$link = "";
 			if($_POST['linktype-alt'] == "categoriatype-alt"){

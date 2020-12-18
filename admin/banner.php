@@ -92,6 +92,8 @@
 									<?php
 										if ($row['posicion'] == 0) {
 											echo "Slider";
+										} else if ($row['posicion'] == 2) {
+											echo "Slider Mobile";
 										} else {
 											echo "Banner Pequeño";
 										}
@@ -128,6 +130,7 @@
 							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<input type="hidden" class="form-control" id="ordenslider" placeholder="99" maxlength="5" value="<?php echo $lastOrdenS;?>">
 								<input type="hidden" class="form-control" id="ordenbanner" placeholder="99" maxlength="5" value="<?php echo $lastOrdenB;?>">
+								<input type="hidden" class="form-control" id="ordenmobile" placeholder="99" maxlength="5" value="<?php echo $lastOrdenM;?>">
 								<div class="modal-body">
 									<div class="row">
 										<div class="col-md-12 text-center">
@@ -141,12 +144,18 @@
 										</div>
 										<div class="col-md-3">
 											<div class="form-group">
-												<label for="descripcion">Posición</label>
+												<label for="tipo">Posición</label>
+												<select class="selectpicker" id="posicion" name="posicion" data-width="100%" onchange="getOrder()">
+													<option value="0" selected>Slider</option> 
+													<option value="2">Slider Mobile</option> 
+													<option value="1">Banner</option> 
+												</select>
+												<!-- <label for="descripcion">Posición</label>
 												<div class="row">
 													<div class="col-md-12">
 														<input type="checkbox" name="posicion" id="posicion" data-toggle="toggle" data-on="Banner" data-off="Slider" data-onstyle="success" data-offstyle="info" data-width="100%" data-height="35">
 													</div>
-												</div>
+												</div> -->
 											</div>
 										</div>
 										<div class="col-md-3">
@@ -292,11 +301,17 @@
 										<div class="col-md-3">
 											<div class="form-group">
 												<label for="descripcion">Posición</label>
+												<select class="selectpicker" id="posicion" name="posicion" data-width="100%">
+													<option value="0" selected>Slider</option> 
+													<option value="2">Slider Mobile</option> 
+													<option value="1">Banner</option> 
+												</select>
+												<!-- <label for="descripcion">Posición</label>
 												<div class="row">
 													<div class="col-md-12">
 														<input type="checkbox" name="posicion" id="posicion-alt" data-toggle="toggle" data-on="Banner" data-off="Slider" data-onstyle="success" data-offstyle="info" data-width="100%" data-height="35">
 													</div>
-												</div>
+												</div> -->
 											</div>
 										</div>
 										<div class="col-md-3">

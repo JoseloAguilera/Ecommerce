@@ -26,16 +26,27 @@
         });
     });
     
-    $(document).ready(function(){
-        $('#posicion').change(function() {
-            var toggle = $(this).prop('checked');
-            if (toggle == 1) {
-                document.getElementById("orden").value = document.getElementById("ordenbanner").value;
-            } else {
-                document.getElementById("orden").value = document.getElementById("ordenslider").value;
-            }
-        })
-    })
+    function getOrder () {
+        var idOrder = document.getElementById("posicion").value;
+        if (idOrder == 1) {
+            document.getElementById("orden").value = document.getElementById("ordenbanner").value;
+        } else if (idOrder == 0) {
+            document.getElementById("orden").value = document.getElementById("ordenslider").value;
+        } else {
+            document.getElementById("orden").value = document.getElementById("ordenmobile").value;
+        }
+    }
+
+    // $(document).ready(function(){
+        // $('#posicion').change(function() {
+        //     var toggle = $(this).prop('checked');
+        //     if (toggle == 1) {
+        //         document.getElementById("orden").value = document.getElementById("ordenbanner").value;
+        //     } else {
+        //         document.getElementById("orden").value = document.getElementById("ordenslider").value;
+        //     }
+        // })
+    // })
 
     // Ajusta los itenes para que se vean en el modal
     $(document).ready(function(){
@@ -63,12 +74,15 @@
             } else {
                 $('#activo-alt').bootstrapToggle('off')
             }
+            
+            modal.find('#posicion').val(posicion);
+            $('.selectpicker').selectpicker('refresh');
 
-            if (posicion == "1") {
-                $('#posicion-alt').bootstrapToggle('on')
-            } else {
-                $('#posicion-alt').bootstrapToggle('off')
-            }
+            // if (posicion == "1") {
+            //     $('#posicion-alt').bootstrapToggle('on')
+            // } else {
+            //     $('#posicion-alt').bootstrapToggle('off')
+            // }
             
             if (url.substring(0, 6) == "promo-") {
                 // console.log(url.substring(6));
@@ -144,6 +158,11 @@
         });
     });
     
+    // formato para campos moneda
+    String.prototype.reverse = function(){
+        return this.split('').reverse().join('');
+    };
+
     //función que no permite texto en los campos de nro
     function formatoNro(campo, evento){
         var tecla = (!evento) ? window.event.keyCode : evento.which;
@@ -164,6 +183,7 @@
         campo.value = resultado.reverse();
     }
     
+
     //función responsable por mostrar la imagen que el usuario eligió en el elemento img
     function readURL(input) {
         if (input.files && input.files[0]) {
