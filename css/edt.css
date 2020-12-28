@@ -24,8 +24,8 @@ header .menu-area {
     width: 85%;
     float: left;
 }
-#busqueda input{
-	background: #282828;
+#busqueda input {
+    background: #ffffff52;
     border: 0;
     border-radius: 0;
     height: 45px;
@@ -47,16 +47,7 @@ header .menu-area {
     padding: 15px;
     color: black;
 }
-.social-top .fa.fa-instagram {
-    background: #fcb800;
-    padding: 15px;
-    color: black;
-    font-weight: 900;
-    margin-left: 10px;
-}
-.social-top .fa.fa-instagram:hover {
-    background: #fcb800;
-}
+
 .header-right .card-bag span {
     background-color: #fcb800;
 }
@@ -102,6 +93,9 @@ header .menu-area {
 .site-logo {
     padding-top: 12px;
     float: left;
+    left: -50px;
+    position: relative;
+    top: -10px;
 }
 .user-menu {
     color: #fff;
@@ -549,4 +543,54 @@ element.style {
         height:100px !important;
         border-radius:150px !important;
         border:2px solid #666 !important;
+    }
+    
+    .story-cat img {
+        border-radius: 100%;
+        border: 2px solid #d4176a;
+        padding: 2px;
+        height: 110px;
+        width: 110px !important;
+    }
+
+
+    .story-cat h6 {
+        font-size: 11px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    #owl-story-cat .owl-nav [class*='owl-'] {
+        color: #000;
+        font-size: 14px;
+        margin: 5px;
+        padding: 10px;
+        background: #fcb80000;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 3px;
+        margin: 0;
+    }
+
+    .instagram {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        border-radius: 40px;
+        color: #fff;
+        font-size: 40px;
+        line-height: 45px;
+        vertical-align: middle;
+        background: #d6249f;
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+        box-shadow: 0px 3px 10px rgba(0,0,0,.25);
+        margin-left: 15px;
+        position: relative;
+        top: -5px;
+    }
+
+    section.section.story-cat-section {
+        background: white;
+        padding: 15px 0;
     }

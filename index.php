@@ -10,7 +10,9 @@
 		$_SESSION['mayorista']=0;
 	}
 	$slider = getSlider();
+	$sliderMovil= getSliderMovil();
 	$banner = getBanner();
+	$index=1;
 ?>
 <body>
 <a id="button"></a>
@@ -23,8 +25,52 @@
 	<?php include("includes/header.php"); ?>
 	<!-- Header section end -->	
 	<!-- Hero section -->
+	<section class="header-top"></section>
 	<section style="padding:0px !important;">
-		<div class="container-fluid ">
+		<div class="container-fluid d-xs-block d-sm-block d-md-none">
+		<?php //include("includes/header--.php"); ?>
+			<div class="row">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<?php
+							$size = count($sliderMovil);
+							$primero = "active";
+							for ($x = 0; $x < $size; $x++) {
+						?>
+						<li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $x;?>" class="<?php echo $primero;?>"></li>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</ol>
+					<div class="carousel-inner">
+						<?php 
+							$primero = "active";
+							foreach ($sliderMovil as $slidemovil) {
+						?>
+						<div class="carousel-item <?php echo $primero;?>">
+							<a href="<?php echo $slidemovil['url'];?>"><img class="d-block w-100" src="<?php echo "img/banners/".$slidemovil['img'];?>" alt="<?php echo $slidemovil['text_alt'];?>"></a>
+						</div>
+						<?php
+								$primero = "";
+							} 
+						?>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Segunda Parte -->
+		<div class="container-fluid d-none d-lg-block d-md-block">
+		<?php //include("includes/header--.php"); ?>
 			<div class="row">
 				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
@@ -65,7 +111,8 @@
 		</div>
 	</section>
 	<!-- Hero section end -->	
-	
+    <?php include_once "includes/story-cat.php";?>
+	<!-- End section categorias-->
 	<!-- Product section -->
 	<section class="product-section spad">
 	<?php include_once "includes/funciones.php";?>
@@ -73,7 +120,9 @@
 		    <div class="col-xl-8 mx-auto text-center">
 				<div class="section-title">
 					<br>
-					<h4>Productos Destacados</h4>
+					<hr>
+					<h4>PRODUCTOS DESTACADOS</h4>
+					<hr>
 				</div>
 			</div>
 			<div class="row" id="product-filter">
@@ -92,14 +141,18 @@
 									
 										<div class="product-item">
 										
+											
 											<figure>
-												<?php
-													$foto=getProdImage($row['id']);
-													//foreach ($foto as $result){
-												?>
-												<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-												<?php //}?>
-											</figure>
+													<?php $foto = getProdImage($row['id']);
+													if (isset($foto)){ ?>
+														<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } else { ?>
+														<img src="img/productos/no-image.png" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+														
+														<?php ?>
+												</figure>
+											
 											
 											<div class="product-info">
 												<h6><?php echo $row['nombre']?></h6>
@@ -139,12 +192,14 @@
 		</div>
 	</section>
 	<!-- Product section end -->
-
-	<section class="section-dark">		
+<!-- Version desk-->
+	<section class="section-dark d-none d-lg-block d-md-block">		
 		<div class="container-fluid">
 		    <div class="col-12">
 				<div class="section-title">
-					<h4>Productos Más Recientes</h4>
+				<hr>
+					<h4>NUESTROS LANZAMIENTOS</h4>
+					<hr>
 				</div>
 				<div class="row">				
 					<div class="col-4">
@@ -157,12 +212,14 @@
 										<a href="product.php?id=<?php echo $row['id'] ?>">
 											<div class="product-item">
 												<figure>
-													<?php
-														$foto=getProdImage($row['id']);
-														//foreach ($foto as $result){
-													?>
+													<?php $foto = getProdImage($row['id']);
+													if (isset($foto)){ ?>
 														<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
-														<?php //} ?>
+														<?php } else { ?>
+														<img src="img/productos/no-image.png" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+														
+														<?php ?>
 												</figure>
 												<div class="product-info">
 													<h6><?php echo $row['nombre']?></h6>
@@ -217,6 +274,81 @@
 			</div>
 		</div>
 	</section>
+<!--Version mobile-->
+	<section class="section-dark d-xs-block d-sm-block d-md-none">		
+	<div class="container-fluid">
+		    <div class="col-12">
+				<div class="section-title">
+				<hr>
+					<h4>NUESTROS LANZAMIENTOS</h4>
+					<hr>
+				</div>
+				<div class="row">				
+					<div class="col-12">
+						<div class="owl-carousel owl-theme" id="owl-product2">			
+							<?php 
+								$novedades=getProductosNuevos();			
+								foreach ($novedades as $row) { ?>
+								<div class="item">
+									<div class="product">
+										<a href="product.php?id=<?php echo $row['id'] ?>">
+											<div class="product-item">
+												<figure>
+													<?php $foto = getProdImage($row['id']);
+													if (isset($foto)){ ?>
+														<img src="img/productos/<?php echo $foto['url'];?>" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } else { ?>
+														<img src="img/productos/no-image.png" class="img-fluid img-thumbnail" alt="producto" style="max-width: 300px;">
+														<?php } ?>
+														
+														<?php ?>
+												</figure>
+												<div class="product-info">
+													<h6><?php echo $row['nombre']?></h6>
+													<p>
+														<?php
+															$precio = "";
+															if ($row['valor_minorista'] > 0) {
+																if($_SESSION['mayorista']==1){
+																	$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
+																}else{
+																	$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
+																}
+															} else {
+																$precio = "Sobre consulta ";
+															}
+															echo $precio;
+														?>
+													</p>
+												<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
+					<?php
+						
+
+							foreach ($banner as $bnnr) {
+					?>
+					<div class="col-12"></div>
+					<div class="col-12 text-center banner-middle" style="margin-bottom: 10px;">					
+						<div class="">
+							<img src="img/banners/<?php echo $bnnr['img'];?>" alt="<?php echo $bnnr['text_alt'];?>">
+						</div>
+					</div>
+					<div class="col-12"></div>
+					<?php
+							}
+						
+					?>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<section class="section">		
 		<div class="container-fluid">		
@@ -224,7 +356,9 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title">
-							<h4>Productos Más Vendidos</h4>
+						<hr>
+					<h4>TOP VENTAS</h4>
+					<hr>
 						</div>			  		  			
 						<div class="owl-carousel owl-theme" id="owl-product">			
 							<?php 
@@ -349,7 +483,7 @@
 });
 
 $('#cat-destacada').owlCarousel({
-    loop:false,
+    loop:true,
     margin:0,
 	dots:false,
     nav:true,	
@@ -381,13 +515,61 @@ $('#owl-product').owlCarousel({
 	navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
     responsive:{
         0:{
-            items:4
+            items:1
         },
         600:{
             items:4
         },
         1000:{
             items:4
+        }
+    }
+
+
+
+})
+
+$('#owl-product2').owlCarousel({
+    loop:true,
+    margin:0,
+	dots:false,
+	lazyLoad:true,
+	autoplay:true,
+    nav:true,
+	navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:4
+        },
+        1000:{
+            items:4
+        }
+    }
+
+
+
+})
+
+$('#owl-story-cat').owlCarousel({
+    loop:true,
+    margin:0,
+	dots:false,
+	lazyLoad:true,
+	autoplay:true,
+    nav:true,
+	navText : ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+    responsive:{
+        0:{
+            items:4
+        },
+        600:{
+            items:10
+        },
+        1000:{
+            items:12
         }
     }
 
