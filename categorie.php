@@ -54,7 +54,7 @@
 		<div class="container">
 			<div class="site-breadcrumb">
 				<a href="index.php">Inicio</a> / 
-				<span><?php echo getCategoria($categoria)['nombre']; ?></span>
+				<span><a href="categoria.php?id=<?php echo getCategoria($categoria)['nombre']; ?>"></a><?php echo getCategoria($categoria)['nombre']; ?></span>
 			</div>
 		</div>
 	</div>
@@ -129,8 +129,8 @@
 						if ($productos == NULL){
 					?>
 					<div class="alert alert-danger" role="alert">
-						Ops! não encontramos nenhum resultado para sua busca :D<br>
-						<a href="index.php" style="color: black">Voltar para o Inicio</a>
+						Ups! no encontramos ningún resultado para su búsqueda :D<br>
+						<a href="index.php" style="color: black">Volver al Inicio</a>
 					</div>
 					<?php } else { ?>
 					<div class="row">
