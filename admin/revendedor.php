@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $_SESSION['empresa'];?> | Cad. Clientes</title>
+    <title><?php echo $_SESSION['empresa'];?> | Cad. Revendedores</title>
 	<?php include 'includes/head.php'; ?>
 </head>
 <body class="hold-transition skin-yellow sidebar-mini">
@@ -20,14 +20,14 @@
 		<?php include 'includes/aside.php'; ?>
 		<!-- ASIDE BAR END -->
 
-		<?php include_once "mods/objs/cliente.php";?>
+		<?php include_once "mods/objs/revendedor.php";?>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Cabicera de Contenido (Título) -->
 			<section class="content-header">
 				<h1>
-					Clientes
-					<small>Registro de los clientes.</small>
+                Revendedores
+					<small>Registro de los revendedores.</small>
 				</h1>
 			</section>
 
@@ -120,25 +120,25 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title">Cliente</h4>
+								<h4 class="modal-title">Revendedor</h4>
 							</div>
 							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
 								<div class="modal-body">
 									<input type="hidden" class="form-control" id="codigo" name="codigo" required>
 									<input type="hidden" class="form-control" id="imgurl" name="imgurl" required>
-									<!-- <div class="row text-center">
+									<div class="row text-center">
 										<div class="col-md-3"></div>
 										<div class="col-md-6 text-center">
 											<img src="../img/revendedores/no-image.png" class="img-fluid img-thumbnail" style="width: 250px; height: 250px;" alt="no-image" id="img-alt">
 										</div>
 										<div class="col-md-3"></div>
-									</div> -->
-									<!-- <div class="col-md-12">
+									</div>
+									<div class="col-md-12">
 										<div class="form-group">
 											<label for="fileToUpload"></label>
 											<input type="file"  name="fileToUpload" id="fileToUpload">
 										</div>
-									</div> -->
+									</div>
 									<div class="row">
 										<input type="hidden" class="form-control" id="codigo" name="codigo" required>
 										<div class="col-md-6">
@@ -219,7 +219,7 @@
 
 	<!-- SCRIPTS (js) -->
 	<script type="text/javascript">
-		<?php include_once "mods/js/cliente.js"; ?>
+		<?php include_once "mods/js/revendedor.js"; ?>
 	</script>
 	<?php include "includes/scripts.php"; ?>
 	<!-- ./SCRIPTS (js) -->

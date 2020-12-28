@@ -1,4 +1,4 @@
-    <?php if (isset($mensaje)) {?>
+<?php if (isset($mensaje)) {?>
     $(document).ready(function(){
         $("#modal-mensaje").modal("show");
     });
@@ -38,7 +38,7 @@
 
             // Actualiza los datos del modal
             var modal = $(this)
-            modal.find('.modal-title').text('Cliente ' + nombre);
+            modal.find('.modal-title').text('Revendedor ' + nombre);
             modal.find('#codigo').val(codigo);
             modal.find('#nombre').val(nombre);
             modal.find('#apellido').val(apellido);
@@ -58,7 +58,7 @@
             if (url == "") {
                 url = "no-image.png"
             }
-            // document.getElementById("img-alt").src="../img/revendedores/"+url;
+            document.getElementById("img-alt").src="../img/revendedores/"+url;
         })
     });
     
@@ -133,39 +133,39 @@
     }
 
     //función responsable por mostrar la imagen que el usuario eligió en el elemento img
-    // function readURL(input) {
-    //     if (input.files && input.files[0]) {
-    //         var reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             // document.getElementById("img").src = e.target.result;
-    //             document.getElementById("img-alt").src = e.target.result;
-    //             // $(input).next().attr('src', e.target.result)
-    //         };
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    //     else {
-    //         var img = input.value;
-    //         // document.getElementById("img").src=img;
-    //         document.getElementById("img-alt").src=img;
-    //         // $(input).next().attr('src',img);
-    //     }
-    // } 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // document.getElementById("img").src = e.target.result;
+                document.getElementById("img-alt").src = e.target.result;
+                // $(input).next().attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+        else {
+            var img = input.value;
+            // document.getElementById("img").src=img;
+            document.getElementById("img-alt").src=img;
+            // $(input).next().attr('src',img);
+        }
+    } 
     
-    // function verificaMostraBotao(){
-    //     $('input[type=file]').each(function(index){
-    //         if ($('input[type=file]').eq(index).val() != ""){
-    //             readURL(this);
-    //             $('.hide').show();
-    //         }
-    //     });
-    // }
+    function verificaMostraBotao(){
+        $('input[type=file]').each(function(index){
+            if ($('input[type=file]').eq(index).val() != ""){
+                readURL(this);
+                $('.hide').show();
+            }
+        });
+    }
     
-    // $('input[type=file]').on("change", function(){
-    //   verificaMostraBotao();
-    // });
+    $('input[type=file]').on("change", function(){
+      verificaMostraBotao();
+    });
     
-    // $('.hide').on("click", function(){
-    //     $(document.body).append($('<input />', {type: "file" }).change(verificaMostraBotao));
-    //     $(document.body).append($('<img />'));
-    //     $('.hide').hide();
-    // });
+    $('.hide').on("click", function(){
+        $(document.body).append($('<input />', {type: "file" }).change(verificaMostraBotao));
+        $(document.body).append($('<img />'));
+        $('.hide').hide();
+    });

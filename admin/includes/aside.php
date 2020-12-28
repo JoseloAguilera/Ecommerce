@@ -17,6 +17,8 @@
 			$catastro = "";
 			$subcliente1 = "";
 			$subcliente2 = "";			
+			$subrevendedor1 = "";
+			$subrevendedor2 = "";			
 			$subcategoria1 = "";
 			$subcategoria2 = "";
 			$submarca1 = "";
@@ -58,6 +60,10 @@
 				$catastro = "active";
 				$subatributo1 = "active";
 				$subatributo2 = "text-aqua";
+			} else if (strpos($_SERVER['REQUEST_URI'], 'revendedor.php') !== false){
+				$catastro = "active";
+				$subrevendedor1 = "active";
+				$subrevendedor2 = "text-aqua";
 			} else if (strpos($_SERVER['REQUEST_URI'], 'producto.php') !== false OR strpos($_SERVER['REQUEST_URI'], 'producto_detalle.php') !== false){
 				$catastro = "active";
 				$subproducto1 = "active";
@@ -103,6 +109,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li class="<?php echo $subcliente1;?>"><a href="cliente.php"><i class="fa fa-circle-o <?php echo $subcliente2;?>"></i> Clientes</a></li>
+					<li class="<?php echo $subrevendedor1;?>"><a href="revendedor.php"><i class="fa fa-circle-o <?php echo $subrevendedor2;?>"></i> Revendedores</a></li>
 					<li class="<?php echo $subcategoria1;?>"><a href="categoria.php"><i class="fa fa-circle-o <?php echo $subcategoria2;?>"></i> Categoria</a></li>
 					<li class="<?php echo $submarca1;?>"><a href="marca.php"><i class="fa fa-circle-o <?php echo $submarca2;?>"></i> Marca</a></li>
 					<li class="<?php echo $subatributo1;?>"><a href="atributo.php"><i class="fa fa-circle-o <?php echo $subatributo2;?>"></i> Atributos</a></li>

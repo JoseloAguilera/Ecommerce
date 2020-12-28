@@ -17,6 +17,42 @@
 
 		$connection = disconn($connection);
 		return $result;
+	}
+	
+	function getClientes () {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cliente WHERE mayorista = 0 
+        ORDER BY nombre ASC";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	
+	function getRevendedores () {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cliente WHERE mayorista = 1 
+        ORDER BY nombre ASC";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
     }
 	
 	function countAllClientes () {
