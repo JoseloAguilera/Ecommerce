@@ -975,6 +975,36 @@
 		return $result;
 	}
 	
+	function actualizaStok ($idprod, $qty) {
+		$connection = conn();
+		try {
+			$sql = "SELECT * from tb_producto_stock WHERE id_producto = '$idprod'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			if ($query->rowCount() > 0) { //si ya hay un stock para ese producto 
+				$antiguo = $query->fetch();
+			} else {
+				return "Erro PRODUCTO NO ENCONTRADO.";
+			}
+
+			$stock = $antiguo['stock'] - $qty;
+			$sql = "UPDATE tb_producto_stock SET stock = '$stock'
+					WHERE id_producto = '$idprod'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+
+			if ($query->rowCount() > 0) {
+				$result = $stock;
+			} else {
+				$result = null;
+			}           	
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
+	}
 	//include('../Mailer/src/PHPMailer.php');
 	function enviarMail(){
 		$mail = new PHPMailer();

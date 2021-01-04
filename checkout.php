@@ -37,8 +37,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				foreach ($cart as $carrito) {
 					$totalitem = $carrito['qty'] * $carrito['valor_minorista'];
 					saveDetallePedidos ($guardarpedido, $carrito['idproducto'], $carrito['valor_minorista'], $carrito['qty'],'0', $totalitem);
+					actualizaStok($carrito['idproducto'], $carrito['qty']); //funcion para actualizar el stock de los productos
 				}
 				$tipomensaje = 'success';			   
+				// $id_met_pago=0;
 				//$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
 				if($id_met_pago==1){
 					enviarPagopar($guardarpedido, $total_envio, $total, $id_cliente, $ruc, $_POST['email'], $_POST['nombre'], $_POST['apellido'], $_POST['telefono'],
