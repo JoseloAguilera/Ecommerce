@@ -12,6 +12,7 @@ session_start();
 	include("includes/cart.php");
 	$fotos=getProdImages($id);
 	$producto=getProducto($id);
+	$stock=getProductoStock($id);
 	visit($id);
  ?>
 <body>
@@ -54,15 +55,21 @@ session_start();
 			<div class="row">
 				<div class="col-lg-6">
 					<figure>
-						<img class="product-big-img" src="img/productos/<?php echo getProdImage($id)['url']; ?>" alt="">
+					<?php if (isset($fotos)){ ?>
+								<img  class="product-big-img" src="img/productos/<?php echo getProdImage($id)['url'];?>" alt="producto">
+							<?php } else { ?>
+								<img class="product-big-img" src="img/productos/no-image.png" alt="producto">
+							<?php } ?>
 					</figure>
 					<div class="product-thumbs">
 						<div class="product-thumbs-track">
 						<?php
+						if($fotos!=NULL){
 							foreach ($fotos as $result){
 						?>
 							<div class="pt" data-imgbigurl="img/productos/<?php echo $result['url'];?>"><img src="img/productos/<?php echo $result['url'];?>" alt=""></div>	
-						<?php }?>
+						<?php }
+						}?>
 						</div>
 					</div>
 				</div>
@@ -125,10 +132,15 @@ session_start();
 						<form action="" method="post">
 						   <input type="text" value="<?php echo $id; ?>" name="id" class="d-none">
 						   <div class="quy-input col-2">
-						   <span> Cantidad:</span><input type="number" name="qty" min="1" value="1" class="form-control">	
+						   <span> Cantidad:</span><input type="number" name="qty" min="1" max="<?php echo $stock['stock'] ?>"value="1" class="form-control">	
 						   <br>
-						   </div>	
-						   <button type="submit" name="action" value="addcart" class="site-btn btn-buy">  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
+						   </div>
+						   <?php if($stock['stock']==0) {?>	
+						   		<p style="margin-bottom: 0px; color: #212529;">¡Producto sin stock!</p>
+							<?php } else {?>
+								<p style="margin-bottom: 0px; color: #212529;"> Disponible: <?php echo $stock['stock']; ?>  artículos </p>
+							<?php } ?>
+						   <button type="submit" name="action" value="addcart" class="site-btn btn-buy" <?php if($stock['stock']==0) { echo 'disabled style="background:#8e8e8e; border: #8e8e8e;"';}?>>  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
 						</form>
 						
 						<br>

@@ -81,7 +81,21 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+	function getProductoStock ($codigo) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_producto_stock WHERE id_producto = '$codigo'";
+		$query = $connection->prepare($sql);
+		$query->execute();
 
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 	function getProdImages ($producto) {
 		$connection = conn();
 		$sql = "SELECT * FROM tb_producto_img WHERE tb_producto_img.id_producto = '$producto' ORDER BY orden DESC";
@@ -943,7 +957,24 @@
 			$connection = disconn($connection);
 
 	}
+	function getRevendedores () {
+		$connection = conn();
+        $sql = "SELECT * FROM tb_cliente WHERE mayorista = 1 
+        ORDER BY nombre ASC";
+        
+		$query = $connection->prepare($sql);
+		$query->execute();
 
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+	
 	//include('../Mailer/src/PHPMailer.php');
 	function enviarMail(){
 		$mail = new PHPMailer();

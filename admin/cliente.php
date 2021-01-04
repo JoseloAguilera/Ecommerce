@@ -66,7 +66,7 @@
 									<th>Razón Social</th>
 									<th>Tipo Documento</th>
 									<th>Nro Documento</th>
-									<th>Telefono</th>
+									<th>Teléfono</th>
 									<th>Email</th>
 								</tr>
 							</thead>

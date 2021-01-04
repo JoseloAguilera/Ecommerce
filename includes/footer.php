@@ -5,7 +5,7 @@
 				<div class="col-12 text-center">
 					<div class="footer-widget about-widget">
 						<img src="img/logo.png" class="footer-logo" alt="">
-						<p><a href="index.php">HOME</a> | <a href="empresa.php">EMPRESA</a> |  <a href="contacto.php">CONTACTO</a> | <a href="terminos-y-condiciones.php">TÉRMINOS Y CONDICIONES</a> | <a href="formas-de-pago.php">FORMAS DE PAGO</a></p> 
+						<p><a href="index.php">HOME</a> | <a href="empresa.php">EMPRESA</a> |  <a href="contacto.php">CONTACTO</a> | <a href="terminos-y-condiciones.php">TÉRMINOS Y CONDICIONES</a> | <a href="formas-de-pago.php">FORMAS DE PAGO</a> | <a href="revendedores.php">REVENDEDORES</a></p> 
 						<!-- <a href="">FORMAS DE ENVIO</a> | -->
 						<div class="cards">
 							<img src="img/cards/5.png" alt="">

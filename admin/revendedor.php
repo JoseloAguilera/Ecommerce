@@ -62,10 +62,9 @@
 							<thead>
 								<tr>
 									<!-- <th>Tipo</th> -->
+									<th>Logo<th>
 									<th>Nombre Completo</th>
 									<th>Razón Social</th>
-									<th>Tipo Documento</th>
-									<th>Nro Documento</th>
 									<th>Telefono</th>
 									<th>Email</th>
 								</tr>
@@ -86,12 +85,13 @@
 											// }
 											// echo $mayorista;?>
 									<!-- </td> -->
+									<td><img src="../img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"><td>
 									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 									<td><?php echo $row['razon_social'];?></td>
-									<td><?php echo $row['ruc'];?></td>
-									<td>
+									
+									<!--td>
 										<?php 
-											$nro_documento = "";
+										/*	$nro_documento = "";
 											if ($row['ruc'] == "RUC") {
 												$lastnum = strlen($row['documento']) - 1;
 												$nro_documento = substr($row['documento'],0,$lastnum)."-".substr($row['documento'],$lastnum,1);
@@ -100,8 +100,8 @@
 											} else {
 												$nro_documento = $row['documento'];
 											}
-											echo $nro_documento;?>
-									</td>
+											echo $nro_documento;*/?>
+									</td-->
 									<td><?php echo $row['telefono'];?></td>
 									<td><?php echo $row['email'];?></td>
 								</tr>
