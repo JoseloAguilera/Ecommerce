@@ -6,6 +6,27 @@
 <?php 
 	include("includes/head.php"); 
 
+	/**************/
+	/* PAGINACION */
+	/**************/
+
+	//Crea una variable para saber en que pagina estás
+	if (isset($_GET['pageno'])) {
+		$pageno = $_GET['pageno'];
+	} else {
+		$pageno = 1;
+	}
+	
+	$prod_por_pag = 6;
+	$offset = ($pageno-1) * $prod_por_pag; 
+
+	$auxiliar = "";
+
+	// var_dump($offset);
+	/**************/
+	/* PAGINACION */
+	/**************/
+
 	if (!isset($_SESSION['mayorista'])){
 		$_SESSION['mayorista']=0;
 	}
@@ -15,7 +36,12 @@
 	$totalSubCategorias = 0;
 	if (isset($_GET['cat']) && $_GET['cat'] > 0) {
 		$categoria = $_GET['cat'];
-		$productos = getProdbyCategoria($categoria);
+		$productos = getProdbyCategoria($categoria, $offset, $prod_por_pag);
+		if ($productos != null) {
+			$total_pag = countProdbyCategoria($categoria);
+			$total_pag = sizeof($total_pag);
+			$auxiliar = "cat=".$_GET['cat']."&";	
+		}
 	} else {
 		$categoria = "";
 	}
@@ -35,9 +61,21 @@
 
 	if (isset($_GET['search'])) {
 		$search=$_GET['search'];
-		$productos = getProdbySearch($search);
+		$productos = getProdbySearch($search, $offset, $prod_por_pag);
+		if ($productos != null) {
+			$total_pag = countProdbySearch($search);
+			$total_pag = $total_pag[0];
+			$auxiliar = "search=".$_GET['search']."&";
+		}
 	}
 
+	if ($productos != null) {
+		//Divide las cantidades de productos por la cantidade que puede mostrar en página
+		$total_pag = ceil($total_pag / $prod_por_pag);
+	} else {
+		$total_pag = null;
+	}
+	// var_dump($total_pag);
 ?>
 <body>
 	<!-- Page Preloder -->
@@ -172,6 +210,34 @@
 						</div> <!-- mix col-lg-4 -->
 					<?php 
 							} //END FOREACH $productos
+							if ($total_pag != null){ //IF PAGINACION
+					?>
+					<div class="col-md-12">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item <?php if($pageno <= 1){ echo 'disabled'; } ?>">
+									<a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno - 1); } ?>" tabindex="-1" aria-disabled="true">Previous</a>
+								</li>
+								<?php
+									for ($pag = 0; $pag < $total_pag; $pag++) {
+										if ($pag+1 == $pageno){
+											$active = " active";
+										} else { 
+											$active = "";
+										}
+								?>
+									<li class="page-item <?php echo $active;?>"><a class="page-link" href="<?php echo "?".$auxiliar."pageno=".($pag + 1);?>"><?php echo $pag+1;?></a></li>
+								<?php
+									}
+								?>
+								<li class="page-item <?php if($pageno >= $total_pag){ echo 'disabled'; } ?>">
+									<a class="page-link" href="<?php if($pageno >= $total_pag){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno + 1); } ?>">Next</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<?php
+							} //END IF PAGINACION
 						} //END IF $productos
 					?>
 					</div> <!-- row -->

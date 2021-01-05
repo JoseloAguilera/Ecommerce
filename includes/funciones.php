@@ -176,15 +176,15 @@
 		return $result;
 	}
 	
-	function getProdbyCategoria ($categoria) {
+	function getProdbyCategoria ($categoria, $offset, $limit) {
 		$connection = conn();
 		if($categoria != 'ALL') {
 			$sql = "SELECT tb_producto_categoria.*, tb_producto.*, tb_producto_img.url as img, tb_producto_img.orden as orden FROM tb_producto_categoria 
 					LEFT JOIN tb_producto ON tb_producto_categoria.id_producto=tb_producto.id 
 					LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id 
-					WHERE tb_producto.activo = 1 AND (tb_producto_categoria.id_categoria = '$categoria' OR tb_producto_categoria.id_categoria IN (SELECT id FROM tb_categoria WHERE id_padre = '$categoria')) GROUP BY (tb_producto.id) ORDER BY nombre ASC";
+					WHERE tb_producto.activo = 1 AND (tb_producto_categoria.id_categoria = '$categoria' OR tb_producto_categoria.id_categoria IN (SELECT id FROM tb_categoria WHERE id_padre = '$categoria')) GROUP BY (tb_producto.id) ORDER BY nombre ASC LIMIT $offset, $limit";
 		} else {
-			$sql = "SELECT tb_producto.*, tb_producto_img.url as img, tb_producto_img.orden as orden FROM tb_producto LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id WHERE tb_producto.activo = 1 AND tb_producto.id_categoria IN (SELECT id FROM tb_categoria WHERE tb_categoria.activo = 1) ORDER BY nombre ASC";
+			$sql = "SELECT tb_producto.*, tb_producto_img.url as img, tb_producto_img.orden as orden FROM tb_producto LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id WHERE tb_producto.activo = 1 AND tb_producto.id_categoria IN (SELECT id FROM tb_categoria WHERE tb_categoria.activo = 1) ORDER BY nombre ASC LIMIT $offset, $limit";
 		}
 		$query = $connection->prepare($sql);
 		$query->execute();
@@ -199,11 +199,67 @@
 		return $result;
 	}
 
-	function getProdbySearch ($busca) {
+	function countProdbyCategoria ($categoria) {
+		$connection = conn();
+		if($categoria != 'ALL') {
+			$sql = "SELECT COUNT(tb_producto_categoria.id_producto) FROM tb_producto_categoria 
+					LEFT JOIN tb_producto ON tb_producto_categoria.id_producto=tb_producto.id 
+					LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id 
+					WHERE tb_producto.activo = 1 AND (tb_producto_categoria.id_categoria = '$categoria' OR tb_producto_categoria.id_categoria IN (SELECT id FROM tb_categoria WHERE id_padre = '$categoria')) GROUP BY (tb_producto.id) ORDER BY nombre ASC";
+		// } else {
+		// 	$sql = "SELECT tb_producto.*, tb_producto_img.url as img, tb_producto_img.orden as orden FROM tb_producto LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id WHERE tb_producto.activo = 1 AND tb_producto.id_categoria IN (SELECT id FROM tb_categoria WHERE tb_categoria.activo = 1) ORDER BY nombre ASC";
+		}
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getProdbySearch ($busca, $offset, $limit) {
 		$connection = conn();
 		$sql = "SELECT tb_producto.*, tb_producto_img.url as img, tb_producto_img.orden as orden FROM tb_producto
 		LEFT JOIN tb_producto_img ON tb_producto_img.id_producto = tb_producto.id 
-		WHERE (tb_producto.nombre LIKE '%$busca%' AND tb_producto.activo = 1) AND tb_producto.activo = 1 ORDER BY nombre ASC";
+		WHERE (tb_producto.nombre LIKE '%$busca%' AND tb_producto.activo = 1) AND tb_producto.activo = 1 ORDER BY nombre ASC LIMIT $offset, $limit";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function countProdbySearch ($busca) {
+		$connection = conn();
+		$sql = "SELECT COUNT(tb_producto.id) FROM tb_producto
+		WHERE (tb_producto.nombre LIKE '%$busca%' AND tb_producto.activo = 1) AND tb_producto.activo = 1";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function countPagesProd () {
+		$connection = conn();
+		$sql = "SELECT COUNT(*) FROM tb_producto";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
