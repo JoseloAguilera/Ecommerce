@@ -78,7 +78,63 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 		</div>
 	</footer>
 	<!-- Footer section end -->
+	<a data-toggle="modal" data-target="#whatsapp-modal" class="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
 
+<div class="modal fade" id="whatsapp-modal"  role="dialog" aria-labelledby="whatsapp-modal" >
+   <div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title" id="whatsapp-modal">Vendedores Online</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">      
+				<div class="col-md-12">
+					<div class="row">
+
+						<div class="col-md-2">
+							<figure class="whats-list-img">
+							<img src="img/productos/no-image.png" alt="">
+							</figure>
+						</div>
+						
+						<div class="col-md-10">
+							 <a href="https://wa.me/595985822025" target="_blank" style="color: black; font-weight: 600;">
+							 <i class="fa fa-circle" aria-hidden="true" style="color: #56e656;"></i>
+ Sector de Ventas
+							<br><span class='whats-send-text'>Enviar Mensaje</span>
+							
+							</a>
+						</div>
+						
+						
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-md-2">
+							<figure class="whats-list-img">
+							  <img src="img/productos/no-image.png" alt="">
+							</figure>
+						</div>
+						
+						<div class="col-md-10">
+							 <a href=" https://wa.me/595985822025"  target="_blank" style="color: black; font-weight: 600;">
+							 <i class="fa fa-circle" aria-hidden="true" style="color: #56e656;"></i>
+Sector de Personalizados
+							<br><span class='whats-send-text'>Enviar Mensaje</span>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
 
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>

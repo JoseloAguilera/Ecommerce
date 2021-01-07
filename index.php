@@ -125,7 +125,7 @@
 					<hr>
 				</div>
 			</div>
-			<div class="row" id="product-filter">
+			<div class="row" id="">
 			
 			<?php
 				$destaque=getProductosDestacados();
