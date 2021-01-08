@@ -1,8 +1,8 @@
 <?php 
-    include_once "mods/server/cliente.php";
+    include_once "mods/server/revendedor.php";
 	include_once "mods/server/uploads.php";
 
-	$clientes = getRevendedores();
+	$clientes = getAllRevendedores();
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_POST['guardar'])){ 

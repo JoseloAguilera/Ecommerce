@@ -19,6 +19,17 @@
                 'pdfHtml5'
             ]
         });
+        $('#tabladatos2').DataTable( {
+            dom: 'Bfrtip',
+            order: [[ 0, "asc" ]],
+            orientation: 'landscape',
+            pageSize: 'LEGAL',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'pdfHtml5'
+            ]
+        });
     });
     
     // $('#AltModal').on('show.bs.modal', function (event) {

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo $_SESSION['empresa'];?> | Cad. Revendedores</title>
+    <title><?php echo $_SESSION['empresa'];?> | Cad. Clientes Revendedores</title>
 	<?php include 'includes/head.php'; ?>
 </head>
 <body class="hold-transition skin-yellow sidebar-mini">
@@ -34,6 +34,12 @@
 			<!-- Contenido Principal -->
 			<section class="content">
 				<div class="box">
+					<div class="box-header with-border">
+						<!-- Botón para crear más cursos -->
+						<div class="col-md-3 pull-left">
+							<button id="btnAdd" type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddModal" style="margin-bottom: 5px;">+ Nuevo</button>
+						</div>
+					</div>
 					<div class="modal fade modal-mensaje" id="modal-mensaje" tabindex="-1" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -61,7 +67,6 @@
 							<table class="table table-striped table-bordered display nowra" id="tabladatos">
 							<thead>
 								<tr>
-									<!-- <th>Tipo</th> -->
 									<th>Logo<th>
 									<th>Nombre Completo</th>
 									<th>Razón Social</th>
@@ -75,33 +80,9 @@
 										foreach ($clientes as $row) {											
 								?>
 								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['ruc'];?>" data-numero="<?php echo $row['documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>" data-url="<?php echo $row['url'];?>">
-									<!-- <td> -->
-										<?php 
-											// $mayorista = "";
-											// if ($row['mayorista'] == 0) {
-											// 	$mayorista = "Minorista";
-											// } else {
-											// 	$mayorista = "Revendedor";
-											// }
-											// echo $mayorista;?>
-									<!-- </td> -->
 									<td><img src="../img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"><td>
 									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 									<td><?php echo $row['razon_social'];?></td>
-									
-									<!--td>
-										<?php 
-										/*	$nro_documento = "";
-											if ($row['ruc'] == "RUC") {
-												$lastnum = strlen($row['documento']) - 1;
-												$nro_documento = substr($row['documento'],0,$lastnum)."-".substr($row['documento'],$lastnum,1);
-											} else if ($row['ruc'] == "CI") {
-												$nro_documento = $row['documento'];
-											} else {
-												$nro_documento = $row['documento'];
-											}
-											echo $nro_documento;*/?>
-									</td-->
 									<td><?php echo $row['telefono'];?></td>
 									<td><?php echo $row['email'];?></td>
 								</tr>
