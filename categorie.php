@@ -216,7 +216,7 @@
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<li class="page-item <?php if($pageno <= 1){ echo 'disabled'; } ?>">
-									<a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno - 1); } ?>" tabindex="-1" aria-disabled="true">Previous</a>
+									<a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno - 1); } ?>" tabindex="-1" aria-disabled="true"><</a>
 								</li>
 								<?php
 									for ($pag = 0; $pag < $total_pag; $pag++) {
@@ -231,7 +231,7 @@
 									}
 								?>
 								<li class="page-item <?php if($pageno >= $total_pag){ echo 'disabled'; } ?>">
-									<a class="page-link" href="<?php if($pageno >= $total_pag){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno + 1); } ?>">Next</a>
+									<a class="page-link" href="<?php if($pageno >= $total_pag){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno + 1); } ?>">></a>
 								</li>
 							</ul>
 						</nav>
