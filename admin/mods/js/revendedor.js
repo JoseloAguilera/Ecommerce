@@ -27,11 +27,7 @@
             var button = $(event.relatedTarget) // objeto que disparó el modal
             var codigo = button.data('codigo')
             var nombre = button.data('nombre')
-            var apellido = button.data('apellido')
-            var razon = button.data('razon')
-            var tipo = button.data('tipo')
-            var numero = button.data('numero')
-            var mayorista = button.data('mayorista')
+            var direccion = button.data('direccion')
             var telefono = button.data('telefono')
             var email = button.data('email')
             var url = button.data('url')
@@ -41,18 +37,9 @@
             modal.find('.modal-title').text('Revendedor ' + nombre);
             modal.find('#codigo').val(codigo);
             modal.find('#nombre').val(nombre);
-            modal.find('#apellido').val(apellido);
-            modal.find('#razon').val(razon);
-            modal.find('#tipo').val(tipo);
-            modal.find('#numero').val(numero);
+            modal.find('#direccion').val(direccion);
             modal.find('#telefono').val(telefono);
             modal.find('#email').val(email);
-
-            if (mayorista == "1") {
-                $('#toggle').bootstrapToggle('on')
-            } else {
-                $('#toggle').bootstrapToggle('off')
-            }
 
             modal.find('#imgurl').val(url);
             if (url == "") {

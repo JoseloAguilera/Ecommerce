@@ -67,9 +67,9 @@
 							<table class="table table-striped table-bordered display nowra" id="tabladatos">
 							<thead>
 								<tr>
-									<th>Logo<th>
-									<th>Nombre Completo</th>
-									<th>Razón Social</th>
+									<th>Logo</th>
+									<th>Nombre</th>
+									<th>Dirección</th>
 									<th>Telefono</th>
 									<th>Email</th>
 								</tr>
@@ -79,10 +79,10 @@
 									if ($clientes != null) { 
 										foreach ($clientes as $row) {											
 								?>
-								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-apellido="<?php echo $row['apellido'];?>" data-razon="<?php echo $row['razon_social'];?>" data-tipo="<?php echo $row['ruc'];?>" data-numero="<?php echo $row['documento'];?>" data-mayorista="<?php echo $row['mayorista'];?>"; data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>" data-url="<?php echo $row['url'];?>">
+								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-direccion="<?php echo $row['direccion'];?>" data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>" data-url="<?php echo $row['url'];?>">
 									<td><img src="../img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"><td>
-									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
-									<td><?php echo $row['razon_social'];?></td>
+									<td><?php echo $row['nombre']?></td>
+									<td><?php echo $row['direccion'];?></td>
 									<td><?php echo $row['telefono'];?></td>
 									<td><?php echo $row['email'];?></td>
 								</tr>
@@ -94,6 +94,75 @@
 					<!-- /.box-body -->
 				</div>
 				<!-- /.Caja de Texto de color gris (Default) -->
+
+				<!-- AddModal -->
+				<div class="modal fade" tabindex="-1" role="dialog" id="AddModal">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">Nuevo Revendedor</h4>
+							</div>
+							<form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+								<div class="modal-body">
+									
+									<div class="row text-center">
+										<div class="col-md-3"></div>
+										<div class="col-md-6 text-center">
+											<img src="../img/revendedores/no-image.png" class="img-fluid img-thumbnail" style="width: 250px; height: 250px;" alt="no-image" id="img-alt">
+										</div>
+										<div class="col-md-3"></div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="fileToUpload"></label>
+											<input type="file"  name="fileToUpload" id="fileToUpload">
+										</div>
+									</div>
+									<div class="row">
+										
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="nombre">Nombre</label>
+												<input type="text" class="form-control" id="nombre" name="nombre" value="" >
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="nombre">Teléfono</label>
+												<input type="text" class="form-control" id="telefono" value="" >
+											</div>
+										</div>
+										
+									</div>
+			
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="nombre">Dirección</label>
+												<input type="text" class="form-control" id="direccion" value="" >
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="nombre">Correo</label>
+												<input type="text" class="form-control" id="email" value="" >
+											</div>
+										</div>
+										
+									</div>
+									
+									
+								</div> <!-- modal-body -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+									<button type="submit" class="btn btn-primary" name="nuevo">Guardar</button>
+								</div>
+							</form>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				<!-- ./AddModal -->	
 
 				<!-- AltModal -->
 				<div class="modal fade" tabindex="-1" role="dialog" id="AltModal">
@@ -121,64 +190,37 @@
 										</div>
 									</div>
 									<div class="row">
-										<input type="hidden" class="form-control" id="codigo" name="codigo" required>
+										
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="nombre">Nombre</label>
-												<input type="text" class="form-control" id="nombre" name="nombre" value="" readonly>
+												<input type="text" class="form-control" id="nombre" name="nombre" value="" >
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label for="nombre">Apellido</label>
-												<input type="text" class="form-control" id="apellido" value="" readonly>
+												<label for="nombre">Teléfono</label>
+												<input type="text" class="form-control" id="telefono" value="" >
 											</div>
 										</div>
+										
 									</div>
+			
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
-												<label for="nombre">Razón Social</label>
-												<input type="text" class="form-control" id="razon" value="" readonly>
+												<label for="nombre">Dirección</label>
+												<input type="text" class="form-control" id="direccion" value="" >
 											</div>
 										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="nombre">Correo</label>
+												<input type="text" class="form-control" id="email" value="" >
+											</div>
+										</div>
+										
 									</div>
-									<div class="row">
-										<div class="col-md-3">
-											<div class="form-group">
-												<label for="nombre">Tipo Doc.</label>
-												<input type="text" class="form-control" id="tipo" value="" readonly>
-											</div>
-										</div>
-										<div class="col-md-5">
-											<div class="form-group">
-												<label for="nombre">Número Doc.</label>
-												<input type="text" class="form-control" id="numero" value="" readonly>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<label for="activo">Tipo</label>
-											<div class="row">
-												<div class="col-md-12">
-													<input type="checkbox" id="toggle" name="mayorista" data-toggle="toggle" data-on="Revendedor" data-off="Minorista" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-4">
-											<div class="form-group">
-												<label for="telefono">Telefono</label>
-												<input type="text" class="form-control" id="telefono" value="" readonly>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<div class="form-group">
-												<label for="email">Email</label>
-												<input type="text" class="form-control" id="email" value="" readonly>
-											</div>
-										</div>
-									</div> <!-- row --> 
 								</div> <!-- modal-body -->
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
