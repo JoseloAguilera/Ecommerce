@@ -253,6 +253,8 @@
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  
+
+
+
 </body>
 </html>

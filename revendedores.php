@@ -60,6 +60,7 @@
 									<!-- <th>Tipo</th> -->
 									<th></th>
 									<th>Nombre</th>
+									<th>Dirección</th>
 									<th>Telefono</th>
 									<th>Correo</th>
 								</tr>
@@ -81,7 +82,8 @@
 											// echo $mayorista;?>
 									<!-- </td> -->
 									<td><img src="img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"></td>
-									<td><?php echo $row['razon_social'];?></td>
+									<td><?php echo $row['nombre'];?></td>
+									<td><?php echo $row['direccion'];?></td>
 									<td><?php echo $row['telefono'];?></td>
 									<td><?php echo $row['email'];?></td>
 									
@@ -115,6 +117,22 @@
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	  <script type="text/javascript">
+	  //DataTable
+   		 $(document).ready(function() {
+        		$('#tabladatos').DataTable( {
+            		dom: 'Bfrtip',
+            		order: [[ 0, "asc" ]],
+            		orientation: 'landscape',
+            		pageSize: 'LEGAL',
+            		buttons: [
+                		'copyHtml5',
+                		'excelHtml5',
+                		'pdfHtml5'
+            		]
+        		});
+    		});
+	</script>
   
 </body>
 </html>

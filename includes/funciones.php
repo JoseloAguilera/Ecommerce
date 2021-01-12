@@ -1015,8 +1015,7 @@
 	}
 	function getRevendedores () {
 		$connection = conn();
-        $sql = "SELECT * FROM tb_cliente WHERE mayorista = 1 
-        ORDER BY nombre ASC";
+        $sql = "SELECT * FROM tb_revendedor ORDER BY id ASC";
         
 		$query = $connection->prepare($sql);
 		$query->execute();

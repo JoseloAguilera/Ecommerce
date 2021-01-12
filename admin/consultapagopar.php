@@ -31,7 +31,7 @@
 
 			<!-- Contenido Principal -->
 			<section class="content">
-				<?php include_once "mods/objs/marca.php";
+				<?php
 				$transacciones = getAllTransactions();
 				?>
 				<!-- Caja de Texto de color gris (Default) -->
@@ -70,6 +70,7 @@
 							<thead>
 								<tr>
 									<th>Id Pedido</th>
+									<th>Cliente</th>
 									<th>Pagado</th>
 									<th>Forma de Pago</th>
 									<th>Fecha de Pago</th>
@@ -86,6 +87,7 @@
 								?>
 								<tr>
 									<td><?php echo $row['id'];?></td>
+									<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 									<td> <?php  if($row['pagado']==1){
 											echo "SI";
 										}else{
@@ -228,9 +230,9 @@
 		include_once "mods/server/conn.php";
 		function getAllTransactions () {
 			$connection = conn();
-			$sql = "SELECT transactions.* /*, tb_pedido.,*/ FROM transactions
-					/*LEFT JOIN tb_cliente ON tb_pedido.id_cliente = tb_cliente.id */ 
-					ORDER BY id DESC";
+			$sql = "SELECT transactions.*, tb_cliente.* FROM transactions
+					LEFT JOIN tb_cliente ON transactions.compradorId = tb_cliente.id
+					ORDER BY transactions.id DESC";
 			$query = $connection->prepare($sql);
 			$query->execute();
 	
