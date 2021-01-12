@@ -23,7 +23,7 @@
 		$connection = conn();
 		try {
 			$sql = "INSERT INTO tb_revendedor (nombre, telefono, email, direccion, url)
-		 			VALUES ('$nombre', '$telefono', '$email', 'direccion', '$url')";
+		 			VALUES ('$nombre', '$telefono', '$email', '$direccion', '$url')";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -52,7 +52,7 @@
 
 			//cambio de imagen
 			if ($img['url'] != $url && $img['url'] != "no-image.png") {
-				unlink("img/marcas/".$img['url']); //apaga imagen anterior
+				unlink("../img/revendedor/".$img['url']); //apaga imagen anterior
 			}
 
 			if ($query->rowCount() > 0) {
@@ -60,25 +60,45 @@
 						direccion = '$direccion', url = '$url'  WHERE id = $id";
 				$query = $connection->prepare($sql);
 				$query->execute();
-
-				if ($query->rowCount() > 0) { //se houve mudanças e activo == 0 desabilita o producto
-					$activo=1;
-                    if ($activo == 0) {
-                        $sql = "UPDATE tb_producto SET activo = '$activo'
-                                WHERE id_marca = $id";
-                        $query = $connection->prepare($sql);
-                        $query->execute();
-                    }
-                    $result = $id;
-				} else {
-					$result = $id; //Sem alteração
-				}
+				
+                $result = $id;
 			} else {
 				$result = null;
 			}			
 		} catch (\Exception $e) {
 			$result = $e;
 		}
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function deleteRevendedor ($codigo) {
+		$connection = conn();
+		try {
+			$sql = "SELECT * from tb_revendedor WHERE id = $codigo";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			$img = $query->fetch();
+
+			if ($img['url'] != "no-image.png") {
+				if (!unlink("../img/revendedores/".$img['url'])) {  
+					return $img." cannot be deleted due to an error";  
+				}  
+			}  
+			
+			$sql = "DELETE FROM tb_revendedor WHERE id = '$codigo'";
+			$query = $connection->prepare($sql);
+			$query->execute();	
+
+			if ($query->rowCount() > 0) {
+				$result = $codigo;
+			} else {
+				$result = null;
+			}
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+
 		$connection = disconn($connection);
 		return $result;
 	}

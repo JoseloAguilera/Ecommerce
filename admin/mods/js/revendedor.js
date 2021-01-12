@@ -124,7 +124,7 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                // document.getElementById("img").src = e.target.result;
+                document.getElementById("img").src = e.target.result;
                 document.getElementById("img-alt").src = e.target.result;
                 // $(input).next().attr('src', e.target.result)
             };
@@ -132,7 +132,7 @@
         }
         else {
             var img = input.value;
-            // document.getElementById("img").src=img;
+            document.getElementById("img").src=img;
             document.getElementById("img-alt").src=img;
             // $(input).next().attr('src',img);
         }

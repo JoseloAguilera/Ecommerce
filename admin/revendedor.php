@@ -76,11 +76,18 @@
 							</thead>
 							<tbody>
                                 <?php 
-									if ($clientes != null) { 
-										foreach ($clientes as $row) {											
+									if ($revendedores != null) { 
+										foreach ($revendedores as $row) {											
 								?>
 								<tr data-toggle="modal" data-target="#AltModal" data-codigo="<?php echo $row['id'];?>" data-nombre="<?php echo $row['nombre'];?>" data-direccion="<?php echo $row['direccion'];?>" data-telefono="<?php echo $row['telefono'];?>" data-email="<?php echo $row['email'];?>" data-url="<?php echo $row['url'];?>">
-									<td><img src="../img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"><td>
+									<?php 
+										if (file_exists('../img/revendedores/'.$row['url'])) {
+											$url = $row['url'];
+									 	} else {
+											$url = "no-image.png";
+										 } 
+									 ?>
+									<td><img src="../img/revendedores/<?php echo $url;?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"></td>
 									<td><?php echo $row['nombre']?></td>
 									<td><?php echo $row['direccion'];?></td>
 									<td><?php echo $row['telefono'];?></td>
@@ -109,7 +116,7 @@
 									<div class="row text-center">
 										<div class="col-md-3"></div>
 										<div class="col-md-6 text-center">
-											<img src="../img/revendedores/no-image.png" class="img-fluid img-thumbnail" style="width: 250px; height: 250px;" alt="no-image" id="img-alt">
+											<img src="../img/revendedores/no-image.png" class="img-fluid img-thumbnail" style="width: 250px; height: 250px;" alt="no-image" id="img">
 										</div>
 										<div class="col-md-3"></div>
 									</div>
@@ -130,29 +137,24 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="nombre">Teléfono</label>
-												<input type="text" class="form-control" id="telefono" value="" >
+												<input type="text" class="form-control" id="telefono" name="telefono" value="" >
 											</div>
-										</div>
-										
+										</div>										
 									</div>
-			
 									<div class="row">
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="nombre">Dirección</label>
-												<input type="text" class="form-control" id="direccion" value="" >
+												<input type="text" class="form-control" id="direccion" name="direccion" value="" >
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="nombre">Correo</label>
-												<input type="text" class="form-control" id="email" value="" >
+												<input type="text" class="form-control" id="email" name="email" value="" >
 											</div>
 										</div>
-										
-									</div>
-									
-									
+									</div>									
 								</div> <!-- modal-body -->
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -200,7 +202,7 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label for="nombre">Teléfono</label>
-												<input type="text" class="form-control" id="telefono" value="" >
+												<input type="text" class="form-control" id="telefono" name="telefono"  value="" >
 											</div>
 										</div>
 										
@@ -210,19 +212,21 @@
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="nombre">Dirección</label>
-												<input type="text" class="form-control" id="direccion" value="" >
+												<input type="text" class="form-control" id="direccion" name="direccion" value="" >
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
 												<label for="nombre">Correo</label>
-												<input type="text" class="form-control" id="email" value="" >
+												<input type="text" class="form-control" id="email" name="email" value="" >
 											</div>
 										</div>
 										
 									</div>
 								</div> <!-- modal-body -->
 								<div class="modal-footer">
+									<button type="button" class="btn btn-danger pull-left" name="excluir" id="btn-confirmar">Excluir</button>
+									<button type="submit" class="btn" name="excluir" id="btn-excluir" style="display: none;">Submit Excluir</button>
 									<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 									<button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
 								</div>
@@ -231,6 +235,23 @@
 					</div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 				<!-- ./AltModal -->	
+
+				<!-- Confirmación Modal (para excluisiones) -->
+				<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">¿Deseas eliminar este registro?</h4>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" id="modal-btn-si">Sí</button>
+								<button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Confirmación Modal (para excluisiones) -->
 			</section>
 		</div> <!-- /.content-wrapper -->
 
