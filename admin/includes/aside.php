@@ -16,7 +16,7 @@
 
 			$catastro = "";
 			$subcliente1 = "";
-			$subcliente2 = "";			
+			$subcliente2 = "";	
 			$subrevendedor1 = "";
 			$subrevendedor2 = "";			
 			$subcategoria1 = "";
