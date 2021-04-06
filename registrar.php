@@ -98,7 +98,7 @@
                             <div class="col"></div>
                         </div>
                     </form>
-                    <div class="social-auth-links text-center">
+                    <!--div class="social-auth-links text-center">
                         <br>
                         <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrá usando
                             Facebook</a>

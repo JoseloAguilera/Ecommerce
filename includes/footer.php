@@ -1,11 +1,15 @@
 <!-- Footer top section -->	
+
 <section class="footer-top-section home-footer">
+
+
+
 		<div class="container">
 			<div class="row">
 				<div class="col-12 text-center">
 					<div class="footer-widget about-widget">
 						<img src="img/logo.png" class="footer-logo" alt="">
-						<p><a href="index.php">HOME</a> | <a href="empresa.php">EMPRESA</a> |  <a href="contacto.php">CONTACTO</a> | <a href="terminos-y-condiciones.php">TÉRMINOS Y CONDICIONES</a> | <a href="formas-de-pago.php">FORMAS DE PAGO</a> | <a href="revendedores.php">REVENDEDORES</a></p> 
+						<p><a href="index.php">HOME</a> | <a href="empresa.php">EMPRESA</a> |  <a href="contacto.php">CONTACTOS</a> | <a href="terminos-y-condiciones.php">TERMINOS Y CONICIONES</a> | <a href="formas-de-pago.php">FORMAS DE PAGO</a> | <a href="revendedores.php">REVENDEDORES</a></p>  
 						<!-- <a href="">FORMAS DE ENVIO</a> | -->
 						<div class="cards">
 							<img src="img/cards/5.png" alt="">
@@ -78,6 +82,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 		</div>
 	</footer>
 	<!-- Footer section end -->
+
+
+
 	<a data-toggle="modal" data-target="#whatsapp-modal" class="whatsapp"> <i class="fa fa-whatsapp whatsapp-icon"></i></a>
 
 <div class="modal fade" id="whatsapp-modal"  role="dialog" aria-labelledby="whatsapp-modal" >
@@ -97,12 +104,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 
 						<div class="col-md-2">
 							<figure class="whats-list-img">
-							<img src="img/productos/no-image.png" alt="">
+							<img src="img/icons/whatsapp.png" alt="">
 							</figure>
 						</div>
 						
 						<div class="col-md-10">
-							 <a href="https://wa.me/595985822025" target="_blank" style="color: black; font-weight: 600;">
+							 <a href="https://wa.me/595986746621" target="_blank" style="color: black; font-weight: 600;">
 							 <i class="fa fa-circle" aria-hidden="true" style="color: #56e656;"></i>
  Sector de Ventas
 							<br><span class='whats-send-text'>Enviar Mensaje</span>
@@ -116,7 +123,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos
 					<div class="row">
 						<div class="col-md-2">
 							<figure class="whats-list-img">
-							  <img src="img/productos/no-image.png" alt="">
+							  <img src="img/icons/whatsapp.png" alt="">
 							</figure>
 						</div>
 						
@@ -135,7 +142,6 @@ Sector de Personalizados
 
 	</div>
 </div>
-
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -160,3 +166,11 @@ Sector de Personalizados
         }
       });
 	</script>
+
+
+
+
+
+
+
+

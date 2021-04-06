@@ -5,26 +5,10 @@
 <html lang="zxx">
 <?php 
 	include("includes/head.php"); 
-
+	include_once "includes/funciones.php";
 	if (!isset($_SESSION['mayorista'])){
 		$_SESSION['mayorista']=0;
 	}
-	
-	include_once "includes/funciones.php";
-	
-	//ordenar productos
-	$orderby='id';
-	$order='DESC';
-
-	if (isset($_GET['orderby']) && isset($_GET['order'])) {
-		$orderby=$_GET['orderby'];
-		$order=$_GET['order'];
-		//validacion
-		if ($_GET['order'] != 'DESC' && $_GET['order'] != 'ASC') {
-			$order='DESC';
-		}
-	}
-
 	$clientes = getRevendedores();
 
 ?>
@@ -48,68 +32,46 @@
 		</div>
 	</div>
 	<!-- Page Info end -->
-
 	<div class="container gral-container">
-		<div class="box">
-					<!-- Corpo de Caja -->
-					<div class="box-body">
-						<div class="box-body table-responsive">
-							<table class="table table-striped table-bordered display nowra" id="tabladatos">
-							<thead>
-								<tr>
-									<!-- <th>Tipo</th> -->
-									<th></th>
-									<th>Nombre</th>
-									<th>Dirección</th>
-									<th>Telefono</th>
-									<th>Correo</th>
-								</tr>
-							</thead>
-							<tbody>
-                                <?php 
-									if ($clientes != null) { 
-										foreach ($clientes as $row) {											
-								?>
-								<tr>
-									<!-- <td> -->
-										<?php 
-											// $mayorista = "";
-											// if ($row['mayorista'] == 0) {
-											// 	$mayorista = "Minorista";
-											// } else {
-											// 	$mayorista = "Revendedor";
-											// }
-											// echo $mayorista;?>
-									<!-- </td> -->
-									<td><img src="img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;"></td>
-									<td><?php echo $row['nombre'];?></td>
-									<td><?php echo $row['direccion'];?></td>
-									<td><?php echo $row['telefono'];?></td>
-									<td><?php echo $row['email'];?></td>
-									
-									<!--td>
-										<?php 
-										/*	$nro_documento = "";
-											if ($row['ruc'] == "RUC") {
-												$lastnum = strlen($row['documento']) - 1;
-												$nro_documento = substr($row['documento'],0,$lastnum)."-".substr($row['documento'],$lastnum,1);
-											} else if ($row['ruc'] == "CI") {
-												$nro_documento = $row['documento'];
-											} else {
-												$nro_documento = $row['documento'];
-											}
-											echo $nro_documento;*/?>
-									</td-->
+		<br>
+		<div class="row">
 							
-								</tr>
-								<?php }}?>
-							</tbody>
-							</table>
-						</div>
-					</div>	
-		</div>
-	
+			<div class="col-md-12">					   
+				<div class="row">
+					
+						<?php				
+							if ($clientes != null) { 
+								$cantProd = count($clientes);
+								foreach ($clientes as $row) { 
+						?> 				
+						<div class="mix col-lg-4 col-md-4 best">
+							<a>
+								<div class="product-item">
+									<figure>
+									<img src="img/revendedores/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="revendedor" style="max-width: 150px;">
+									</figure>
+									<div class="product-info">
+										<h6><?php echo $row['nombre']?></h6>
+										<h6><?php echo $row['telefono']?></h6>
+										<p><?php
+											echo $row['direccion']
+										?></p>
+										<!--a href="" class="site-btn btn-line">Agregar al Carrito</a-->
+									</div>  <!-- product-info -->
+								</div><!-- product-item -->
+							</a>
+						</div> <!-- mix col-lg-4 -->
+					
+					
+				<?php }
+				} //else $productos ?>
+				</div> <!-- row -->
+			</div> <!-- col-md-12 -->
+		</div> <!-- row -->	
 	</div><!-- container -->
+
+
+	
 	<br>
 	<!-- Page -->
 

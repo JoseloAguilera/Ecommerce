@@ -130,7 +130,7 @@
 
 	function getCategorias () {
 		$connection = conn();
-		$sql = "SELECT * FROM tb_categoria WHERE id_padre IS NULL ORDER BY nombre ASC";
+		$sql = "SELECT * FROM tb_categoria WHERE id_padre IS NULL AND activo = '1' ORDER BY nombre ASC";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -146,7 +146,7 @@
 
 	function getSubCategorias ($categoria) {
 		$connection = conn();
-		$sql = "SELECT * FROM tb_categoria WHERE id_padre = '$categoria' ORDER BY nombre ASC";
+		$sql = "SELECT * FROM tb_categoria WHERE id_padre = '$categoria' AND activo = '1' ORDER BY nombre ASC";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
@@ -639,11 +639,29 @@
 		return $result;
     }
  
-    function saveDetallePedidos ($id_pedido, $id_producto, $valor_unitario, $ctd, $descuento, $valor_total) {
+    function saveDetallePedidos ($id_pedido, $id_producto, $id_combinacion, $combinacion, $valor_unitario, $ctd, $descuento, $valor_total) {
 		$connection = conn();
 		try {
-			$sql = "INSERT INTO tb_ped_detalle (id_pedido, id_producto, valor_unitario, ctd, descuento, valor_total)
-				VALUES ('$id_pedido', '$id_producto', '$valor_unitario', '$ctd', '$descuento', '$valor_total')";
+
+			if ($combinacion == "") {
+				$sql = "SELECT * from tb_producto_stock WHERE id_producto = '$id_producto'";
+				$query = $connection->prepare($sql);
+				$query->execute();	
+			} else {
+				$sql = "SELECT * from tb_producto_stock WHERE id_producto = '$id_producto' AND id_combinacion = '$id_combinacion'";
+				$query = $connection->prepare($sql);
+				$query->execute();	
+			}
+	
+			if ($query->rowCount() > 0) {
+				$stock = $query->fetch();
+				$id_stock = $stock['id'];
+			} else {
+				return null;
+			} 
+
+			$sql = "INSERT INTO tb_ped_detalle (id_pedido, id_producto, id_stock, combinacion, valor_unitario, ctd, descuento, valor_total)
+				VALUES ('$id_pedido', '$id_producto', $id_stock, '$combinacion', '$valor_unitario', '$ctd', '$descuento', '$valor_total')";
 			$query = $connection->prepare($sql);
 			$query->execute();
 			
@@ -1070,5 +1088,136 @@
 
 		} 
 
+	}
+
+	function buscaCombinacion ($valores) {
+		$connection = conn();
+		//Verificar se já existe uma combinação 
+		$atributos_valor = "";
+		foreach ($valores as $valor) {
+			if ($atributos_valor == "") {
+				$atributos_valor .= "";
+			} else {
+				$atributos_valor .= ", ";
+			}
+			$atributos_valor .= $valor;
+		}
+
+		$sql = "SELECT tb_producto_combinacion.* FROM tb_producto_combinacion WHERE tb_producto_combinacion.id_producto_atr_valor IN ($atributos_valor) ORDER BY tb_producto_combinacion.id_combinacion";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		$combinacion = $query->fetchAll();
+
+		$total_atributos = sizeof($valores);
+		$confirmados = 0;
+		$aux = $combinacion[0]['id_combinacion'];
+		$correto = "";
+
+		foreach ($combinacion as $combo) {
+			if ($aux != $combo['id_combinacion']) {
+				//verifica se confirmamos todos
+				if ($confirmados == $total_atributos) {
+					$correto = $aux;
+					break;
+				} else {
+					$correto = "";
+					$confirmados = 0;
+					$aux = $combo['id_combinacion'];
+				}
+			}
+			
+			foreach ($valores as $val) {
+				if ($val == $combo['id_producto_atr_valor']) {
+					$confirmados++;
+				}	
+			}
+		}
+		//caso seja o último
+		if ($confirmados == $total_atributos) {
+			$correto = $aux;
+		}
+
+		if ($correto != "") { //existe uma combinação
+			$result = $correto;
+		} else { //não existe uma combinação
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getProdAtributosValoresByStock ($combinacion) {
+		$connection = conn();
+		$sql = "SELECT tb_producto_combinacion.*, tb_atr_valor.nombre, tb_producto_atr_valor.id_atributo, tb_atributo.nombre AS atributo FROM tb_producto_combinacion 
+				LEFT JOIN tb_producto_atr_valor ON tb_producto_combinacion.id_producto_atr_valor = tb_producto_atr_valor.id
+				LEFT JOIN tb_atr_valor ON tb_producto_atr_valor.id_atr_valor = tb_atr_valor.id
+				LEFT JOIN tb_producto_atributo ON tb_producto_atr_valor.id_atributo = tb_producto_atributo.id
+				LEFT JOIN tb_atributo ON tb_producto_atributo.id_atributo = tb_atributo.id
+				WHERE tb_producto_combinacion.id_combinacion = $combinacion ORDER BY tb_producto_atr_valor.id_atributo, tb_atr_valor.nombre";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function actualizaStock ($id_producto, $id_combinacion, $ctd) {
+		$connection = conn();
+		try {
+			$sql = "SELECT * from tb_producto_stock WHERE id_combinacion = '$id_combinacion'";
+			$query = $connection->prepare($sql);
+			$query->execute();
+	
+			if ($query->rowCount() > 0) {
+				$stock = $query->fetch();
+				$new = $stock['stock']-$ctd;
+	
+				$sql = "UPDATE tb_producto_stock SET stock = '$new'
+						 WHERE id_combinacion = '$id_combinacion'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+	
+				if ($query->rowCount() > 0) {
+					$result = $id_combinacion;
+				} else {
+					$result = $id_combinacion; //Sem alteração
+				}
+			} else {
+				// $result = null;
+				$sql = "SELECT * from tb_producto_stock WHERE id_producto = '$id_producto'";
+				$query = $connection->prepare($sql);
+				$query->execute();
+		
+				if ($query->rowCount() > 0) {
+					$stock = $query->fetch();
+					$new = $stock['stock']-$ctd;
+		
+					$sql = "UPDATE tb_producto_stock SET stock = '$new'
+							WHERE id_producto = '$id_producto'";
+					$query = $connection->prepare($sql);
+					$query->execute();
+		
+					if ($query->rowCount() > 0) {
+						$result = $id_producto;
+					} else {
+						$result = $id_producto; //Sem alteração
+					}
+				} else {
+					$result = null;
+				}		
+			}			
+		} catch (\Exception $e) {
+			$result = $e;
+		}
+		$connection = disconn($connection);
+		return $result;
 	}
 ?>

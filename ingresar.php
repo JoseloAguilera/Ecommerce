@@ -100,13 +100,13 @@
                             <div class="col"></div>
                         </div>
                     </form>
-                    <div class="social-auth-links text-center">
+                    <!--div class="social-auth-links text-center">
                         <br>
                         <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrá usando
                             Facebook</a>
                         <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Entrá usando
                             Google+</a>
-                    </div>
+                    </div-->
                     <br>
                     <div class="text-center">
                         <a href="resetar.php">¿Olvidaste tu contraseña?</a><br>

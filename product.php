@@ -77,7 +77,7 @@ session_start();
 					<div class="product-content">
 						<h2><?php echo $producto['nombre'];?></h2>
 						<div class="pc-meta">
-							<h4 class="price">
+							<h4 class="price" id="price">
 								Precio: 
 								<?php
 									$precio = "";
@@ -130,17 +130,23 @@ session_start();
 							</div>
 						</div-->
 						<form action="" method="post">
-						   <input type="text" value="<?php echo $id; ?>" name="id" class="d-none">
-						   <div class="quy-input col-2">
-						   <span> Cantidad:</span><input type="number" name="qty" min="1" max="<?php echo $stock['stock'] ?>"value="1" class="form-control">	
-						   <br>
-						   </div>
-						   <?php if($stock['stock']==0) {?>	
-						   		<p style="margin-bottom: 0px; color: #212529;">¡Producto sin stock!</p>
+							<input type="text" value="<?php echo $id; ?>" id="id" name="id" class="d-none">
+							<input type="text" value="" name="valor_minorista" id="valor_minorista" class="d-none">   
+							<input type="text" value="" name="valor_mayorista" id="valor_mayorista" class="d-none">   
+							
+							<div id="atributos" class="col-md-4">
+							</div>
+
+							<div class="quy-input col-2">
+								<span> Cantidad:</span><input type="number" id="qty" name="qty" min="1" max="<?php echo $stock['stock'] ?>"value="1" class="form-control">	
+								<br>
+							</div>
+							<?php if($stock['stock']==0) {?>	
+								<p style="margin-bottom: 0px; color: #212529;">¡Producto sin stock!</p>
 							<?php } else {?>
-								<p style="margin-bottom: 0px; color: #212529;"> Disponible: <?php echo $stock['stock']; ?>  artículos </p>
+								<p style="margin-bottom: 0px; color: #212529;" id="disponible"> Disponible: <?php echo $stock['stock']; ?>  artículos </p>
 							<?php } ?>
-						   <button type="submit" name="action" value="addcart" class="site-btn btn-buy" <?php if($stock['stock']==0) { echo 'disabled style="background:#8e8e8e; border: #8e8e8e;"';}?>>  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
+							<button type="submit" name="action" value="addcart" class="site-btn btn-buy" <?php if($stock['stock']==0) { echo 'disabled style="background:#8e8e8e; border: #8e8e8e;"';}?>>  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
 						</form>
 						
 						<br>
@@ -213,18 +219,18 @@ session_start();
 													<div class="product-info">
 														<h6><?php echo $row['nombre']?></h6>
 														<p><?php
-																	$precio = "";
-																	if ($row['valor_minorista'] > 0) {
-																		if($_SESSION['mayorista']==1){
-																			$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
-																		}else{
-																			$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
-																		}
-																	} else {
-																		$precio = "Sobre consulta ";
+																$precio = "";
+																if ($row['valor_minorista'] > 0) {
+																	if($_SESSION['mayorista']==1){
+																		$precio = number_format($row['valor_mayorista'], 0, ',', '.')." gs";
+																	}else{
+																		$precio = number_format($row['valor_minorista'], 0, ',', '.')." gs";
 																	}
-																	echo $precio;
-																?></p>
+																} else {
+																	$precio = "Sobre consulta ";
+																}
+																echo $precio;
+															?></p>
 													<!--a href="#" class="site-btn btn-line">Agregar al Carrito</a-->
 													</div>
 												</div>
@@ -242,21 +248,221 @@ session_start();
 	<!-- Footer top section -->	
 	<?php include("includes/footer.php");?>
 	<script>	
-	$('.owl-carousel').owlCarousel({
-		loop:true,
-		margin:10,
-		nav:false,
-		responsive:{
-			0:{
-				items:1
-			},
-			600:{
-				items:3
-			},
-			1000:{
-				items:4
+		$('.owl-carousel').owlCarousel({
+			loop:true,
+			margin:10,
+			nav:false,
+			responsive:{
+				0:{
+					items:1
+				},
+				600:{
+					items:3
+				},
+				1000:{
+					items:4
+				}
 			}
+		})
+
+		//atributos p/ producto
+		$(document).ready(function(){
+			criaAtributos(); //carrega os dados do combobox
+		});
+
+		criaAtributos = function() {
+			// var iconCarregando = $("<img src='img/ajax-loader.gif' class='icon'/> <span>Carregando dados. Por favor aguarde...</span>"); //Carrega a Gif
+			var url = "includes/stock.php";//Arquivo php que será chamado no GET
+			var param = "1";//GET ALL 
+			var producto = document.getElementById("id").value;
+			var myParent = document.getElementById("atributos");
+			$('#atributos').empty();
+
+			//Vamos usar o metodo generico
+			$.ajax({
+				type:"GET",            
+				url: url,
+				cache: false,
+				contentType: 'application/json;',
+				dataType: "json",
+				data: { "parametro":param, "producto":producto },
+				beforeSend: function(){
+					// $("#ajaxload2").html(iconCarregando);
+				},
+				complete: function(){
+					// $(iconCarregando).remove();             
+				},      
+				success: function(data) {
+					$.each(data.message, function(i,obj){
+						//Create and append select list
+						var titulo = document.createElement("span");
+						titulo.innerText = ""+obj.atributo;
+						myParent.appendChild(titulo);
+
+						var selectList = document.createElement("select");
+						selectList.id = "sel-"+obj.id;//""+obj.nombre;
+						selectList.className = "form-control";
+						selectList.name = "atributo[]";
+						// selectList.setAttribute("onchange", function(){actualizaCantidad();});
+						selectList.onchange = function(){
+							var atr = document.getElementsByName("atributo[]");
+							for (i = 0; i < atr.length-1; i++) {
+								if ("sel-"+obj.id == atr[i].id) {
+									criaAtributosVal(atr[i+1].id, atr[i+1].id.substring(4), i+1);
+								}
+							}
+							actualizaCantidad();
+						};
+						myParent.appendChild(selectList);
+
+						var input = document.createElement("input");
+						input.setAttribute("type", "hidden");
+						input.setAttribute("id", "input-"+obj.id);
+						myParent.appendChild(input);
+					});
+					
+					var atr = document.getElementsByName("atributo[]");
+					criaAtributosVal(atr[0].id, atr[0].id.substring(4), 0);
+				},
+				error: function(data) {
+					$("#atributos").empty();
+					$("#atributos").html("<p><b> Erro ao carregar os dados.</b></p>");          
+				}
+			}); 
 		}
-	})
-</script>
+
+		criaAtributosVal = function(select, atributo, nro) {
+			// var iconCarregando = $("<img src='img/ajax-loader.gif' class='icon'/> <span>Carregando dados. Por favor aguarde...</span>"); //Carrega a Gif
+			var url = "includes/stock.php";//Arquivo php que será chamado no GET
+			var param = "2";//GET ALL 
+			var producto = document.getElementById("id").value;
+			var depen = "";
+
+			if (nro > 0) {
+				var atr = document.getElementsByName("atributo[]");
+				depen = "";
+				for (i = 0; i < nro; i++) {
+					if (i > 0) {
+						depen = depen + ",";
+					}
+					depen = depen + atr[i].value;
+				}
+			} else {
+				depen = "NULL";
+			}
+			// console.log("---> COMBOS ANTERIORES -->" + depen);
+			
+			$.ajax({
+				type:"GET",            
+				url: url,
+				cache: false,
+				contentType: 'application/json;',
+				dataType: "json",
+				data: { "parametro":param, "dependencia":depen, "atributo":atributo },
+				beforeSend: function(){
+					// $("#ajaxload2").html(iconCarregando);
+				},
+				complete: function(){
+					// $(iconCarregando).remove();    
+				},      
+				success: function(data) {
+					var primer = " selected";
+					var primeiro = "";
+					$('#'+select).empty();
+					$.each(data.message, function(i,obj){
+						if (primer == " selected") {
+							document.getElementById("input-"+atributo).value = obj.id; 
+							primeiro = obj.id;
+						}
+						$('#'+select).append('<option value="' + obj.id + '"'+primer+'>' + obj.nombre + '</option>');
+						primer = "";
+						console.log('->'+select+" ->"+atributo);
+					});
+					
+					var atr = document.getElementsByName("atributo[]");
+					if (atr.length-1 > nro) {
+						nro++;
+						criaAtributosVal(atr[nro].id, atr[nro].id.substring(4), nro);
+					} else {
+						// $("#qtyStock").empty();
+						// console.log('---->ESVAZIA A QUANTIDADE');
+						actualizaCantidad();
+					}
+				},
+				error: function(data) {
+					$("#atributos").empty();
+					$("#atributos").html("<p><b> Erro ao carregar os dados.</b></p>");          
+				}
+			}); 
+		}
+
+		actualizaCantidad = function() {
+			// var iconCarregando = $("<img src='img/ajax-loader.gif' class='icon'/> <span>Carregando dados. Por favor aguarde...</span>"); //Carrega a Gif
+			var url = "includes/stock.php";//Arquivo php que será chamado no GET
+			var param = "3";//GET ALL 
+			var producto = document.getElementById("id").value;
+
+			var atr = document.getElementsByName("atributo[]");
+			var valores = "";
+			for (i = 0; i < atr.length; i++) {
+				if (i > 0) {
+					valores = valores + ",";
+				}
+				valores = valores + atr[i].value;
+			}
+		
+			// console.log ("---> Valores "+valores);
+
+			// $("#qtyStock").empty();
+
+			$.ajax({
+				type:"GET",            
+				url: url,
+				cache: false,
+				contentType: 'application/json;',
+				dataType: "json",
+				data: { "parametro":param, "valores":valores},
+				beforeSend: function(){
+					// $("#ajaxload2").html(iconCarregando);
+				},
+				complete: function(){
+					// $(iconCarregando).remove();             
+				},      
+				success: function(data) {
+					$.each(data.message, function(i,obj){
+						var precio = formatMoney(obj.valor_minorista) + " gs";
+						document.getElementById("price").innerText = "Precio: " + precio; 
+						document.getElementById("valor_minorista").value = obj.valor_minorista; //input
+						document.getElementById("valor_mayorista").value = obj.valor_mayorista; //input
+						//atualiza select de quantidades
+
+						document.getElementById("disponible").innerText = " Disponible: " + obj.stock + " artículos"; 
+						document.getElementById("qty").setAttribute("max",obj.stock); 
+						
+					});
+				},
+				error: function(data) {
+					$("#atributos").empty();
+					$("#atributos").html("<p><b> Erro ao carregar os dados.</b></p>");          
+				}
+			}); 
+		}
+
+		function formatMoney(amount, decimalCount = 0, decimal = ",", thousands = ".") {
+			try {
+				decimalCount = Math.abs(decimalCount);
+				decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+				const negativeSign = amount < 0 ? "-" : "";
+
+				let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+				let j = (i.length > 3) ? i.length % 3 : 0;
+
+				return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+			} catch (e) {
+				console.log(e)
+			}
+		};
+
+	</script>
 </html>
