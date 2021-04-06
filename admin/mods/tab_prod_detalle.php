@@ -97,36 +97,10 @@
                     <input type="text" class="form-control" id="valormayorista" name="valormayorista" placeholder="999.999.999.999" value="<?php echo $mayorista;?>" onKeyUp="formatoMoneda(this, event)" maxlength="15">
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Producto" maxlength="80" value="<?php echo $producto['nombre'];?>" required>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="atributo">Atributos</label>
-                    <select class="selectpicker" id="atributo" name="atributo[]" data-width="100%" data-live-search="true" multiple>
-                        <?php
-                            if ($atributos != null) {
-                                $selected = "";
-                                $i = 0;
-                                foreach ($atributos as $row) {	
-                                    if ($row['activo'] == 1) {
-                                        if ($row['id'] == $atributosprod[$i]['id_atributo']) {
-                                            $selected = " selected";
-                                            $i++;
-                                        } else {
-                                            $selected = "";
-                                        }
-                        ?>
-                            <option value="<?php echo $row['id'];?>" <?php echo $selected;?>><?php echo $row['nombre'];?></option> 
-                        <?php 
-                                    } //END IF
-                                } //END FOREACH
-                            } //END IF
-                        ?>
-                    </select>
                 </div>
             </div>
             <div class="col-md-1">

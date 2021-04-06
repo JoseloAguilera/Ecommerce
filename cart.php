@@ -58,7 +58,7 @@
 					<thead>
 						<tr>
 							<th class="product-th">Producto	</th>
-							<th>precio</th>
+							<th>Precio</th>
 							<th>Cantidad</th>
 							<th class="total-th">Total</th>
 						</tr>
@@ -71,13 +71,26 @@
 							<form action="cart.php"  method="post" ?>				
 							    <!--input type="text" class="d-none" name="action" value="updatecart"-->
 								<input type="text" name="id" value="<?php echo $producto['idproducto'] ?>" class="d-none">
+								<input type="text" name="combinacion" value="<?php echo $producto['combinacion'] ?>" class="d-none">
 							
-						
-							<td class="product-col">
-
+								<td class="product-col">
 									<img src="img/productos/<?php echo $producto['img_producto'] ?>" alt="">
 									<div class="pc-title">
 										<h4><?php echo $producto['nombre'] ?></h4>
+										<p>
+											<?php
+												if ($producto['combinacion'] == "") {
+													echo '';
+												} else {
+													$valores = getProdAtributosValoresByStock ($producto['combinacion']);
+													if ($valores != null) { 
+														foreach ($valores as $linea) {
+															echo '<span class="label label-primary" style="font-size:10pt;"><b>'.$linea['atributo'].":</b> ".$linea['nombre'].'</span><br>';
+														}
+													} 
+												}
+											?>
+										</p>
 									</div>
 								</td>
 								<td class="price-col"><?php echo number_format($producto['valor_minorista'], 0, ',', '.')." Gs";?></td>

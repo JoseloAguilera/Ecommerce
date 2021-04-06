@@ -57,11 +57,11 @@
                 $token=$result['resultado'][0]['token'];
 				actualizarPagopar($pagado, $forma_pago, $fecha_pago, $numero_pedido, $cancelado, $forma_pago_identificador, $hash_pedido);
 				//echo "El hash es ".$hash_pedido;
-				echo "pagado".$pagado;
+				//echo "pagado".$pagado;
 				if($pagado==1){
-					echo "holaaa";
+					//echo "holaaa";
 					$num_ped= obtenerPedido($hash_pedido);
-					echo "numero de pedido ".$num_ped['id'];
+					//echo "numero de pedido ".$num_ped['id'];
 					actualizarPago($num_ped['id']);
 				}
                 			
@@ -137,17 +137,12 @@
 	<?php 
 		//include_once "mods/server/conn.php";
 		function conn () {	
-		// local
-		$user = 'root'; //usuario
-		$password = ''; //senha
-		$host = 'localhost'; //hosts
-		$dbname = 'ecommerce'; //nombre da base de dados
-
+		
 		// server
-		/*$user = 'edppar_edtparpy'; //usuario
+		$user = 'edppar_edtparpy'; //usuario
     	$password = 'gF*4-PQW?RRE'; //senha
 		$host = 'localhost'; //hosts
-		$dbname = 'edppar_edtpar'; //nombre da base de dados*/
+		$dbname = 'edppar_edtpar'; //nombre da base de dados
 		
 		$parametros = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"); //caso os dados estejam com acentos ou ç
 		try {

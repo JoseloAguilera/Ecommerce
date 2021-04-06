@@ -4,10 +4,10 @@
 		$user = 'root'; //usuario
 		$password = ''; //senha
 		$host = 'localhost'; //hosts
-		$dbname = 'ecommerce'; //nombre da base de dados
+		$dbname = 'ecommerce'; //nombre da base de dados*/
 
-		// server
-		/*$user = 'edppar_edtparpy'; //usuario
+		/*/ server
+		$user = 'edppar_edtparpy'; //usuario
     	$password = 'gF*4-PQW?RRE'; //senha
 		$host = 'localhost'; //hosts
 		$dbname = 'edppar_edtpar'; //nombre da base de dados*/

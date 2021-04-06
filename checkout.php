@@ -36,8 +36,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 			if ($guardarpedido > 1) {
 				foreach ($cart as $carrito) {
 					$totalitem = $carrito['qty'] * $carrito['valor_minorista'];
-					saveDetallePedidos ($guardarpedido, $carrito['idproducto'], $carrito['valor_minorista'], $carrito['qty'],'0', $totalitem);
-					actualizaStok($carrito['idproducto'], $carrito['qty']); //funcion para actualizar el stock de los productos
+
+					$combinacion = $carrito['combinacion'];
+
+					if ($combinacion == "") {
+						$combinacion = '';
+					} else {
+						$valores = getProdAtributosValoresByStock ($combinacion);
+						if ($valores != null) { 
+							$combinacion = "";
+							foreach ($valores as $linea) {
+								$combinacion = $combinacion.'<b>'.$linea['atributo'].":</b> ".$linea['nombre'].'<br>';
+							}
+						} 
+					}
+
+					saveDetallePedidos ($guardarpedido, $carrito['idproducto'], $carrito['combinacion'], $combinacion, $carrito['valor_minorista'], $carrito['qty'],'0', $totalitem);
+					actualizaStock($carrito['idproducto'], $carrito['combinacion'], $carrito['qty']);
+					// actualizaStok($carrito['idproducto'], $carrito['qty']); //funcion para actualizar el stock de los productos
 				}
 				$tipomensaje = 'success';			   
 				// $id_met_pago=0;

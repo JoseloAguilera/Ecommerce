@@ -35,7 +35,7 @@
 	
 	function getProdAtributos ($producto) {
 		$connection = conn();
-		$sql = "SELECT * FROM tb_producto_atributo LEFT JOIN tb_atributo ON tb_producto_atributo.id_atributo = tb_atributo.id WHERE tb_producto_atributo.id_producto = '$producto' ORDER BY nombre ASC";
+		$sql = "SELECT * FROM tb_producto_atributo LEFT JOIN tb_atributo ON tb_producto_atributo.id_atributo = tb_atributo.id WHERE tb_producto_atributo.id_producto = '$producto' ORDER BY tb_atributo.nombre ASC";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
