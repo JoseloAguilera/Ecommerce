@@ -241,14 +241,30 @@
 											</div>
 										</div>
 										<div class="col-md-4">
-											<div class="form-group">
-												<label for="descripcion">Destacado</label>
-												<div class="row">
-													<div class="col-md-12">
-														<input type="checkbox" name="destacado" id="toggle" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="115" data-height="35">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="descripcion">Destacado</label>
+														<div class="row">
+															<div class="col-md-12">
+																<input type="checkbox" name="destacado" id="toggle" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="55" data-height="35">
+															</div>
+														</div>
+													</div>
+												</div>
+											
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="por_pedido">P. Pedido</label>
+														<div class="row">
+															<div class="col-md-12">
+																<input type="checkbox" name="por_pedido" id="toggle" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="55" data-height="35">
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
+											
 										</div>
 									</div>
 									<div class="row">

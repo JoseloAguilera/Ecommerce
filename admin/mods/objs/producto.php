@@ -19,12 +19,17 @@
 		if (isset($_POST['nuevo'])){
 			$activo = 1;
 			$destacado = null;
+			$por_pedido = null;
 			if(!isset($_POST['destacado'])) {
 				$destacado = 0;
 			} else {
 				$destacado = 1;
 			}
-
+			if(!isset($_POST['por_pedido'])) {
+				$por_pedido = 0;
+			} else {
+				$por_pedido = 1;
+			}
 			if ($_POST['valorminorista'] > 0) {
 				$valorminorista = str_replace(".", "", $_POST['valorminorista']);
 			} else {
@@ -37,7 +42,7 @@
 				$valormayorista = "NULL";
 			}
 
-			$incluir = newProducto ($_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $destacado, $activo);
+			$incluir = newProducto ($_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $destacado, $por_pedido, $activo);
 			
 			if (substr($incluir,0,1) == "E") {
 				$tipomensaje = 'error';

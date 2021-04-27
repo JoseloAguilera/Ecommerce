@@ -31,6 +31,7 @@
             var nombre = button.data('nombre')
             var precio = button.data('precio')
             var destaque = button.data('destaque')
+            var por_pedido = button.data('por_pedido')
             var activo = button.data('activo')
             var descripcion = button.data('descripcion')
             
@@ -50,6 +51,11 @@
                 $('#toggle-destacado').bootstrapToggle('on')
             } else {
                 $('#toggle-destacado').bootstrapToggle('off')
+            }
+            if (por_pedido == "1") {
+                $('#toggle-por_pedido').bootstrapToggle('on')
+            } else {
+                $('#toggle-por_pedido').bootstrapToggle('off')
             }
     
             if (activo == "1") {

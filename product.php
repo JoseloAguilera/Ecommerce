@@ -136,17 +136,29 @@ session_start();
 							
 							<div id="atributos" class="col-md-4">
 							</div>
-
-							<div class="quy-input col-2">
-								<span> Cantidad:</span><input type="number" id="qty" name="qty" min="1" max="<?php echo $stock['stock'] ?>"value="1" class="form-control">	
-								<br>
-							</div>
-							<?php if($stock['stock']==0) {?>	
-								<p style="margin-bottom: 0px; color: #212529;">¡Producto sin stock!</p>
-							<?php } else {?>
-								<p style="margin-bottom: 0px; color: #212529;" id="disponible"> Disponible: <?php echo $stock['stock']; ?>  artículos </p>
+							<?php if ($producto['por_pedido']==0){?>
+								<div class="quy-input col-2">
+									<span> Cantidad:</span><input type="number" id="qty" name="qty" min="1" max="<?php echo $stock['stock'] ?>"value="1" class="form-control">	
+									<br>
+								</div>
 							<?php } ?>
+							<?php if($producto['por_pedido']==0) {?>
+								<?php if($stock['stock']==0) {?>	
+									<p style="margin-bottom: 0px; color: #212529;">¡Producto sin stock!</p>
+								<?php } else {?>
+									<p style="margin-bottom: 0px; color: #212529;" id="disponible"> Disponible: <?php echo $stock['stock']; ?>  artículos </p>
+								<?php }
+							    }
+								else{ ?>
+									<p style="margin-bottom: 0px; color: #212529;">¡Producto por Pedido!</p>
+								<?php }?>
+							
+							
+							<?php if($producto['por_pedido']==0){?>
 							<button type="submit" name="action" value="addcart" class="site-btn btn-buy" <?php if($stock['stock']==0) { echo 'disabled style="background:#8e8e8e; border: #8e8e8e;"';}?>>  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Agregar al Carrito</button>
+							<?php }else{?>
+								<a type="button" href="https://api.whatsapp.com/send?phone=595985822025&text=Hola!%20Me%20interesan%20los%20productos%20personalizados..." target="_blank" class="site-btn btn-buy" style="background-color: green;border-color: green;">  <i class="fa fa-whatsapp whatsapp-icon" style="margin-top:0px !important;"aria-hidden="true"></i> Hacer Pedido</a>
+							<?php }?>
 						</form>
 						
 						<br>

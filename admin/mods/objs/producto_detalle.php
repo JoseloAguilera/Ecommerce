@@ -121,6 +121,12 @@
 			} else {
 				$activo = 1;
 			}
+			$por_pedido= null;
+			if(!isset($_POST['por_pedido'])) {
+				$por_pedido = 0;
+			} else {
+				$por_pedido = 1;
+			}
 			$destacado = null;
 			if(!isset($_POST['destacado'])) {
 				$destacado = 0;
@@ -146,7 +152,7 @@
 				$atributo = $_POST['atributo'];
 			}
 
-			$guardar = saveProducto ($_GET['producto'], $_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $atributo, $destacado, $activo);
+			$guardar = saveProducto ($_GET['producto'], $_POST['referencia'], $_POST['nombre'], $_POST['descripcion'], $valorminorista, $valormayorista, $_POST['categoria'], $_POST['marca'], $atributo, $destacado, $por_pedido, $activo);
 			if ($guardar == $_GET['producto']) {
 				$tipomensaje = 'success';
 				$mensaje= '<h3>Perfecto!</h3><p>Los datos fueron actualizados correctamente.</p>';

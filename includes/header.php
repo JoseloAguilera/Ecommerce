@@ -189,9 +189,9 @@
 
 							
 
-							<div class="">							
+							<div class="social-top">							
 
-							<a href="">
+							<a href="https://www.instagram.com/edt_boasescolhas/?hl=es">
 
 						<span class="instagram">
 
@@ -263,11 +263,11 @@
 
 							<div class="input-group" id="busqueda">
 
-								<input type="text" class="form-control" placeholder="¿Qué está buscando hoy?" id="busqueda-header">
+								<input type="text" class="form-control" placeholder="¿Qué está buscando hoy?" id="busqueda-header-2">
 
 								<div class="input-group-append">
 
-									<button class="btn btn-secondary" type="button" onclick="sentSearch()">
+									<button class="btn btn-secondary" type="button" onclick="sentSearch2()">
 
 										<i class="fa fa-search"></i>
 
@@ -401,6 +401,40 @@
 
 	});
 
+	
+	function sentSearch2() {
+
+var search = document.getElementById("busqueda-header-2").value;
+
+location.replace("categorie.php?search="+search);
+
+}
+
+// Get the input field
+
+var input = document.getElementById("busqueda-header-2");
+
+
+
+// Execute a function when the user releases a key on the keyboard
+
+input.addEventListener("keyup", function(event) {
+
+// Number 13 is the "Enter" key on the keyboard
+
+if (event.keyCode === 13) {
+
+	// Cancel the default action, if needed
+
+	event.preventDefault();
+
+	// Trigger the button element with a click
+
+	sentSearch2();
+
+}
+
+});
 </script>
 
 

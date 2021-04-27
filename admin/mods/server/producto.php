@@ -101,12 +101,12 @@
 		return $result;
 	}
 
-	function newProducto ($referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $categorias, $cod_marca, $destacado, $activo) {
+	function newProducto ($referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $categorias, $cod_marca, $destacado, $por_pedido, $activo) {
 		$connection = conn();
 		
 		try {
-			$sql = "INSERT INTO tb_producto (referencia, nombre, descripcion, valor_minorista, valor_mayorista, id_marca, activo, destaque)
-		 			VALUES ('$referencia', '$nombre', '$descripcion', $valorminorista, $valormayorista, $cod_marca, $activo, $destacado)";
+			$sql = "INSERT INTO tb_producto (referencia, nombre, descripcion, valor_minorista, valor_mayorista, id_marca, por_pedido, activo, destaque)
+		 			VALUES ('$referencia', '$nombre', '$descripcion', $valorminorista, $valormayorista, $cod_marca, $por_pedido, $activo, $destacado)";
 			$query = $connection->prepare($sql);
 			$query->execute();
 
@@ -139,7 +139,7 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_producto SET referencia = '$referencia', nombre = '$nombre', descripcion = '$descripcion', valor_minorista = '$valorminorista', valor_mayorista = '$valormayorista', id_marca = $cod_marca, activo = $activo, destaque = $destacado
+				$sql = "UPDATE tb_producto SET referencia = '$referencia', nombre = '$nombre', descripcion = '$descripcion', valor_minorista = $valorminorista, valor_mayorista = $valormayorista, id_marca = $cod_marca, activo = $activo, destaque = $destacado
 	 					WHERE id = '$codigo'";
 				$query = $connection->prepare($sql);
 				$query->execute();

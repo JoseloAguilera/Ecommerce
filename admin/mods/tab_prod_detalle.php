@@ -97,7 +97,7 @@
                     <input type="text" class="form-control" id="valormayorista" name="valormayorista" placeholder="999.999.999.999" value="<?php echo $mayorista;?>" onKeyUp="formatoMoneda(this, event)" maxlength="15">
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del Producto" maxlength="80" value="<?php echo $producto['nombre'];?>" required>
@@ -117,6 +117,24 @@
                     <div class="row">
                         <div class="col-md-12">
                             <input type="checkbox" name="destacado" id="toggle-destacado" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35" <?php echo $destacado;?>>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="por_pedido">P.Pedido</label>
+                    <?php
+                        $por_pedido = "";
+                        if ($producto['por_pedido'] == 0) {
+                            $por_pedido = "";
+                        } else {
+                            $por_pedido= " checked";
+                        }
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="checkbox" name="por_pedido" id="toggle-por_pedido" data-toggle="toggle" data-on="Sí" data-off="No" data-onstyle="success" data-offstyle="warning" data-width="100%" data-height="35" <?php echo $por_pedido;?>>
                         </div>
                     </div>
                 </div>
