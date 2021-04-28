@@ -129,7 +129,7 @@
                         if ($producto['por_pedido'] == 0) {
                             $por_pedido = "";
                         } else {
-                            $por_pedido= " checked";
+                            $por_pedido= "checked";
                         }
                     ?>
                     <div class="row">

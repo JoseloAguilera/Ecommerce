@@ -131,7 +131,7 @@
 		return $result;
 	}
 
-	function saveProducto ($codigo, $referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $categorias, $cod_marca, $atributos, $destacado, $activo) {
+	function saveProducto ($codigo, $referencia, $nombre, $descripcion, $valorminorista, $valormayorista, $categorias, $cod_marca, $atributos, $destacado, $por_pedido, $activo) {
 		$connection = conn();
 		try {
 			$sql = "SELECT * from tb_producto WHERE id = '$codigo'";
@@ -139,8 +139,8 @@
 			$query->execute();
 
 			if ($query->rowCount() > 0) {
-				$sql = "UPDATE tb_producto SET referencia = '$referencia', nombre = '$nombre', descripcion = '$descripcion', valor_minorista = $valorminorista, valor_mayorista = $valormayorista, id_marca = $cod_marca, activo = $activo, destaque = $destacado
-	 					WHERE id = '$codigo'";
+				$sql = "UPDATE tb_producto SET referencia = '$referencia', nombre = '$nombre', descripcion = '$descripcion', valor_minorista = $valorminorista, valor_mayorista = $valormayorista, id_marca = $cod_marca, activo = $activo, destaque = $destacado,
+						por_pedido = $por_pedido WHERE id = '$codigo'";
 				$query = $connection->prepare($sql);
 				$query->execute();
 
