@@ -219,23 +219,21 @@
 									<a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno - 1); } ?>" tabindex="-1" aria-disabled="true"><</a>
 								</li>
 								<?php
-									for ($pag = 0; $pag < $total_pag; $pag=$pag+100) {
+									for ($pag = 0; $pag < $total_pag; $pag=$pag+1) {
 										if ($pag+1 == $pageno){
 											$active = " active";
 										} else { 
 											$active = "";
 										}
 								?>
-									<li class="page-item <?php echo $active;?>"><a class="page-link" href="<?php echo "?".$auxiliar."pageno=".($pag + 1);?>"><?php echo $pageno;//$pag+1;?></a></li>
+									<li class="page-item <?php echo $active;?>"><a class="page-link" href="<?php echo "?".$auxiliar."pageno=".($pag + 1);?>"><?php echo $pag+1;?></a></li>
 								<?php
 									}
 								?>
 								<li class="page-item <?php if($pageno >= $total_pag){ echo 'disabled'; } ?>">
 									<a class="page-link" href="<?php if($pageno >= $total_pag){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno + 1); } ?>">></a>
 								</li>
-								<p style="vertical-align:middle; margin-bottom: 0; margin-top: 0.5%; margin-left: 5%; color: black;">Mostrando página N° <b><?php echo $pageno."</b> de <b>".$total_pag;?></b></p>
 							</ul>
-							
 						</nav>
 					</div>
 					<?php
