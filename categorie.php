@@ -219,16 +219,17 @@
 									<a class="page-link" href="<?php if($pageno <= 1){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno - 1); } ?>" tabindex="-1" aria-disabled="true"><</a>
 								</li>
 								<?php
-									for ($pag = 0; $pag < $total_pag; $pag=$pag+100) {
+									/*for ($pag = 0; $pag < $total_pag; $pag=$pag+100) {
 										if ($pag+1 == $pageno){
-											$active = " active";
+											$active = "";
 										} else { 
 											$active = "";
-										}
+										}*/
+										$active="";
 								?>
-									<li class="page-item <?php echo $active;?>"><a class="page-link" href="<?php echo "?".$auxiliar."pageno=".($pag + 1);?>"><?php echo $pageno;//$pag+1;?></a></li>
+									<li class="page-item <?php echo $active;?>"><a class="page-link" href="<?php echo "?".$auxiliar."pageno=".($pageno);?>"><?php echo $pageno;//$pag+1;?></a></li>
 								<?php
-									}
+									//}
 								?>
 								<li class="page-item <?php if($pageno >= $total_pag){ echo 'disabled'; } ?>">
 									<a class="page-link" href="<?php if($pageno >= $total_pag){ echo '#'; } else { echo "?".$auxiliar."pageno=".($pageno + 1); } ?>">></a>

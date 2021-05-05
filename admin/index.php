@@ -60,7 +60,12 @@
 						<!-- small box -->
 						<div class="small-box bg-yellow">
 							<div class="inner">
-								<h3><?php echo $ctd_pedidos['PENDIENTES'];?></h3>
+								<h3><?php 
+								if ($ctd_pedidos['PENDIENTES']!=0){
+									echo $ctd_pedidos['PENDIENTES'];
+								}else{ echo "0";}
+									?>
+								</h3>
 								<p>Pedidos Pendientes</p>
 							</div>
 							<div class="icon">
@@ -136,6 +141,7 @@
 											<td><?php echo substr($row['fecha'], 0, 10);?></td>
 											<td><?php echo $row['nombre']." ".$row['apellido'];?></td>
 											<td><?php echo $row['STATUS_PED'];?></td>
+											
 										</tr>
 										<?php 
 												} //END FOREACH

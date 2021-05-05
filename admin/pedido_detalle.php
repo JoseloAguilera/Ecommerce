@@ -204,6 +204,7 @@
 							<tbody>
                                 <?php 
 									if ($productos != null) { 
+                                      
 										foreach ($productos as $row) {											
                                 ?>
                                 <tr>
@@ -217,7 +218,8 @@
                                             }    
                                         ?>
                                     </td>
-                                    <td><img src="../img/productos/<?php echo $row['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
+                                    <?php $imagen= getProdImage($row['id_producto']); ?>
+                                    <td><img src="../img/productos/<?php echo $imagen['url'];?>" class="img-fluid img-thumbnail" alt="marca" style="max-width: 150px;"></td>
                                     <td><?php echo $row['nombre'];?></td>
                                     <td><?php echo $row['valor_unitario'];?></td>
                                     <td><?php echo $row['ctd'];?></td>

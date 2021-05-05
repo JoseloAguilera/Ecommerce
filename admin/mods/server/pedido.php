@@ -106,16 +106,36 @@
 
 	function getProdPedido ($codigo) {
 		$connection = conn();
-		$sql = "SELECT tb_ped_detalle.*, producto.referencia, producto.nombre, producto.url FROM tb_ped_detalle
+		/*$sql = "SELECT tb_ped_detalle.*, producto.referencia, producto.nombre, producto.url FROM tb_ped_detalle
                 LEFT JOIN (SELECT tb_producto.id, tb_producto.referencia, tb_producto.nombre, tb_producto_img.url FROM tb_producto
-						  LEFT JOIN tb_producto_img ON tb_producto.id = tb_producto_img.id_producto) AS producto 
+						  LEFT JOIN tb_producto_img ON tb_producto.id = tb_producto_img.id_producto ) AS producto
 						  ON tb_ped_detalle.id_producto = producto.id 
-				WHERE tb_ped_detalle.id_pedido = '$codigo'";
+				WHERE tb_ped_detalle.id_pedido = '$codigo'" ;*/
+		$sql = "SELECT tb_ped_detalle.*, producto.referencia, producto.nombre FROM tb_ped_detalle
+		LEFT JOIN (SELECT tb_producto.id, tb_producto.referencia, tb_producto.nombre FROM tb_producto
+				  ) AS producto  ON tb_ped_detalle.id_producto = producto.id 
+		WHERE tb_ped_detalle.id_pedido = '$codigo'";
 		$query = $connection->prepare($sql);
 		$query->execute();
 
 		if ($query->rowCount() > 0) {
 			$result= $query->fetchAll();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
+
+	function getProdImage ($producto) {
+		$connection = conn();
+		$sql = "SELECT * FROM tb_producto_img WHERE tb_producto_img.id_producto = '$producto'  ORDER BY orden DESC LIMIT 1";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
 		} else {
 			$result = null;
 		}
