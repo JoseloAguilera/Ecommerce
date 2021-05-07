@@ -1220,4 +1220,20 @@
 		$connection = disconn($connection);
 		return $result;
 	}
+
+	function getMails ($codigo) {
+		$connection = conn();
+		$sql = "SELECT mail_config.* FROM mail_config WHERE mail_config.id = '$codigo'";
+		$query = $connection->prepare($sql);
+		$query->execute();
+
+		if ($query->rowCount() > 0) {
+			$result= $query->fetch();
+		} else {
+			$result = null;
+		}
+
+		$connection = disconn($connection);
+		return $result;
+	}
 ?>

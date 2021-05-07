@@ -55,7 +55,76 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 					actualizaStock($carrito['idproducto'], $carrito['combinacion'], $carrito['qty']);
 					// actualizaStok($carrito['idproducto'], $carrito['qty']); //funcion para actualizar el stock de los productos
 				}
-				$tipomensaje = 'success';			   
+				$tipomensaje = 'success';
+
+
+				/*ENVIO DE CORREO*/
+				$mail =getMails(1); 
+   
+            $to = $mail['email_to'];
+            $subject = "Carrito de Compras (Nuevo Pedido)";
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+			$headers .= "From:".$mail['email_from']. "\r\n" .
+                    "CC:".$mail['email_cc'];  
+
+			$pedido = getpedido($guardarpedido);
+			$clienteMail = getCliente($_SESSION['id_cliente']);
+			/*var_dump($clienteMail);
+			var_dump(getMetodoPago($pedido['id_met_pago']));*/
+            $message = "
+            <html>
+            <head>
+            <title>Carrito de Compras</title>
+            </head>
+            <body>";
+            $body = "<h3>Carrito de Compras</h3><hr>";
+			$body .= "<p><b>Nro. de Pedido: </b>".$pedido['id']."</p>";
+			$body .= "<p><b>Cliente: </b>".$clienteMail['nombre']." ".$clienteMail['apellido']."</p>";
+			$body .= "<p><b>Nro. de Cedula: </b>".$clienteMail['documento']."</p>";
+			$body .= "<p><b>Telefono: </b>".$clienteMail['telefono']."</p>";
+			$body .= "<p><b>Email: </b>".$clienteMail['email']."</p>";
+			$body .= "<p><b>Metodo de Pago: </b>".getMetodoPago($pedido['id_met_pago'])['descripcion']."</p>";
+			$body .= "<p><b>Metodo de Envio: </b>".getMetodoEnvio($pedido['id_met_envio'])['descripcion']."</p>";
+
+       
+
+            $body .= "<table class='TFtable' border='1' style='width':100%;'border': 1px solid black>"; //starts the table tag
+            $body .= "<tr>
+			<td>Referencia</td>
+			<td>Nombre</td>
+			<td>Precio Plate</td>
+			<td>Qty</td>
+			<td>Sub Total</td>
+			
+			</tr>"; //sets headings
+            foreach($cart  as $carrito) { //loops for each result
+				$subtotal= $carrito['qty']*$carrito['valor_minorista'];
+				$subtotal =number_format($subtotal, 0, ',', '.')." Gs";
+            $body .= "
+			<tr>
+			<td>".$carrito['referencia']."</td>
+			<td>".$carrito['nombre']."</td>
+			<td>".$carrito['valor_minorista']."</td>
+			<td>".$carrito['qty']. "</td>
+			<td>".$subtotal. "</td>
+			</tr>";
+            }
+			$body .= "</table>"; 
+			$body .= "<hr>Total pedido: ".number_format($total, 0, ',', '.')." Gs <hr>";
+			$body .= "<hr>Total envío: ".number_format($total_envio, 0, ',', '.')." Gs <hr>";
+			$body .= "<hr>Total: ".number_format(($total+$total_envio), 0, ',', '.')." Gs <hr>
+			*<h2>Verifique el administrador del Sitio web para consultar mayores detalles sobre el pedido.<h2>*"; 
+            $message .= $body . "
+            </body>
+            </html>";
+            $message = wordwrap($message, 70);    
+            mail($to,$subject,$message,$headers);
+				
+				/*FIN DE ENVIO CORREO */
+
+
+
 				// $id_met_pago=0;
 				//$mensaje= '<p class="text-center alert alert-success">Los datos fueron actualizados correctamente. Su Numero de pedido es:'.$guardarpedido.'</p>';
 				if($id_met_pago==1){
