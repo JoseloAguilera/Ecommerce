@@ -2,7 +2,7 @@
 $(document).ready(function() {
     $('#tabladatos').DataTable( {
         dom: 'Bfrtip',
-        order: [[ 1, "asc" ]],
+        order: [[ 1, "desc" ]],
         orientation: 'landscape',
         pageSize: 'LEGAL',
         aoColumnDefs: [ {

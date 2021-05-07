@@ -93,8 +93,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             $body .= "<tr>
 			<td>Referencia</td>
 			<td>Nombre</td>
-			<td>Precio Plate</td>
-			<td>Qty</td>
+			<td>Precio Unit.</td>
+			<td>Cant.</td>
 			<td>Sub Total</td>
 			
 			</tr>"; //sets headings

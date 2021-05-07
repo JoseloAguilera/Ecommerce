@@ -11,7 +11,7 @@ $(document).ready(function(){
 $(document).ready(function() {
     $('#tablapedidos').DataTable( {
         dom: 'Bfrtip',
-        order: [[ 0, "asc" ]],
+        order: [[ 0, "desc" ]],
         orientation: 'landscape',
 		pageSize: 'LEGAL',
 		pageLength: 5,
@@ -20,7 +20,7 @@ $(document).ready(function() {
         //     mRender: $.fn.dataTable.render.number('.', ',', 0, 'G$ ')
         // }],
         columnDefs: [ {
-            targets: 0,
+            targets: 1,
             render: $.fn.dataTable.render.moment( 'YYYY-MM-DD', 'DD/MM/YYYY')
         } ],
         buttons: [
